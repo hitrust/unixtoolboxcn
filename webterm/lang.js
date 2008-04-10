@@ -1,0 +1,115 @@
+﻿var locale = {
+  welcome : '<span>Welcome to greco@xxx.org.</span>You might be interested in the <a href="unixtoolbox_cn.xhtml">Unix Toolbox - Chinese Version</a>.',
+  fortune : ['',
+    '%c(@limegreen)"To him that does everything in its proper time,"%n"one day is worth three."',
+    '%c(@limegreen)"Everything has its time and that time must be watched."',
+    '%c(@limegreen)"All work and no play makes Jack a dull boy."',
+    '%c(@limegreen)"He that will not work shall not eat."',
+    '%c(@limegreen)"Whatever is worth doing at all is worth doing well."',
+    '%c(@limegreen)"It is in studying as in eating,"%n"s/he who does it, gets the benefits, and not s/he who see it done."',
+    '%c(@limegreen)"Knowledge advances by steps and not by leaps."',
+    '%c(@limegreen)"Procrastination is the thief of time."',
+    '%c(@limegreen)"Work today,for you know not how much you may be hindered tomrrow."',
+    '%c(@limegreen)"Time and tide wait for no man."'
+  ],
+  bootask : {
+    taskQ : [
+      '%c(@indianred)You want to reboot. Are you sure?[yes|no]',
+      '%c(@indianred)Are you really sure you know which machine is actually going to reboot?[yes|no]'
+    ],
+    taskA : ['',
+      '%c(@lightgrey)Good choice! Go play with the other commands.',
+      '%c(@lightgrey)I thought so.'
+    ],
+    reboot: [
+      '%c(@lightgrey)OK you asked for it.',
+      '',
+      '%c(@lightgrey)Send SIGTERM to all processes%n',
+    ],
+    remind: '%c(@lightgrey)Answer yes or no',
+    shutdown: '%n%n%n%c(@orange)Shutdown at {0}%n%c(@chartreuse)shutdown: [pid {1}]%nroot:{{2}}{3}%n%n*** System shutdown message from {4} ***%nSytem going down in 4 seconds%c()%n%n%n'
+  },
+  clientLastLog : [
+    '%c(@lightgrey)Last login: {0} from {1}{2}',
+    'OpenBSD (greco@silenceisdefeat.org) #3: {0} from {1}{2}',
+    '%n%n    ----   Welcome to greco@silenceisdefeat.org   ---- (start with "help" if you are lost)'
+  ],
+  terminalInfo : [
+    'Terminal dimentions in px:       {0} x {1} px%n',
+    'Browser window dimentions in px: {0} x {1} px%n',
+    'Terminal columns x rows:         {0} x {1} char%n',
+    'Maximal columns x rows:          {0} x {1} char%n'
+  ],
+  week : {
+    sun : 'Sun',
+    mon : 'Mon',
+    tue : 'Tue',
+    wed : 'Wed',
+    thu : 'Thu',
+    fri : 'Fri',
+    sat : 'Sat',
+    all : 'Sun  Mon  Tue   Wed   The   Fri   Sat'
+  },
+  info : {
+    login : ['%c(@lightgrey)usage: login <username>','Password:','%c(@lightgrey)Sorry.'],
+    password: '%c(@lightgrey)Password: ',
+    browser : '%c(@lightgrey)Some browser information:%nIP address:          {0}%nNavigator:           %c(@chartreuse){1} {2} {3}%n%c(@lightgrey)User agent:          %c(@chartreuse){4}%n%c(@lightgrey)Operating system:    %c(@chartreuse){5}%n%c(@lightgrey)Page hostname:       %c(@chartreuse){6}%n%c(@lightgrey)Screen/browser size: %c(@chartreuse){7}x{8}/{9}x{10} %c(@lightgrey)pixels',
+    matrix : '%c(@lightgrey)Use q or ESC to quit. Space to pause'
+  },
+  error : {
+    network   : '%c(@orangered)Error: no network',
+    xhr       : '%c(@orangered)Error: no XMLHttpRequest. Your browser is broken!',
+    argument  : '%c(@lightgrey)Syntax error: first argument quoted.',
+    denied    : '%c(@lightgrey){0}: Permission denied.',
+    command   : '%c(@lightgrey){0}: Command not found.',
+    path      : '%c(@lightgrey){0}: No such file or directory.',
+    illegal   : '%c(@lightgrey)uname: illegal option -{0}%nusage: {1} [-{2}] {3}',
+    sorry     : '%c(@lightgrey)I\'m sorry, I\'m afraid I can\'t do that.',
+    cat       : '%c(@lightgrey)usage: cat file',
+    rm        : '%c(@lightgrey)rm error: {0} cd ~ first'
+  },
+  helpPage : [ 
+    '%c(@beige)This is a Unix-like virtual shell command line interface.',
+    'This terminal uses the termlib library from Norbert Landsteiner <%+mhttp://www.masswerk.at%-m>,',
+    'the commands implementation is developed by and (c) Colin Barschel.',
+    'See "info" for the full credentials.', '',
+    'Commands available:',
+    '   %c(@chartreuse)help%c(@darkgray)   .  .  .  .  .  .  .  %c(@beige)print this help page',
+    '   %c(@chartreuse)info%c(@darkgray)   .  .  .  .  .  .  .  %c(@beige)display code credentials',
+    '   %c(@chartreuse)exit%c(@darkgray)   .  .  .  .  .  .  .  %c(@beige)leave the terminal (same as logout or ESC key)',
+    '   %c(@chartreuse)clear%c(@darkgray)  .  .  .  .  .  .  .  %c(@beige)clear the terminal to a blank page',
+    '   %c(@chartreuse)reload%c(@darkgray) .  .  .  .  .  .  .  %c(@beige)reload the web page and the terminal',
+    '   %c(@chartreuse)reset%c(@darkgray)  .  .  .  .  .  .  .  %c(@beige)reset to the terminal to it\'s initial state',
+    '   %c(@chartreuse)redim%c(@darkgray)  .  .  .  .  .  .  .  %c(@beige)redimention the terminal size to the browser window',
+    '   %c(@chartreuse)login%c(@darkgray)  .  .  .  .  .  .  .  %c(@beige)login as a different user (passwd = username)',
+    '   %c(@chartreuse)clock%c(@darkgray)  .  .  .  .  .  .  .  %c(@beige)display a large ASCII clock (or stopwatch with option -t)',
+    '   %c(@chartreuse)echo "text" > <file>%c(@darkgray)  .  .  %c(@beige)create a file with some text',
+    '   %c(@chartreuse)cat <file>%c(@darkgray)   .  .  .  .  .  %c(@beige)display the file on the terminal',
+    '   %c(@chartreuse)more <file>%c(@darkgray)  .  .  .  .  .  %c(@beige)display the file on the terminal with pagewise output',
+    '   %c(@chartreuse)pr <file>%c(@darkgray) .  .  .  .  .  .  %c(@beige)load the file on the browser',
+    '   %c(@chartreuse)apropos <command>%c(@darkgray)  .  .  .  %c(@beige)display a short info on the command',
+    '   %c(@chartreuse)man <command>%c(@darkgray)   .  .  .  .  %c(@beige)man pages for the command. See also ls /usr/share/man',
+    '   %c(@chartreuse)browser%c(@darkgray)   .  .  .  .  .  .  %c(@beige)display your IP and some informations about your browser',
+    '   %c(@chartreuse)whereami%c(@darkgray)  .  .  .  .  .  .  %c(@beige)display your probable country and city',
+    '   %c(@chartreuse)weather%c(@darkgray)   .  .  .  .  .  .  %c(@beige)display a weather information based on your location',
+    '   %c(@chartreuse)matrix%c(@darkgray) .  .  .  .  .  .  .  %c(@beige)show a matrix-like screensaver (CPU hungry)',
+    '   %c(@chartreuse)ls /bin%c(@darkgray)   .  .  .  .  .  .  %c(@beige)listing of all commands',
+    '   %c(@chartreuse)cal,ls,cd,pwd,fortune,uname,uptime,ping,date,history%c(@beige)...  and so on should work',
+    '', 'Have a lot of fun...'],
+  infoPage : [
+    '%c(@beige)This console is implemented with the javascript terminal library termlib.js.',
+    'Termlib is developed by:',
+    '  (c) Norbert Landsteiner 2003-2007',
+    '  mass:werk - media environments',
+    '  <%+mhttp://www.masswerk.at%-m>','',
+    'The GeoIP location information is provided by "MaxMind"',
+    '  <http://www.maxmind.com>.','',
+    'The weather data is provided by "The Weather Channel Interactive, Inc."',
+    '  <http://www.weather.com>.','',
+    'The rest of this site <cb.vu> and the additional shell and command code',
+    'is developed by:',
+    '  (c) Colin Barschel 2007-2008  c@cb.vu  <http://cb.vu>',
+    '  (c) Greco Shi 2008(modifier)  greco.open@gmail.com <http://silenceisdefeat.org/~greco>','',
+    'Thanks for looking around and have fun. Drop me a note if you liked this site.'],
+  empty : ''
+}
