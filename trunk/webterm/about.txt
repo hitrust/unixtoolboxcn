@@ -1,0 +1,23 @@
+Welcome to my website!
+
+This site provides a virtual shell and is meant to be a command line joke where
+you have to use some UNIX commands to get around. 
+
+If you are bored, try the commands clock or matrix or weather or reboot.
+
+I am sorry to slow your hacking instincts. You can however create files on the
+web root directory and even view them with the browser by entering the file name 
+in the address bar. Use vi or try:
+
+echo "Hello there, my name is Greco." > hello.txt
+
+You can now view the file with cat hello.txt and check its existence with ls -l.
+
+Then delete the file with rm hello.txt.
+
+If you are a Unix/Linux/BSD user, you might be interested in the Unix Toolbox:
+http://cb.vu/unixtoolbox.xhtml.
+or Chinese version:
+http://silenceisdefeat.org/~greco/unixtoolbox_zh_CN.xhtml
+
+Greco

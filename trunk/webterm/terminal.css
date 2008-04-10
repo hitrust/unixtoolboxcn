@@ -1,0 +1,59 @@
+body, p, a {
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  background: #181818;
+  color: #D3D3D3;
+  overflow: auto;
+}
+#welcome {
+  position: absolute;
+  left: 10%;
+  top: 20%;
+  text-align: center;
+}
+#welcome span {
+  font-weight: bold;
+  display: block;
+}
+#termDiv {
+  position: absolute;
+  visibility: hidden;
+  z-index: 1;
+  left: 5px;
+  top: 5px;
+}
+#clock {
+  position: absolute;
+  display: none;
+  z-index: 2;
+  left: 10%;
+  top: 20%;
+}
+.term {
+  font-family: "Courier New", Courier, monospace;
+  color: #5E83E0;
+  font-size: 12px;
+  background: none;
+  letter-spacing: 1px;
+}
+.term .termReverse {
+  color: #232E45;
+  background: #5E83E0;
+}
+a.tlink, a.tlink:link, a.tlink:visited {
+  text-decoration: none;
+}
+a.tlink span, a.tlink:link span, a.tlink:visited span {
+  color: #54FFFF !important;
+}
+a, a:link, a:visited {
+  text-decoration: none;
+  color: #5E83E0;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  text-decoration: underline;
+  color: orange;
+}
