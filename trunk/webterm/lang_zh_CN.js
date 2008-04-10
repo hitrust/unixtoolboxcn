@@ -1,5 +1,5 @@
 ﻿var locale = {
-  welcome : '<span>欢迎来到 greco@xxx.org。</span>你感兴趣的可能是 <a href="unixtoolbox_cn.xhtml">Unix Toolbox - 中文版</a>。',
+  welcome : '<span>欢迎来到 greco@silenceisdefeat.org。</span>你感兴趣的可能是 <a href="unixtoolbox_zh_CN.xhtml">Unix Toolbox - 中文版</a>。',
   fortune : ['',
     '%c(@limegreen)"事事及时做，一日胜三日。"',
     '%c(@limegreen)"万物皆有时，时来不可失。"',
