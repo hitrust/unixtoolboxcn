@@ -460,7 +460,7 @@ Unix Toolbox 版本：12<br />
 <p class="xrefp"><a class="xrefp" href="#hardwareinfo">硬件</a> | <a class="xrefp" href="#loadstats">状态信息</a> | <a class="xrefp" href="#users">用户</a> | <a class="xrefp" href="#limits">限制</a> | <a class="xrefp" href="#runlevels">运行级别</a> | <a class="xrefp" href="#resetpasswd">root 密码</a> | <a class="xrefp" href="#compilekernel">编译内核</a></p>
 正在运行的内核和系统信息
 <pre># uname -a                           <span class="cmt"># 获取内核版本（和BSD版本）</span>
-# lsb_release -a                     <span class="cmt"># Full release info of any LSB distribution</span>
+# lsb_release -a                     <span class="cmt"># 显示任何 LSB 发行版版本信息</span>
 # cat /etc/SuSE-release              <span class="cmt"># 获取 SuSE 版本</span>
 # cat /etc/debian_version            <span class="cmt"># 获取 Debian 版本</span>
 </pre>
@@ -1587,85 +1587,85 @@ PermitTunnel yes
 现在两个主机都连上了，并且可以在任何 3/4 层协议上使用此通道 IP 地址透明的通讯。
 
 <h2 id="sshg2g">连接两个网络</h2>
-除上面的 p2p 设置外，一个更有用的是SSH VPN 用两个 gate 连接两个私有网络。Suppose for the example, netA is 192.168.51.0/24 and netB 192.168.16.0/24. The procedure is similar as above, we only need to add the routing. NAT must be activated on the private interface only if the gates are not the same as the default gateway of their network.<br />
+除上面的 p2p 设置外，一个更有用的是SSH VPN 用两个 gate 连接两个私有网络。假设有这样一个例子，netA 为 192.168.51.0/24 还有 netB 为  192.168.16.0/24。设置过程同上面相似，我们只需要添加 routing。如果 gate 不同于默认网关，那在私有网络接口上必须开启 NAT。<br />
 192.168.51.0/24 (netA)|gateA &lt;-&gt; gateB|192.168.16.0/24 (netB)<br />
 <ul>
-  <li>Connect with SSH using the tunnel option -w.</li>
-  <li>Configure the IP addresses of the tunnel. Once on the server and once on the client.</li>
-  <li>Add the routing for the two networks.</li>
-  <li>If necessary, activate NAT on the private interface of the gate.</li>
+  <li>使用隧道选项 -w 连接 SSH。</li>
+  <li>配置隧道的 IP 地址。服务端和客户端各一次。</li>
+  <li>为两个网络添加 routing。</li>
+  <li>如果需要，在 gate 的私有网络接口上开启 NAT。</li>
 </ul>
-The setup is <i>started from gateA in netA</i>.
+设置是<i>从 netA 中的 gasteA 开始的</i>.
 <h3>连接 gateA 到 gateB</h3>
-Connection is started from gateA and commands are executed on gateB.
+连接从 gateA 开始，命令执行于 gateB。
 <h4>Linux 上的 gateB</h4>
 <pre><span class="cmt">gateA&gt;#</span> ssh -w5:5 root@gateB
-<span class="cmt">gateB&gt;#</span> ifconfig tun5 10.0.1.1 netmask 255.255.255.252 <span class="cmt"># Executed on the gateB shell</span>
+<span class="cmt">gateB&gt;#</span> ifconfig tun5 10.0.1.1 netmask 255.255.255.252 <span class="cmt"># 在 gateB 的 shell 中执行</span>
 <span class="cmt">gateB&gt;#</span> route add -net 192.168.51.0 netmask 255.255.255.0 dev tun5
-<span class="cmt">gateB&gt;#</span> echo 1 &gt; /proc/sys/net/ipv4/ip_forward        <span class="cmt"># Only needed if not default gw</span>
+<span class="cmt">gateB&gt;#</span> echo 1 &gt; /proc/sys/net/ipv4/ip_forward         <span class="cmt"># 如果不是默认网关</span>
 <span class="cmt">gateB&gt;#</span> iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 </pre>
 <h4>FreeBSD 上的 gateB</h4>
-<pre><span class="cmt">gateA&gt;#</span> ssh -w5:5 root@gateB                          <span class="cmt"># Creates the tun5 devices</span>
-<span class="cmt">gateB&gt;#</span> ifconfig tun5 10.0.1.1 10.0.1.2               <span class="cmt"># Executed on the gateB shell</span>
+<pre><span class="cmt">gateA&gt;#</span> ssh -w5:5 root@gateB                          <span class="cmt"># 创建 tun5 设备</span>
+<span class="cmt">gateB&gt;#</span> ifconfig tun5 10.0.1.1 10.0.1.2               <span class="cmt"># 在 gateB 的 shell 中执行</span>
 <span class="cmt">gateB&gt;#</span> route add 192.168.51.0/24 10.0.1.2
-<span class="cmt">gateB&gt;#</span> sysctl net.inet.ip.forwarding=1               <span class="cmt"># Only needed if not default gw</span>
-<span class="cmt">gateB&gt;#</span> natd -s -m -u -dynamic -n fxp0                <span class="cmt"># see <a class="xref" href="#nat">NAT</a></span>
+<span class="cmt">gateB&gt;#</span> sysctl net.inet.ip.forwarding=1               <span class="cmt"># 如果不是默认网关</span>
+<span class="cmt">gateB&gt;#</span> natd -s -m -u -dynamic -n fxp0                <span class="cmt"># 看 <a class="xref" href="#nat">NAT</a></span>
 <span class="cmt">gateA&gt;#</span> sysctl net.inet.ip.fw.enable=1
 </pre>
 
 <h3>配置 gateA</h3>
 在 gateA 上执行命令：
-<h4>gateA is on Linux</h4>
+<h4>Linux 上的 gateA</h4>
 <pre><span class="cmt">gateA&gt;#</span> ifconfig tun5 10.0.1.2 netmask 255.255.255.252
 <span class="cmt">gateA&gt;#</span> route add -net 192.168.16.0 netmask 255.255.255.0 dev tun5
 <span class="cmt">gateA&gt;#</span> echo 1 &gt; /proc/sys/net/ipv4/ip_forward
 <span class="cmt">gateA&gt;#</span> iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 </pre>
-<h4>gateA is on FreeBSD</h4>
+<h4>FreeBSD 上的 gateA</h4>
 <pre><span class="cmt">gateA&gt;#</span> ifconfig tun5 10.0.1.2 10.0.1.1
 <span class="cmt">gateA&gt;#</span> route add 192.168.16.0/24 10.0.1.2
 <span class="cmt">gateA&gt;#</span> sysctl net.inet.ip.forwarding=1
-<span class="cmt">gateA&gt;#</span> natd -s -m -u -dynamic -n fxp0                <span class="cmt"># see <a class="xref" href="#nat">NAT</a></span>
+<span class="cmt">gateA&gt;#</span> natd -s -m -u -dynamic -n fxp0                <span class="cmt"># 看 <a class="xref" href="#nat">NAT</a></span>
 <span class="cmt">gateA&gt;#</span> sysctl net.inet.ip.fw.enable=1
 </pre>
-The two private networks are now transparently connected via the SSH VPN. The IP forward and NAT settings are only necessary if the gates are not the default gateways. In this case the clients would not know where to forward the response, and nat must be activated.
+现在两个私有网络都可以通过 SSH VPN 来透明的连接。如果 gate 不是默认网关，那么 IP 转发和 NAT 设置都是必须的。在这种情况下，客户端将不知道在哪里转发响应(response)，并且 NAT 必须是开启的。
 </div>
 
 <div id="rsync"><h1><a>RSYNC</a></h1>
-Rsync can almost completely replace cp and scp, furthermore interrupted transfers are efficiently restarted. A trailing slash (and the absence thereof) has different meanings, the man page is good... Here some examples:<br />
-Copy the directories with full content:
+Rsync 差不多可以代替 cp 和 scp，此外，断点续传是重启有效的。尾部的斜杠也有着不同的意思，请阅读 man 页面......这里有一些例子：<br />
+拷贝目录中所有内容：
 <pre># rsync -a /home/colin/ /backup/colin/
 # rsync -a /var/ /var_bak/
-# rsync -aR --delete-during /home/user/ /backup/      <span class="cmt"># use relative (see below)</span>
+# rsync -aR --delete-during /home/user/ /backup/      <span class="cmt"># 使用相对路径(看下面)</span>
 </pre>
-Same as before but over the network and with compression. Rsync uses SSH for the transport per default and will use the ssh key if they are set. Use ":" as with SCP. A typical remote copy:
+同之前一样，但使用了压缩和网络。Rsync 使用 SSH 进行传输，并且使用 SSH 密钥，如果设置的话。和 SCP 一样使用 ":"。一个典型的拷贝：
 <pre># rsync -axSRzv /home/user/ user@server:/backup/user/</pre>
-Exclude any directory tmp within /home/user/ and keep the relative folders hierarchy, that is the remote directory will have the structure /backup/home/user/. This is typically used for backups.
+排除在 /home/user/ 中任何 tmp 目录，并且保持相对目录层次结构，远程目录的结构就是 /backup/home/user/。典型的用于备份的命令。
 <pre># rsync -azR --exclude /tmp/ /home/user/ user@server:/backup/</pre>
 
-Use port 20022 for the ssh connection:
+SSH 连接使用端口 20022：
 <pre># rsync -az -e 'ssh -p 20022' /home/colin/ user@server:/backup/colin/</pre>
-Using the rsync daemon (used with "::") is much faster, but not encrypted over ssh. The location of /backup is defined by the configuration in /etc/rsyncd.conf. The variable RSYNC_PASSWORD can be set to avoid the need to enter the password manually.
+使用 rsync 守护进程(使用"::")是很快的，但没有透过 SSH 加密。 位置 /backup 定义在了配置文件 /etc/rsyncd.conf 中。变量 RSYNC_PASSWORD 可以设置用来免除手动输入密码。
 <pre># rsync -axSRz /home/ ruser@hostname::rmodule/backup/
-# rsync -axSRz ruser@hostname::rmodule/backup/ /home/    <span class="cmt"># To copy back</span>
+# rsync -axSRz ruser@hostname::rmodule/backup/ /home/    <span class="cmt"># 回拷贝</span>
 </pre>
-Some important options:
+一些重要选项：
 <ul style="list-style-type: none;">
-  <li><code>-a, --archive</code> &#160; &#160; &#160; archive mode; same as -rlptgoD (no -H)</li>
-  <li><code>-r, --recursive</code> &#160; &#160; &#160; recurse into directories</li>
-  <li><code>-R, --relative</code> &#160; &#160; &#160; use relative path names</li>
-  <li><code>-H, --hard-links</code> &#160; &#160; &#160; preserve hard links</li>
-  <li><code>-S, --sparse</code> &#160; &#160; &#160; handle sparse files efficiently</li>
-  <li><code>-x, --one-file-system</code> &#160; &#160; &#160; don't cross file system boundaries</li>
-  <li><code> --exclude=PATTERN</code> &#160; &#160; &#160; exclude files matching PATTERN</li>
-  <li><code> --delete-during</code> &#160; &#160; &#160; receiver deletes during xfer, not before</li>
-  <li><code> --delete-after</code> &#160; &#160; &#160; receiver deletes after transfer, not before</li>
+  <li><code>-a, --archive</code><span style="padding-left: 84px;"> 归档模式，等于 -rlptgoD (非 -H)</span></li>
+  <li><code>-r, --recursive</code><span style="padding-left: 72px;"> 对子目录以递归模式处理</span></li>
+  <li><code>-R, --relative</code><span style="padding-left: 78px;"> 使用相对路径名</span></li>
+  <li><code>-H, --hard-links</code><span style="padding-left: 64px;"> 保留硬链结</span></li>
+  <li><code>-S, --sparse</code><span style="padding-left: 93px;"> 对稀疏文件进行特殊处理以节省DST的空间</span></li>
+  <li><code>-x, --one-file-system</code><span style="padding-left: 30px;"> 不跨越文件系统边界</span></li>
+  <li><code> --exclude=PATTERN</code><span style="padding-left: 58px;"> 指定排除不需要传输的文件模式</span></li>
+  <li><code> --delete-during</code><span style="padding-left: 72px;"> 传输期间删除</span></li>
+  <li><code> --delete-after</code><span style="padding-left: 80px;"> 传输结束以后再删除</span></li>
 </ul>
 
-<h2 id="winrsync">Rsync on Windows</h2>
-Rsync is available for Windows through cygwin or as stand-alone packaged in <a href="http://sourceforge.net/projects/sereds/">cwrsync</a><span class="fn">http://sourceforge.net/projects/sereds</span>. This is very convenient for automated backups. Install one of them (<i>not both</i>) and add the path to the Windows system variables: # Control Panel -&gt; System -&gt; tab Advanced, button Environment Variables. Edit the "Path" system variable and add the full path to the installed rsync, e.g. C:\Program Files\cwRsync\bin or C:\cygwin\bin. This way the commands <code>rsync</code> and <code>ssh</code> are available in a Windows command shell.
-<h3>Public key authentication</h3>
+<h2 id="winrsync">在 Windows 上使用 Rsync</h2>
+可以通过 cygwin 或 独立打包的 <a href="http://sourceforge.net/projects/sereds/">cwrsync</a><span class="fn">http://sourceforge.net/projects/sereds</span> 来在 Windows 上运行 rsync。这对于自动备份来说非常方便。只装其中一个(<i>不是两个</i>)，然后添加路径到 Windows 系统变量中：# 控制面板 -&gt; 系统 -&gt; 高级标签，环境变量按钮。编辑 "Path" 添加 rsync 的安装路径，比如：C:\Program Files\cwRsync\bin 或者 C:\cygwin\bin。这可以让 <code>rsync</code> 和 <code>ssh</code> 可用于 Windows 命令窗口中。
+<h3>公钥认证</h3>
 Rsync is automatically tunneled over SSH and thus uses the SSH authentication on the server. Automatic backups have to avoid a user interaction, for this the SSH public key authentication can be used and the rsync command will run without a password.<br />
 All the following commands are executed within a Windows console. In a console (Start -&gt; Run -&gt; cmd) create and upload the key as described in <a href="#ssh">SSH</a>, change "user" and "server" as appropriate. If the file authorized_keys2 does not exist yet, simply copy id_dsa.pub to authorized_keys2 and upload it.
 <pre># ssh-keygen -t dsa -N ''                   <span class="cmt"># Creates a public and a private key</span>
@@ -1678,7 +1678,7 @@ Now test it with (in one line):
 <pre>rsync -rv "/cygdrive/c/Documents and Settings/%USERNAME%/My Documents/" \
 'user@server:My\ Documents/'
 </pre>
-<h3>Automatic backup</h3>
+<h3>自动备份</h3>
 Use a batch file to automate the backup and add the file in the scheduled tasks (Programs -&gt; Accessories -&gt; System Tools -&gt; Scheduled Tasks). For example create the file backup.bat and replace user@server.
 <pre>@ECHO OFF
 REM rsync the directory My Documents
