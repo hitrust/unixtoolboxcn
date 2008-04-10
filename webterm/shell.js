@@ -263,7 +263,9 @@ var Shell = (function(){
     var dividers = Math.round(t.conf.cols / nameLen);
     var space;
     var spaceMissing;
-    for(i=0, j=1; i<list.length; i++, ++j) {
+    t.write('%n');
+    var j = 1;
+    for(var i=0; i<list.length; i++) {
       t.write(getColorFile(list[i]));
       spaceMissing = nameLen - list[i].length;
       space = '';
@@ -272,11 +274,13 @@ var Shell = (function(){
         spaceMissing--;
       }
       t.write(space);
+      j++;
       if(j == dividers) {
-        t.write('%');
+        t.write('%n');
         j = 1;
       }
     }
+    t.write('%n ');
   }
   function longlisting(t, node, all) {
     var lines = [];
@@ -593,7 +597,11 @@ var Shell = (function(){
     globalterm.write('%c(@lightgrey)' + content, true);
     globalterm.rawMode = false;
   }
-  function cmdCAT(t) {
+  function displaycat(content) {
+    globalterm.write('%c(@lightgrey)' + content, false);
+    globalterm.rawMode = false;
+  }
+  function catFile(t, ckf) {
     if (t.argv.length == 1) {
       t.write(locale.error.cat);
       return;
@@ -615,12 +623,16 @@ var Shell = (function(){
         t.rawMode = true;
         t.write('%c(@lightgrey)Patience...%n');
         //fetchHttp('http://silenceisdefeat.org/~greco/' +  httpFilePath[fileNode.name], displaymore);
-        fetchHttp('./' +  httpFilePath[fileNode.name], displaymore);
+        fetchHttp('./' +  httpFilePath[fileNode.name], ckf);
       }
       
     } else {
+      if (path.indexOf('home/www') == -1) return;
       t.write('%c(@lightgrey)cat ' + t.argv[1] + ' : File not found%n');
     }
+  }
+  function cmdCAT(t) {
+    catFile(t, displaycat);
   }
   function isRightPath(p) {
     var isAbsolute = false;
@@ -648,7 +660,11 @@ var Shell = (function(){
     
     if (isAbsolute) rightPath = p;
     else rightPath = (path == '/' ? '' : path) + '/' + p;
-    if (!getNode(trimPath(rightPath))) // not existed!
+    
+    var fileNode = getNode(trimPath(rightPath));
+    if (!fileNode) // not existed!
+      rightPath = false;
+    else if (fileNode.child.length == 0)
       rightPath = false;
     
     return rightPath;
@@ -750,7 +766,7 @@ var Shell = (function(){
     t.write(locale.infoPage);
   }
   function cmdLESS(t) {
-  
+    catFile(t, displaymore);
   }
   function cmdLL(t) {
   
@@ -870,7 +886,7 @@ var Shell = (function(){
     return;
   }
   function cmdMORE(t) {
-    
+    catFile(t, displaymore);
   }
   function cmdNUM(t) {
     
@@ -1101,9 +1117,10 @@ var Shell = (function(){
   
   return {
     init : function() {
+      TermGlobals.assignStyle(16, 'o', '<a class="tlink" href="http://www.masswerk.at">', '<\/a>');
       TermGlobals.assignStyle(32, 'm', '<a class="tlink" href="http://www.masswerk.at">', '<\/a>');
       TermGlobals.assignStyle(64, 'n', '<a class="tlink" href="http://silenceisdefeat.org/~greco/unixtoolbox_cn.xhtml">', '<\/a>');
-      
+      TermGlobals.assignStyle(128, 'l', '<a class="tlink" href="http://www.masswerk.at">', '<\/a>');
       term.open();
     }
   }

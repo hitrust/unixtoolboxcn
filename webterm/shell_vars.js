@@ -19,106 +19,6 @@ var FILES_SBIN = [
 		'route', 'mount', 'reboot', 'halt', 'shutdown'];
 
 var path = "/home/www";   // default path
-//################# TODO: start ###################################
-
-var files_root_n = ['bin', 'etc', 'home', 'tmp', 'sbin', 'usr', 'var'];
-var files_root_s = ['   512', '   512', '  1024', '   512', '   512', '   512',
-		'   512'];
-var files_root_t = ['Jan 23 00:13', 'Feb  2 14:36', 'Jan 23 00:13',
-		'Nov 10  2007', 'Nov 10  2007', 'Nov 10  2007', 'Nov 10  2007'];
-var files_root = [files_root_n, files_root_s, files_root_t,
-		'%c(@lightgrey)drwxr-x---   1 root  wheel'];
-var files_etc_n = ['passwd', 'group', 'rc.conf', 'master.passwd', 'hosts',
-		'crontab'];
-var files_etc_s = ['   766', '   266', '  3061', '  3960', '   766', '  1852'];
-var files_etc_t = ['Jan 23 00:13', 'Jan 23 00:13', 'Feb  2 14:36',
-		'Jan 23 00:13', 'Nov 10  2007', 'Nov 26 17:28'];
-var files_etc = [files_etc_n, files_etc_s, files_etc_t,
-		'%c(@lightgrey)-rw-r-----   1 root  wheel'];
-var files_home_n = ['www'];
-var files_home_s = ['   766'];
-var files_home_t = ['Nov 10  2007'];
-var files_home = [files_home_n, files_home_s, files_home_t,
-		'%c(@lightgrey)drwxr-xr-x   1 root  wheel'];
-var files_tmp_n = ['test'];
-var files_tmp_s = ['   512'];
-var files_tmp_t = ['Jun 11  2007'];
-var files_tmp = [files_tmp_n, files_tmp_s, files_tmp_t,
-		'%c(@lightgrey)drwxrwx---   1 root  wheel'];
-var files_var_n = ['log'];
-var files_var_s = ['   512'];
-var files_var_t = ['Jun 11  2007'];
-var files_var = [files_var_n, files_var_s, files_var_t,
-		'%c(@lightgrey)drwxrwx---   1 root  wheel'];
-var files_usr_n = ['share'];
-var files_usr_s = ['   512'];
-var files_usr_t = ['Oct 21  2006'];
-var files_usr = [files_usr_n, files_usr_s, files_usr_t,
-		'%c(@lightgrey)drwxrwxr-x   1 root  wheel'];
-var files_share_n = ['man'];
-var files_share_s = ['   512'];
-var files_share_t = ['Oct 21  2006'];
-var files_share = [files_share_n, files_share_s, files_share_t,
-		'%c(@lightgrey)drwxrwxr-x   1 root  wheel'];
-var files_man_n = ['echo', 'cal', 'clock', 'hostname', 'ls', 'matrix', 'redim',
-		'reload', 'reset', 'weather', 'whereami'];
-var files_man_s = ['   252', '   287', '   352', '   173', '   281', '   361',
-		'   451', '   353', '   198', '   232', '   112'];
-var files_man_t = ['Nov 21  2007', 'Jan 31  2008', 'Nov 21  2007',
-		'Nov 21  2007', 'Nov 21  2007', 'Nov 21  2007', 'Nov 21  2007',
-		'Nov 21  2007', 'Nov 21  2007', 'Feb 01  2008', 'Nov 21  2007'];
-var files_man = [files_man_n, files_man_s, files_man_t,
-		'%c(@lightgrey)-rw-rw-r--   1 root  wheel'];
-var files_bin_n = ['apropos', 'browse', 'browser', 'cal', 'cat', 'clear',
-		'clock', 'cd', 'date', 'df', 'echo', 'fortune', 'history', 'hostname',
-		'help', 'id', 'info', 'logout', 'ls', 'matrix', 'more', 'ping', 'ps',
-		'pwd', 'pr', 'reload', 'reset', 'top', 'su', 'uname', 'whereami', 'rm',
-		'time', 'uptime', 'who', 'weather', 'whoami'];
-var files_bin_s = ['  1933', '  3061', '  3960', '   766', '  1150', '  2170',
-		'  1834', '  1650', ' 81933', '   695', '  1507', '  1327', '  1852',
-		'  1140', '  1933', '   256', '  1678', '  1232', '  5150', '   593',
-		'  3595', '  1698', '  3855', '  7159', '  1353', '  3695', '  1435',
-		'  1156', '   815', '   193', '  2565', '  5466', '  1357', '   150',
-		' 19364', '   384', '  1744'];
-var files_bin_t = ['Oct 21  2006', 'Oct 21  2006', 'Oct 21  2006',
-		'Oct 21  2006', 'Oct 21  2006', 'Oct 21  2006', 'Oct 21  2006',
-		'Oct 22  2006', 'Oct 22  2006', 'Oct 21  2006', 'Oct 21  2006',
-		'Oct 21  2006', 'Oct 21  2006', 'Feb 10 01:23', 'Feb 10 01:24',
-		'Oct 21  2006', 'Jun 11  2007', 'Oct 21  2006', 'Oct 21  2006',
-		'Oct 21  2006', 'Oct 21  2006', 'Oct 21  2006', 'Oct 21  2006',
-		'Oct 21  2006', 'Jun 11  2007', 'Oct 21  2006', 'Oct 21  2006',
-		'Oct 21  2006', 'Nov 10  2007', 'Oct 21  2006', 'Oct 21  2006',
-		'Oct 21  2006', 'Oct 21  2006', 'Oct 21  2006', 'Jan 23 00:13',
-		'Jan 23 00:13', 'Feb 10 01:24'];
-var files_bin = [files_bin_n, files_bin_s, files_bin_t,
-		'%c(@lightgrey)-rwxr-x--x   1 root  wheel'];
-var files_sbin_n = ['sysctl', 'netstat', 'browser', 'passwd', 'ifconfig',
-		'route', 'mount', 'reboot', 'halt', 'shutdown'];
-var files_sbin_s = ['  1933', '  3061', '  3960', '   766', '  1150', '  1834',
-		'  1650', '   933', '   695', '  1507'];
-var files_sbin_t = ['Feb 10 01:23', 'Feb 10 01:24', 'Oct 21  2006',
-		'Oct 21  2006', 'Oct 21  2006', 'Oct 21  2006', 'Jun 11  2007',
-		'Oct 21  2006', 'Oct 21  2006', 'Oct 21  2006'];
-var files_sbin = [files_sbin_n, files_sbin_s, files_sbin_t,
-		'%c(@lightgrey)-rwxr-x---   1 root  wheel'];
-var files_www_n = ['about.txt', 'cb.txt', 'exploring.gif', 'favicon.ico',
-		'index.html', 'shell.js', 'sitemap.xml', 'termlib.js','%c(@palevioletred)termlib_parser.js', 
-    '%c(@palevioletred)unixtoolbox_cn.book.pdf', '%c(@palevioletred)unixtoolbox_cn.book2.pdf',
-		'%c(@palevioletred)unixtoolbox_cn.pdf', 'unixtoolbox_cn.txt', '%+nunixtoolbox_cn.xhtml%-n',
-		'vars.js.php'];
-var files_www_s = ['  1045', '  4033', ' 98166', '  1150', '  1933', ' 25695',
-		'   766', ' 64720', '  5838', '272458', '271664', '345472', '124113',
-		'156225', '  1992'];
-var files_www_t = ['Feb 15 01:31', 'Feb 11 02:06', 'Jul 23  2004',
-		'Jan 31 15:17', 'Feb 10 16:53', 'Feb  5 00:52', 'Feb 10 01:13',
-		'Feb 10 01:13', 'Feb 10 02:14', 'Feb 10 02:14', 'Feb 10 02:14',
-		'Feb 10 02:14', 'Feb 25 04:20', 'Feb 11 01:47', 'Feb 11 02:50'];
-var files_www = [files_www_n, files_www_s, files_www_t,
-		'%c(@lightgrey)-rw-r-----   1 colin   www'];
-var tree = ['/', '/etc', '/tmp', '/bin', '/home', '/home/www', '/sbin', '/usr',
-		'/usr/share', '/usr/share/man', '/var'];
-var tree_files = [files_root, files_etc, files_tmp, files_bin, files_home,
-		files_www, files_sbin, files_usr, files_share, files_man, files_var];
 function FileNode(p, l, uid, gid, s, t, n, c) {
   this.permission = p;
   this.link = l;
@@ -132,8 +32,57 @@ function FileNode(p, l, uid, gid, s, t, n, c) {
 var root = new FileNode('', 26, 'root', 'wheel', 1024, 'Feb 18 1:15', '/', [
   new FileNode('drwxr-xr-x', '   23', 'root', 'wheel', '  1024', 'Feb 18 18:15', '.', []),
   new FileNode('drwxr-xr-x', '   23', 'root', 'wheel', '  1024', 'Feb 18 18:15', '..', []),
-  new FileNode('drwxr-xr-x', '    2', 'root', 'wheel', '  1024', 'Sep 16  2006', 'bin', []),
-  new FileNode('drwxr-xr-x', '   29', 'root', 'wheel', '  3584', 'Apr  1 23:04', 'etc', []),
+  new FileNode('drwxr-xr-x', '    2', 'root', 'wheel', '  1024', 'Sep 16  2006', 'bin', [
+    new FileNode('drwxr-xr-x', '   15', ' root', ' wheel', '  1024', 'Jun 11  2007', '.', []),
+    new FileNode('drwxr-xr-x', '   15', ' root', ' wheel', '  1024', 'Jun 11  2007', '..', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'apropos', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'browse', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1933', 'Oct 21  2006', 'browser', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1232', 'Oct 21  2006', 'cal', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'cat', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'clear', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', ' 81933', 'Oct 21  2006', 'clock', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'cd', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1698', 'Oct 21  2006', 'date', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'df', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  3595', 'Oct 21  2006', 'echo', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'fortune', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'history', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'hostname', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1150', 'Oct 21  2006', 'help', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'id', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2170', 'Oct 21  2006', 'info', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  5150', 'Oct 21  2006', 'logout', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'ls', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  3960', 'Oct 21  2006', 'matrix', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'more', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'ping', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  3855', 'Oct 21  2006', 'ps', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'pwd', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'pr', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1852', 'Oct 21  2006', 'reload', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1327', 'Oct 21  2006', 'reset', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'top', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1933', 'Oct 21  2006', 'su', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'uname', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'rm', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  2487', 'Oct 21  2006', 'time', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  5466', 'Oct 21  2006', 'uptime', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1357', 'Jan 23 00:13', 'who', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', ' 19364', 'Oct 21  2006', 'weather', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '   150', 'Oct 21  2006', 'whereami', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '   384', 'Feb 10 01:24', 'whoami', [])
+  ]),
+  new FileNode('drwxr-xr-x', '   29', 'root', 'wheel', '  3584', 'Apr  1 23:04', 'etc', [
+    new FileNode('drwxr-xr-x', '   15', ' root', ' wheel', '  1024', 'Jan 23 00:13', '.', []),
+    new FileNode('drwxr-xr-x', '   15', ' root', ' wheel', '  1024', 'Nov 10  2007', '..', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '   766', 'Feb  2 14:36', 'passwd', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '   266', 'Jan 23 00:13', 'group', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  3061', 'Jan 23 00:13', 'rc.conf', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  3960', 'Nov 10  2007', 'master.passwd', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '   766', 'Jan 23 00:13', 'hosts', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' wheel', '  1852', 'Nov 26 17:28', 'crontab', [])
+  ]),
   new FileNode('drwxr-xr-x', ' 7105', 'root', 'wheel', '102752', 'Jan 23 00:13', 'home', [
     new FileNode('drwxr-xr-x', '   23', 'root', 'wheel', '  1024', 'Feb 18 18:15', '.', []),
     new FileNode('drwxr-xr-x', '   23', 'root', 'wheel', '  1024', 'Feb 18 18:15', '..', []),
@@ -143,6 +92,8 @@ var root = new FileNode('', 26, 'root', 'wheel', 1024, 'Feb 18 1:15', '/', [
       new FileNode('-rw-r-----', '    1', ' greco', '  www', '  1045', 'Feb 15 01:31', 'about.txt', []),
       new FileNode('-rw-r-----', '    1', ' greco', '  www', '  1045', 'Feb 15 01:31', 'greco.pdf', []),
       new FileNode('drwxr-xr-x', '    3', ' greco', '  www', '   512', 'Mar 31 23:16', 'images', [
+        new FileNode('drwxr-xr-x', '    2', ' greco', '  www', '   512', 'Apr  9 03:51', '.', []),
+        new FileNode('drwxr-xr-x', '    4', ' greco', '  www', '   512', 'Mar 31 03:43', '..', []),
         new FileNode('-rw-r-----', '    1', ' greco', '  www', '  2487', 'Mar 31 23:15', '0.gif', []),
         new FileNode('-rw-r-----', '    1', ' greco', '  www', '  2288', 'Mar 31 23:15', '1.gif', []),
         new FileNode('-rw-r-----', '    1', ' greco', '  www', '  2843', 'Mar 31 23:15', '2.gif', []),
@@ -159,24 +110,44 @@ var root = new FileNode('', 26, 'root', 'wheel', 1024, 'Feb 18 1:15', '/', [
     ])
   ]),
   new FileNode('drwxr-xr-x', '    2', 'root', 'wheel', '  2048', 'Sep 16  2006', 'sbin', []),
-  new FileNode('drwxrwxrwt', '    7', 'root', 'wheel', ' 17408', 'Apr  2 01:03', 'tmp', []),
+  new FileNode('drwxrwxrwt', '    7', 'root', 'wheel', ' 17408', 'Apr  2 01:03', 'tmp', [
+    new FileNode('drwxr-xr-x', '    2', ' root', ' whell', '   512', 'Jun 11  2007', '.', []),
+    new FileNode('drwxr-xr-x', '    2', ' root', ' whell', '   512', 'Jun 11  2007', '..', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' whell', '   512', 'Jun 12  2007', 'test', [])
+  ]),
   new FileNode('drwxr-xr-x', '   18', 'root', 'wheel', '   512', 'Sep 16  2006', 'usr', [
     new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '  1024', 'Feb 18 18:15', '.', []),
     new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '  1024', 'Feb 18 18:15', '..', []),
     new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '   512', 'Sep 16 2006', 'share', [
       new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '  1024', 'Feb 18 18:15', '.', []),
       new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '  1024', 'Feb 18 18:15', '..', []),
-      new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '   512', 'Nov  4 2005', 'man', [])
+      new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '   512', 'Nov  4 2005', 'man', [
+        new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '  1024', 'Feb 18 18:15', '.', []),
+        new FileNode('drwxr-xr-x', '    3', 'root', 'wheel', '  1024', 'Feb 18 18:15', '..', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   252', 'Nov 21  2007', 'echo', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   287', 'Jan 31  2008', 'cal', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   352', 'Nov 21  2007', 'clock', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   173', 'Nov 21  2007', 'hostname', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   281', 'Nov 21  2007', 'matrix', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   361', 'Nov 21  2007', 'ls', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   451', 'Nov 21  2007', 'redim', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   353', 'Nov 21  2007', 'reload', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   198', 'Nov 21  2007', 'reset', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   232', 'Feb 01  2008', 'weather', []),
+        new FileNode('drwxr-xr-x', '    1', 'root', 'wheel', '   112', 'Nov 21  2007', 'whereami', [])
+      ])
     ])
   ]),
-  new FileNode('drwxr-xr-x', '   29', 'root', 'wheel', '  1024', 'Jan  6 14:38', 'var', [])
+  new FileNode('drwxr-xr-x', '   29', 'root', 'wheel', '  1024', 'Jan  6 14:38', 'var', [
+    new FileNode('drwxr-xr-x', '    2', ' root', ' whell', '   512', 'Jun 11  2007', '.', []),
+    new FileNode('drwxr-xr-x', '    2', ' root', ' whell', '   512', 'Jun 11  2007', '..', []),
+    new FileNode('-rw-r-----', '    1', ' root', ' whell', '   512', 'Jun 12  2007', 'log', [])
+  ])
 ]);
 var httpFilePath = {
   'about.txt' : 'about.txt'
 }
-//################# TODO: END ###################################
-
-var pslong = [  //TODO: move to vars.js.php
+var pslong = [
 		'%c(@lightgrey)USER   PID \%CPU  \%MEM    VSZ   RSS  TT  STAT STARTED      TIME COMMAND',
 		'www  50442  0.0  1.5 23328 15352  ??  I     8:00PM   0:03.18  /usr/local/sbin/httpd',
 		'www  50443  0.0  1.5 23872 15880  ??  I     8:00PM   0:03.63  /usr/local/sbin/httpd',
