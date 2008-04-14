@@ -398,13 +398,12 @@ window.onload = initCSS();
 </div>
 <div class="footerfirst">
 Unix Toolbox 版本：12<br />
-你可以到 <a href="http://cb.vu/unixtoolbox.xhtml">http://cb.vu/unixtoolbox.xhtml</a> 找到本文档的最新版。PDF版本可以替换链接中的.xhtml为 <a href="http://cb.vu/unixtoolbox.pdf">.pdf</a> ，小册子版本可以替换成 <a href="http://cb.vu/unixtoolbox.book.pdf">.book.pdf</a> 。 用双面打印机可将小册子打印成一本小书。<span class="web">这份XHTML页面可以通过CSS3相兼容的应用程序转换成一份漂亮的PDF文档(看 <a class="xref" href="#bourneexample">脚本例子</a>).</span><br />
+你可以到 <a href="http://cb.vu/unixtoolbox.xhtml">http://cb.vu/unixtoolbox.xhtml</a> 找到本文档的最新版。PDF版本可以替换链接中的.xhtml为 <a href="http://cb.vu/unixtoolbox.pdf">.pdf</a> ，小册子版本可以替换成 <a href="http://cb.vu/unixtoolbox.book.pdf">.book.pdf</a> 。 用双面打印机可将小册子打印成册。<span class="web">这份XHTML页面可以通过CSS3相兼容的应用程序转换成一份漂亮的PDF文档(看 <a class="xref" href="#bourneexample">脚本例子</a>).</span><br />
 错误报告和评论是最欢迎的 - <a href="mailto:c\at\cb.vu">c@cb.vu</a> Colin Barschel.
-<br />Unix Toolbox - 中文版 版本：0.1<br />
 你可以到<a href="http://code.google.com/p/unixtoolboxcn/">http://code.google.com/p/unixtoolboxcn/</a>找到中文最新版。<br />
 关于中文版的任何错误和修正请发送E-Mail到 <a href="mailto:greco.open\at\gmail.com"><![CDATA["Greco Shi" <greco.open@gmail.com>]]></a> 
 
-<p class="copyright">&#169; <a href="mailto:c_at_cb.vu">Colin Barschel</a> 2007-2008. <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Some rights reserved under Creative Commons</a>.
+<p class="copyright">&#169; <a href="mailto:c_at_cb.vu">Colin Barschel and Greco Shi</a> 2007-2008. <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Some rights reserved under Creative Commons</a>.
 </p>
 </div> 
 
@@ -1069,89 +1068,89 @@ Read and write a 1 GB file on partition ad4s3c (/home)
 </div>
 
 <div id="network"><h1><a>网络</a></h1>
-<p class="xrefp"><a class="xrefp" href="#routing">Routing</a> | <a class="xrefp" href="#secondip">Additional IP</a> | <a class="xrefp" href="#changemac">Change MAC</a> | <a class="xrefp" href="#ports">Ports</a> | <a class="xrefp" href="#firewall">Firewall</a> | <a class="xrefp" href="#ipforward">IP Forward</a> | <a class="xrefp" href="#nat">NAT</a> | <a class="xrefp" href="#dns">DNS</a> | <a class="xrefp" href="#dhcp">DHCP</a> | <a class="xrefp" href="#traffic">Traffic</a> | <a class="xrefp" href="#trafficctrl">QoS</a> | <a class="xrefp" href="#nis">NIS</a></p>
-<h2 id="netdebug">Debugging (See also <a class="xref" href="#traffic">Traffic analysis)</a></h2>
+<p class="xrefp"><a class="xrefp" href="#routing">路由</a> | <a class="xrefp" href="#secondip">额外 IP</a> | <a class="xrefp" href="#changemac">更改 MAC 地址</a> | <a class="xrefp" href="#ports">端口</a> | <a class="xrefp" href="#firewall">防火墙</a> | <a class="xrefp" href="#ipforward">IP 转发</a> | <a class="xrefp" href="#nat">NAT</a> | <a class="xrefp" href="#dns">DNS</a> | <a class="xrefp" href="#dhcp">DHCP</a> | <a class="xrefp" href="#traffic">通信量</a> | <a class="xrefp" href="#trafficctrl">QoS</a> | <a class="xrefp" href="#nis">NIS</a></p>
+<h2 id="netdebug">调试 (也可看<a class="xref" href="#traffic">流量分析)</a></h2>
 <h3>Linux</h3>
-<pre># ethtool eth0              <span class="cmt"># Show the ethernet status (replaces mii-diag)</span>
-# ethtool -s eth0 speed 100 duplex full <span class="cmt"># Force 100Mbit Full duplex</span>
-# ethtool -s eth0 autoneg off <span class="cmt"># Disable auto negotiation</span>
-# ethtool -p eth1           <span class="cmt"># Blink the ethernet led - very useful when supported</span>
-# ip link show              <span class="cmt"># Display all interfaces on Linux (similar to ifconfig)</span>
-# ip link set eth0 up       <span class="cmt"># Bring device up (or down). Same as "ifconfig eth0 up"</span>
-# ip addr show              <span class="cmt"># Display all IP addresses on Linux (similar to ifconfig)</span>
-# ip neigh show             <span class="cmt"># Similar to arp -a</span>
+<pre># ethtool eth0              <span class="cmt"># 显示以太网状态(replaces mii-diag)</span>
+# ethtool -s eth0 speed 100 duplex full <span class="cmt"># 把网卡 eth0 速度改为 100兆/秒，采用全双工</span>
+# ethtool -s eth0 autoneg off <span class="cmt"># 禁用自动协商模式</span>
+# ethtool -p eth1           <span class="cmt"># 闪烁网络接口 LED 灯 - 如果支持的话，非常实用</span>
+# ip link show              <span class="cmt"># 在 Linux 上显示所有网络接口(同 ifconfig 类似)</span>
+# ip link set eth0 up       <span class="cmt"># 使设备激活(或Down掉)。同 "ifconfig eth0 up"</span>
+# ip addr show              <span class="cmt"># 在 Linux 上显示所有 IP 地址(与 ifconfig 类似)</span>
+# ip neigh show             <span class="cmt"># 与 arp -a 类似</span>
 </pre>
-<h3>Other OSes</h3>
-<pre># ifconfig fxp0             <span class="cmt"># Check the "media" field on FreeBSD</span>
-# arp -a                    <span class="cmt"># Check the router (or host) ARP entry (all OS)</span>
-# ping cb.vu                <span class="cmt"># The first thing to try...</span>
-# traceroute cb.vu          <span class="cmt"># Print the route path to destination</span>
-# ifconfig fxp0 media 100baseTX mediaopt full-duplex <span class="cmt"># 100Mbit full duplex (FreeBSD)</span>
-# netstat -s                <span class="cmt"># System-wide statistics for each network protocol</span>
+<h3>其他系统</h3>
+<pre># ifconfig fxp0             <span class="cmt"># 查看 "media" 字段(FreeBSD)</span>
+# arp -a                    <span class="cmt"># 查看路由(或主机) ARP 条目(所有系统)</span>
+# ping cb.vu                <span class="cmt"># 第一个要试的事情...</span>
+# traceroute cb.vu          <span class="cmt"># 列印到目的地的路由路径</span>
+# ifconfig fxp0 media 100baseTX mediaopt full-duplex <span class="cmt"># 100兆/秒 全双工(FreeBSD)</span>
+# netstat -s                <span class="cmt"># 对每个网络协议做系统级分析</span>
 </pre>
-Additional commands which are not always installed per default but easy to find:
-<pre># arping 192.168.16.254     <span class="cmt"># Ping on ethernet layer</span>
-# tcptraceroute -f 5 cb.vu  <span class="cmt"># uses tcp instead of icmp to trace throught firewalls</span>
+另一些命令，虽然不总是默认安装，但很好找：
+<pre># arping 192.168.16.254     <span class="cmt"># 在网络层上 Ping</span>
+# tcptraceroute -f 5 cb.vu  <span class="cmt"># 使用 tcp 替换 icmp 来跟踪，透过防火墙</span>
 </pre>
 
-<h2 id="routing">Routing</h2>
-<h3>Print routing table</h3>
-<pre># route -n                  <span class="cmt"># Linux or use "ip route"</span>
-# netstat -rn               <span class="cmt"># Linux, BSD and UNIX</span>
+<h2 id="routing">路由</h2>
+<h3>列印路由表</h3>
+<pre># route -n                  <span class="cmt"># Linux 或使用 "ip route"</span>
+# netstat -rn               <span class="cmt"># Linux, BSD 和 UNIX</span>
 # route print               <span class="cmt"># Windows</span>
 </pre>
-<h3 id="addroute">Add and delete a route</h3>
+<h3 id="addroute">添加删除路由</h3>
 <h4>FreeBSD</h4>
 <pre># route add 212.117.0.0/16 192.168.1.1
 # route delete 212.117.0.0/16
 # route add default 192.168.1.1
 </pre>
-Add the route permanently in /etc/rc.conf
+永久的添加路由可在 /etc/rc.conf 配置文件中设置
 <pre>static_routes="myroute"
 route_myroute="-net 212.117.0.0/16 192.168.1.1"
 </pre>
 <h4>Linux</h4>
 <pre># route add -net 192.168.20.0 netmask 255.255.255.0 gw 192.168.16.254
-# ip route add 192.168.20.0/24 via 192.168.16.254       <span class="cmt"># same as above with ip route</span>
+# ip route add 192.168.20.0/24 via 192.168.16.254       <span class="cmt"># 等同于上面命令</span>
 # route add -net 192.168.20.0 netmask 255.255.255.0 dev eth0
 # route add default gw 192.168.51.254
-# ip route add default via 192.168.51.254 dev eth0      <span class="cmt"># same as above with ip route</span>
+# ip route add default via 192.168.51.254 dev eth0      <span class="cmt"># 等同于上面命令</span>
 # route delete -net 192.168.20.0 netmask 255.255.255.0
 </pre>
 <h4>Solaris</h4>
 <pre># route add -net 192.168.20.0 -netmask 255.255.255.0 192.168.16.254
-# route add default 192.168.51.254 1                    <span class="cmt"># 1 = hops to the next gateway</span>
+# route add default 192.168.51.254 1                    <span class="cmt"># 1 = 通过此路由跳<span class="fn">译注：数据包生存周期依赖于 IP 头中的生存周期(Time-to-Live，简称 TTL)。根据 RFC 的定义，这个域值由每个路由器来减少。接收到包的每台路由器根据路由该包所花费的秒数，将包中的这个域值减去相应的时间，或直接减 1。因为目前路由器转发包的时间基本小于 1 秒，这个域值基本上在源和目的地之间的没一跳便会减 1。</span>数减 1</span>
 # route change default 192.168.50.254 1
 </pre>
-Permanent entries are set in entry in <code>/etc/defaultrouter</code>.
+永久条目配置在 <code>/etc/defaultrouter</code> 中。
 <h4>Windows</h4>
 <pre># Route add 192.168.50.0 mask 255.255.255.0 192.168.51.253
 # Route add 0.0.0.0 mask 0.0.0.0 192.168.51.254</pre>
-Use add -p to make the route persistent.
+使用 <code>add -p</code> 来是路由设置永久有效。
 
-<h2 id="secondip">Configure additional IP addresses</h2>
+<h2 id="secondip">配置额外的 IP 地址</h2>
 <h3>Linux</h3>
-<pre># ifconfig eth0 192.168.50.254 netmask 255.255.255.0       <span class="cmt"># First IP</span>
-# ifconfig eth0:0 192.168.51.254 netmask 255.255.255.0     <span class="cmt"># Second IP</span>
-# ip addr add 192.168.50.254/24 dev eth0                   <span class="cmt"># Equivalent ip commands</span>
+<pre># ifconfig eth0 192.168.50.254 netmask 255.255.255.0       <span class="cmt"># 第一个 IP</span>
+# ifconfig eth0:0 192.168.51.254 netmask 255.255.255.0     <span class="cmt"># 第二个 IP</span>
+# ip addr add 192.168.50.254/24 dev eth0                   <span class="cmt"># 等价命令</span>
 # ip addr add 192.168.51.254/24 dev eth0 label eth0:1
 </pre>
 <h3>FreeBSD</h3>
-<pre># ifconfig fxp0 inet 192.168.50.254/24                     <span class="cmt"># First IP</span>
-# ifconfig fxp0 alias 192.168.51.254 netmask 255.255.255.0 <span class="cmt"># Second IP</span>
-</pre>Permanent entries in /etc/rc.conf                   
+<pre># ifconfig fxp0 inet 192.168.50.254/24                     <span class="cmt"># 第一个 IP</span>
+# ifconfig fxp0 alias 192.168.51.254 netmask 255.255.255.0 <span class="cmt"># 第二个 IP</span>
+</pre>永久条目设置在 /etc/rc.conf 中
 <pre>ifconfig_fxp0="inet 192.168.50.254  netmask 255.255.255.0"
 ifconfig_fxp0_alias0="192.168.51.254 netmask 255.255.255.0"
 </pre>
 <h3>Solaris</h3>
-Check the settings with <code>ifconfig -a</code>
-<pre># ifconfig hme0 plumb                                      <span class="cmt"># Enable the network card</span>
-# ifconfig hme0 192.168.50.254 netmask 255.255.255.0 up    <span class="cmt"># First IP</span>
-# ifconfig hme0:1 192.168.51.254 netmask 255.255.255.0 up  <span class="cmt"># Second IP</span>
+用 <code>ifconfig -a</code> 命令检查设置
+<pre># ifconfig hme0 plumb                                      <span class="cmt"># 启用网卡</span>
+# ifconfig hme0 192.168.50.254 netmask 255.255.255.0 up    <span class="cmt"># 第一个 IP</span>
+# ifconfig hme0:1 192.168.51.254 netmask 255.255.255.0 up  <span class="cmt"># 第二个 IP</span>
 </pre>
 
-<h2 id="changemac">Change MAC address</h2>
-Normally you have to bring the interface down before the change. Don't tell me why you want to change the MAC address...
+<h2 id="changemac">更改 MAC 地址</h2>
+通常在你更改之前先停下网络接口。不要告诉我为什么你想改变 MAC 地址......
 <pre># ifconfig eth0 down
 # ifconfig eth0 hw ether 00:01:02:03:04:05      <span class="cmt"># Linux</span>
 # ifconfig fxp0 link 00:01:02:03:04:05          <span class="cmt"># FreeBSD</span>
@@ -1159,151 +1158,151 @@ Normally you have to bring the interface down before the change. Don't tell me w
 # sudo ifconfig en0 ether 00:01:02:03:04:05     <span class="cmt"># Mac OS X Tiger</span>
 # sudo ifconfig en0 lladdr 00:01:02:03:04:05    <span class="cmt"># Mac OS X Leopard</span>
 </pre>
-Many tools exist for Windows. For example <a href="http://ntsecurity.nu/toolbox/etherchange/">etherchange</a><span class="fn">http://ntsecurity.nu/toolbox/etherchange</span>. Or look for "Mac Makeup", "smac".
+对于 Windows 已经有许多工具了。像 <a href="http://ntsecurity.nu/toolbox/etherchange/">etherchange</a><span class="fn">http://ntsecurity.nu/toolbox/etherchange</span>。或者看看 "Mac Makeup", "smac"。
 
-<h2 id="ports">Ports in use</h2>
-Listening open ports:
+<h2 id="ports">使用中的端口</h2>
+监听打开的端口：
 <pre># netstat -an | grep LISTEN
-# lsof -i                  <span class="cmt"># Linux list all Internet connections</span>
-# socklist                 <span class="cmt"># Linux display list of open sockets</span>
-# sockstat -4              <span class="cmt"># FreeBSD application listing</span>
+# lsof -i                                       <span class="cmt"># 列出所有因特网连接(Linux)</span>
+# socklist                                      <span class="cmt"># 列出打开的 socket (Linux)</span>
+# sockstat -4                                   <span class="cmt"># 使用 socket 的应用程序列表(FreeBSD)</span>
 # netstat -anp --udp --tcp | grep LISTEN        <span class="cmt"># Linux</span>
-# netstat -tup             <span class="cmt"># List active connections to/from system (Linux)</span>
-# netstat -tupl            <span class="cmt"># List listening ports from system (Linux)</span>
-# netstat -ano             <span class="cmt"># Windows</span>
+# netstat -tup                                  <span class="cmt"># 列出活跃的连接(Linux)</span>
+# netstat -tupl                                 <span class="cmt"># 列出系统中正在监听的端口(Linux)</span>
+# netstat -ano                                  <span class="cmt"># Windows</span>
 </pre>
 
-<h2 id="firewall">Firewall</h2>
-Check if a firewall is running (typical configuration only):
+<h2 id="firewall">防火墙</h2>
+检查正在运行的防火墙(只是典型配置)：
 <h3>Linux</h3>
-<pre># iptables -L -n -v                  <span class="cmt"># For status</span>
+<pre># iptables -L -n -v                  <span class="cmt"># 状态信息</span>
 Open the iptables firewall
-# iptables -P INPUT       ACCEPT     <span class="cmt"># Open everything</span>
+# iptables -P INPUT       ACCEPT     <span class="cmt"># 打开所有</span>
 # iptables -P FORWARD     ACCEPT
 # iptables -P OUTPUT      ACCEPT
-# iptables -Z                        <span class="cmt"># Zero the packet and byte counters in all chains</span>
-# iptables -F                        <span class="cmt"># Flush all chains</span>
-# iptables -X                        <span class="cmt"># Delete all chains</span>
+# iptables -Z                        <span class="cmt"># 把所有链的包及字节的计数器清空</span>
+# iptables -F                        <span class="cmt"># 清空所有链</span>
+# iptables -X                        <span class="cmt"># 删除所有链<span class="fn">译注：链必须没有被引用</span></span>
 </pre>
 <h3>FreeBSD</h3>
-<pre># ipfw show                          <span class="cmt"># For status</span>
-# ipfw list 65535 <span class="cmt"># if answer is "65535 deny ip from any to any" the fw is disabled</span>
-# sysctl net.inet.ip.fw.enable=0     <span class="cmt"># Disable</span>
-# sysctl net.inet.ip.fw.enable=1     <span class="cmt"># Enable</span>
+<pre># ipfw show                          <span class="cmt"># 状态信息</span>
+# ipfw list 65535 <span class="cmt"># 如果显示 "65535 deny ip from any to any"，那防火墙已被禁用</span>
+# sysctl net.inet.ip.fw.enable=0     <span class="cmt"># 禁用</span>
+# sysctl net.inet.ip.fw.enable=1     <span class="cmt"># 启用</span>
 </pre>
-<h2 id="ipforward">IP Forward for routing</h2>
+<h2 id="ipforward">路由 IP 转发</h2>
 <h3>Linux</h3>
-Check and then enable IP forward with:
-<pre># cat /proc/sys/net/ipv4/ip_forward  <span class="cmt"># Check IP forward 0=off, 1=on</span>
+查看然后启用 IP 转发：
+<pre># cat /proc/sys/net/ipv4/ip_forward     <span class="cmt"># 查看 IP 转发 0=禁用, 1=启用</span>
 # echo 1 > /proc/sys/net/ipv4/ip_forward
 </pre>
-or edit /etc/sysctl.conf with:
+或者编辑 /etc/sysctl.conf：
 <pre>net.ipv4.ip_forward = 1</pre>
 
 <h3>FreeBSD</h3>
-Check and enable with:
-<pre># sysctl net.inet.ip.forwarding      <span class="cmt"># Check IP forward 0=off, 1=on</span>
+查看并启用：
+<pre># sysctl net.inet.ip.forwarding          <span class="cmt"># 查看 IP 转发 0=禁用, 1=启用</span>
 # sysctl net.inet.ip.forwarding=1
-# sysctl net.inet.ip.fastforwarding=1	<span class="cmt"># For dedicated router or firewall</span>
+# sysctl net.inet.ip.fastforwarding=1	 <span class="cmt"># 专用路由器或防火墙</span>
 Permanent with entry in /etc/rc.conf:
-gateway_enable="YES"                 <span class="cmt"># Set to YES if this host will be a gateway.</span>
+gateway_enable="YES"                     <span class="cmt"># 如果主机是网关则设置为 YES。</span>
 </pre>
 
 <h3>Solaris</h3>
-<pre># ndd -set /dev/ip ip_forwarding 1   <span class="cmt"># Set IP forward 0=off, 1=on</span>
+<pre># ndd -set /dev/ip ip_forwarding 1       <span class="cmt"># 查看 IP 转发 0=禁用, 1=启用</span>
 </pre>
 
-<h2 id="nat">NAT Network Address Translation</h2>
+<h2 id="nat">NAT - 网络地址转换</h2>
 <h3>Linux</h3>
-<pre># iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE	<span class="cmt"># to activate NAT</span>
+<pre># iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE	<span class="cmt"># 激活 NAT</span>
 # iptables -t nat -A PREROUTING -p tcp -d 78.31.70.238 --dport 20022 -j DNAT \
---to 192.168.16.44:22           <span class="cmt"># Port forward 20022 to internal IP port ssh</span>
+--to 192.168.16.44:22           <span class="cmt"># 转发端口 20022 到内部 IP 端口(ssh)</span>
 # iptables -t nat -A PREROUTING -p tcp -d 78.31.70.238 --dport 993:995 -j DNAT \
---to 192.168.16.254:993:995     <span class="cmt"># Port forward of range 993-995</span>
+--to 192.168.16.254:993:995     <span class="cmt"># 转发 993-995 范围端口</span>
 # ip route flush cache
-# iptables -L -t nat            <span class="cmt"># Check NAT status</span>
+# iptables -L -t nat            <span class="cmt"># 查看 NAT 状态信息</span>
 </pre>
-Delete the port forward with -D instead of -A.
+使用 -D 替换 -A 来删除端口转发。
 
 <h3>FreeBSD</h3>
 <pre># natd -s -m -u -dynamic -f /etc/natd.conf -n fxp0
 Or edit /etc/rc.conf with:
-firewall_enable="YES"           <span class="cmt"># Set to YES to enable firewall functionality</span>
-firewall_type="open"            <span class="cmt"># Firewall type (see /etc/rc.firewall)</span>
-natd_enable="YES"               <span class="cmt"># Enable natd (if firewall_enable == YES).</span>
-natd_interface="tun0"           <span class="cmt"># Public interface or IP address to use.</span>
+firewall_enable="YES"           <span class="cmt"># 设置 YES 来启用防火墙功能</span>
+firewall_type="open"            <span class="cmt"># 防火墙类型(看 /etc/rc.firewall)</span>
+natd_enable="YES"               <span class="cmt"># 启用 natd (如果 firewall_enable == YES)。</span>
+natd_interface="tun0"           <span class="cmt"># 公共的网络接口或要使用的 IP 地址。</span>
 natd_flags="-s -m -u -dynamic -f /etc/natd.conf"
 </pre>
-Port forward with:
+端口转发：
 <pre># cat /etc/natd.conf 
 same_ports yes
 use_sockets yes
 unregistered_only
-# redirect_port tcp insideIP:2300-2399 3300-3399  <span class="cmt"># port range</span>
+# redirect_port tcp insideIP:2300-2399 3300-3399  <span class="cmt"># 端口范围</span>
 redirect_port udp 192.168.51.103:7777 7777
 </pre>
 
 <h2 id="dns">DNS</h2>
-On Unix the DNS entries are valid for all interfaces and are stored in /etc/resolv.conf. The domain to which the host belongs is also stored in this file. A minimal configuration is:
+在 unix 上，对于所有的网络接口的 DNS 条目都存储在 /etc/resolv.conf 文件中。主机域也储存在这个文件中。最小化配置如下：
 <pre>nameserver 78.31.70.238
 search sleepyowl.net intern.lab
 domain sleepyowl.net
 </pre>
-Check the system domain name with:
-<pre># hostname -d                        <span class="cmt"># Same as dnsdomainname</span></pre>
+检查系统域名：
+<pre># hostname -d                        <span class="cmt"># 等同于 dnsdomainname</span></pre>
 <h3>Windows</h3>
-On Windows the DNS are configured per interface. To display the configured DNS and to flush the DNS cache use:
-<pre># ipconfig /?                        <span class="cmt"># Display help</span>
-# ipconfig /all                      <span class="cmt"># See all information including DNS</span>
-# ipconfig /flushdns                 <span class="cmt"># Flush the DNS cache</span>
+在 Windows 上，DNS 配置于每个网络接口。要显示配置的 DNS 和清空 DNS 缓存可是使用：
+<pre># ipconfig /?                        <span class="cmt"># 显示帮助</span>
+# ipconfig /all                      <span class="cmt"># 显示所有信息包括 DNS</span>
+# ipconfig /flushdns                 <span class="cmt"># 清除 DNS 缓存</span>
 </pre>
 
-<h3>Forward queries</h3>
-Dig is you friend to test the DNS settings. For example the public DNS server <code>213.133.105.2 ns.second-ns.de</code> can be used for testing. See from which server the client receives the answer (simplified answer).
+<h3>转发查询</h3>
+Dig 是你测试 DNS 设置的好朋友。举个例子，用于测试的 DNS 服务器为 <code>213.133.105.2 ns.second-ns.de</code>。查看哪个服务器客户端接收应答(简单应答).
 <pre># dig sleepyowl.net
 sleepyowl.net.          600     IN      A       78.31.70.238
 ;; SERVER: 192.168.51.254#53(192.168.51.254)
 </pre>
-The router 192.168.51.254 answered and the response is the A entry. Any entry can be queried and the DNS server can be selected with @:
+路由器 192.168.51.254 应答了，并返回了一条 A 条目(记录)。任何条目都可查询，DNS 服务器可用 @ 来选定：
 <pre># dig MX google.com
-# dig @127.0.0.1 NS sun.com          <span class="cmt"># To test the local server</span>
-# dig @204.97.212.10 NS MX heise.de  <span class="cmt"># Query an external server</span>
-# dig AXFR @ns1.xname.org cb.vu      <span class="cmt"># Get the full zone (zone transfer)</span>
+# dig @127.0.0.1 NS sun.com          <span class="cmt"># 测试本地服务器</span>
+# dig @204.97.212.10 NS MX heise.de  <span class="cmt"># 查询外部</span>
+# dig AXFR @ns1.xname.org cb.vu      <span class="cmt"># 查看区传送(zone transfer)</span>
 </pre>
-The program host is also powerful.
-<pre># host -t MX cb.vu                   <span class="cmt"># Get the mail MX entry</span>
-# host -t NS -T sun.com              <span class="cmt"># Get the NS record over a TCP connection</span>
-# host -a sleepyowl.net              <span class="cmt"># Get everything</span>
+程式 host 也很强大。
+<pre># host -t MX cb.vu                   <span class="cmt"># 获取邮件 MX 记录</span>
+# host -t NS -T sun.com              <span class="cmt"># 通过 TCP 连接获取 NS 记录</span>
+# host -a sleepyowl.net              <span class="cmt"># 获取所有</span>
 </pre>
 
-<h3>Reverse queries</h3>
-Find the name belonging to an IP address (in-addr.arpa.). This can be done with <code>dig</code>, <code>host</code> and <code>nslookup</code>:
+<h3>反向查询</h3>
+查找属于一个 IP 地址(in-addr.arpa.)的域名。可用 <code>dig</code>, <code>host</code> 和 <code>nslookup</code> 命令查询：
 <pre># dig -x 78.31.70.238
 # host 78.31.70.238
 # nslookup 78.31.70.238
 </pre>
 
 <h3>/etc/hosts</h3>
-Single hosts can be configured in the file /etc/hosts instead of running <code>named</code> locally to resolve the hostname queries. The format is simple, for example:
+单个主机可以配置于文件 /etc/hosts 来代替本地正在运行的 <code>named</code> 反向域名查询。格式很简单，举个例子：
 <pre>78.31.70.238   sleepyowl.net   sleepyowl</pre>
-The priority between hosts and a dns query, that is the name resolution order, can be configured in <code>/etc/nsswitch.conf</code> AND /etc/host.conf. The file also exists on Windows, it is usually in:
+对于 hosts 文件和 DNS 查询之间的优先级，可在 <code>/etc/nsswitch.conf</code> 和 <code>/etc/host.conf</code> 中配置 order 名称解析。这个文件同样存在于 Windows 上，通常在：
 <pre>C:\WINDOWS\SYSTEM32\DRIVERS\ETC</pre>
 
 <h2 id="dhcp">DHCP</h2>
 <h3>Linux</h3>
-Some distributions (SuSE) use dhcpcd as client. The default interface is eth0.
-<pre># dhcpcd -n eth0           <span class="cmt"># Trigger a renew (does not always work)</span>
-# dhcpcd -k eth0           <span class="cmt"># release and shutdown</span>
+一些发行版(SuSE)使用 dhcpcd 作为客户端。默认网络接口是 eth0。
+<pre># dhcpcd -n eth0           <span class="cmt"># 触发更新(并不总是可以工作)</span>
+# dhcpcd -k eth0           <span class="cmt"># 释放并关闭</span>
 </pre>
-The lease with the full information is stored in:
+租约(lease)的全部信息存储在：
 <pre>/var/lib/dhcpcd/dhcpcd-eth0.info</pre>
 
 <h3>FreeBSD</h3>
-FreeBSD (and Debian) uses dhclient. To configure an interface (for example bge0) run:
+FreeBSD (和 Debian) 使用 <code>dhclient</code>。要配置一个网络接口(如：bge0)运行：
 <pre># dhclient bge0</pre>
-The lease with the full information is stored in:
+租约(lease)的全部信息存储在：
 <pre>/var/db/dhclient.leases.bge0</pre>
-Use <pre>/etc/dhclient.conf</pre> to prepend options or force different options:
+使用 <pre>/etc/dhclient.conf</pre> 设置 prepend 选项或强制不同的选项：
 <pre># cat /etc/dhclient.conf
 interface "rl0" {
     prepend domain-name-servers 127.0.0.1;
@@ -1313,41 +1312,41 @@ interface "rl0" {
 </pre>
 
 <h3>Windows</h3>
-The dhcp lease can be renewed with <code>ipconfig</code>:
-<pre># ipconfig /renew          <span class="cmt"># renew all adapters</span>
-# ipconfig /renew LAN      <span class="cmt"># renew the adapter named "LAN"</span>
-# ipconfig /release WLAN   <span class="cmt"># release the adapter named "WLAN"</span>
+dhcp 租约(lease)使用 <code>ipconfig</code> 来更新：
+<pre># ipconfig /renew          <span class="cmt"># 更新所有适配器</span>
+# ipconfig /renew LAN      <span class="cmt"># 更新名叫 "LAN" 的适配器</span>
+# ipconfig /release WLAN   <span class="cmt"># 释放名叫 "WLAN" 的适配器</span>
 </pre>
-Yes it is a good idea to rename you adapter with simple names!
+是的，这是一个使用简单名称重新命名你的适配器的好主意！
 
 
-<h2 id="traffic">Traffic analysis</h2>
-<a href="http://people.suug.ch/~tgr/bmon/">Bmon</a><span class="fn">http://people.suug.ch/~tgr/bmon/</span> is a small console bandwidth monitor and can display the flow on different interfaces. 
-<h3>Sniff with tcpdump</h3>
+<h2 id="traffic">通信量分析(Traffic analysis)</h2>
+<a href="http://people.suug.ch/~tgr/bmon/">Bmon</a><span class="fn">http://people.suug.ch/~tgr/bmon/</span> 是一个小的流量监控控制台，而且可以显示不同的网络接口的流量。 
+<h3>用 tcpdump 嗅探(sniff)</h3>
 <pre># tcpdump -nl -i bge0 not port ssh and src \(192.168.16.121 or 192.168.16.54\)
-# tcpdump -l > dump &amp;&amp; tail -f dump               <span class="cmt"># Buffered output</span>
-# tcpdump -i rl0 -w traffic.rl0                   <span class="cmt"># Write traffic in binary file</span>
-# tcpdump -r traffic.rl0                          <span class="cmt"># Read from file (also for ethereal</span>
-# tcpdump port 80                                 <span class="cmt"># The two classic commands</span>
+# tcpdump -l > dump &amp;&amp; tail -f dump               <span class="cmt"># 缓冲输出</span>
+# tcpdump -i rl0 -w traffic.rl0                   <span class="cmt"># 把数据报文写入二进制文件</span>
+# tcpdump -r traffic.rl0                          <span class="cmt"># 从文件读取数据报文(也可以使用 ethereal)</span>
+# tcpdump port 80                                 <span class="cmt"># 两个经典命令</span>
 # tcpdump host google.com
-# tcpdump -i eth0 -X port \(110 or 143\)          <span class="cmt"># Check if pop or imap is secure</span>
-# tcpdump -n -i eth0 icmp                         <span class="cmt"># Only catch pings</span>
-# tcpdump -i eth0 -s 0 -A port 80 | grep GET      <span class="cmt"># -s 0 for full packet -A for ASCII</span>
+# tcpdump -i eth0 -X port \(110 or 143\)          <span class="cmt"># 查看端口 110(POP) 或 143(IMAP)的数据报文</span>
+# tcpdump -n -i eth0 icmp                         <span class="cmt"># 只捕获 ping</span>
+# tcpdump -i eth0 -s 0 -A port 80 | grep GET      <span class="cmt"># -s 0 为全部包, -A 为 ASCII</span>
 </pre>
-Additional important options:
+另一些重要选项：
 <ul style="list-style-type: none;">
-  <li><code>-A</code> &#160; &#160; Print each packets in clear text (without header)</li>
-  <li><code>-X</code> &#160; &#160; Print packets in hex and ASCII</li>
-  <li><code>-l</code> &#160; &#160; Make stdout line buffered</li>
-  <li><code>-D</code> &#160; &#160; Print all interfaces available</li>
+  <li><code>-A</code> &#160; &#160; 显示每个包清晰文本(除了报头)</li>
+  <li><code>-X</code> &#160; &#160; 显示包的 ASCII 文本</li>
+  <li><code>-l</code> &#160; &#160; 使标准输出变为缓冲行形式</li>
+  <li><code>-D</code> &#160; &#160; 显示所有可用网络接口</li>
 </ul>
 
-On Windows use windump from <a rel="nofollow" href="http://www.winpcap.org/">www.winpcap.org</a>. Use windump -D to list the interfaces.
-<h3>Scan with nmap</h3>
-<a rel="nofollow" href="http://insecure.org/nmap/">Nmap</a><span class="fn">http://insecure.org/nmap/</span> is a port scanner with OS detection, it is usually installed on most distributions and is also available for Windows. If you don't scan your servers, hackers do it for you...
-<pre># nmap cb.vu               <span class="cmt"># scans all reserved TCP ports on the host</span>
-# nmap -sP 192.168.16.0/24 <span class="cmt"># Find out which IP are used and by which host on 0/24</span>
-# nmap -sS -sV -O cb.vu    <span class="cmt"># Do a stealth SYN scan with version and OS detection</span>
+对于 Windows 可以使用 <a rel="nofollow" href="http://www.winpcap.org/">www.winpcap.org</a>。使用 windump -D 来列出网络接口。
+<h3>用 nmap 扫描</h3>
+<a rel="nofollow" href="http://insecure.org/nmap/">Nmap</a><span class="fn">http://insecure.org/nmap/</span> 是一个用于 OS 探测的端口扫描工具，她通常在许多发行版上有安装，并且同样可用于 Windows。如果你不扫描你的服务器，骇客们会为你做这些...
+<pre># nmap cb.vu               <span class="cmt"># 扫描主机上所有保留的 TCP 端口</span>
+# nmap -sP 192.168.16.0/24 <span class="cmt"># 找出在 0/24 上主机所使用的 IP<span class="fn">译注：通过使用 "-sP" 参数，进行 ping 扫描。缺省情况下，Nmap给每个扫描到的主机发送一个 ICMP echo 和一个 TCP ACK，主机对任何一种的响应都会被Nmap得到。</span></span>
+# nmap -sS -sV -O cb.vu    <span class="cmt"># 做秘密 SYN 扫描来探测系统和系统服务的版本信息</span>
 PORT      STATE  SERVICE             VERSION
 22/tcp    open   ssh                 OpenSSH 3.8.1p1 FreeBSD-20060930 (protocol 2.0)
 25/tcp    open   smtp                Sendmail smtpd 8.13.6/8.13.6
@@ -1356,27 +1355,27 @@ PORT      STATE  SERVICE             VERSION
 Running: FreeBSD 5.X
 Uptime 33.120 days (since Fri Aug 31 11:41:04 2007)
 </pre>
-Other non standard but useful tools are <code>hping</code> (www.hping.org) an IP packet assembler/analyzer and <code>fping</code> (fping.sourceforge.net). fping can check multiple hosts in a round-robin fashion.
+其他非标准但好用的工具有 <code>hping</code> (www.hping.org)，她是一个 IP 分组组装/分析器，和 <code>fping</code> (fping.sourceforge.net)。fping 可以在一个循环队列(round-robin fashion)中扫描多种主机。
 
-<h2 id="trafficctrl">Traffic control (QoS)</h2>
-Traffic control manages the queuing, policing, scheduling, and other traffic parameters for a network. The following examples are simple practical uses of the Linux and FreeBSD capabilities to better use the available bandwidth.
-<h3>Limit upload</h3>
-DSL or cable modems have a long queue to improve the upload throughput. However filling the queue with a fast device (e.g. ethernet) will dramatically decrease the interactivity. It is therefore useful to limit the device upload rate to match the physical capacity of the modem, this should greatly improve the interactivity. Set to about 90% of the modem maximal (cable) speed.
+<h2 id="trafficctrl">流量控制(QoS)</h2>
+流量控制管理着一个网络的队列、流量监控、调度以及其他流量设置(traffic parameters)。以下简单实用的示例使用 Linux 和 FreeBSD 的能力来更好的利用带宽。
+<h3>上传限制</h3>
+DSL 或有线调制解调器有一个很长的列队来提高上传吞吐量(upload throughput)。然而用一个快速的设备(如以太网)填充这个列队将大大减少交互性。这就是限制设备上传速度有用的原因，以匹配调制解调器的实际能力，这可以有效提高交互性。设置大约为 modem 最大速度的 90%。
 <h4>Linux</h4>
-For a 512 Kbit upload modem.
+给 512K 上传速度的 modem。
 <pre># tc qdisc add dev eth0 root tbf rate 480kbit latency 50ms burst 1540
-# tc -s qdisc ls dev eth0                         <span class="cmt"># Status</span>
-# tc qdisc del dev eth0 root                      <span class="cmt"># Delete the queue</span>
+# tc -s qdisc ls dev eth0                         <span class="cmt"># 状态</span>
+# tc qdisc del dev eth0 root                      <span class="cmt"># 删除队列</span>
 # tc qdisc change dev eth0 root tbf rate 220kbit latency 50ms burst 1540
 </pre>
 <h4>FreeBSD</h4>
-FreeBSD uses the <code>dummynet</code> traffic shaper which is configured with ipfw. Pipes are used to set limits the bandwidth in units of [K|M]{bit/s|Byte/s}, 0 means unlimited bandwidth. Using the same pipe number will reconfigure it. For example limit the upload bandwidth to 500 Kbit.
+FreeBSD 使用 <code>dummynet</code> 来控制带宽，其配置工具为 ipfw。Pipe 用来设置限制带宽的单位[K|M]{比特/秒|字节/秒}，0 意味着没有限制。使用同样的 pipe 数字可重新配置它。举个例子，限制上传带宽为 500K。
 <pre>
-# kldload dummynet                                <span class="cmt"># load the module if necessary</span>
-# ipfw pipe 1 config bw 500Kbit/s                 <span class="cmt"># create a pipe with limited bandwidth</span>
-# ipfw add pipe 1 ip from me to any               <span class="cmt"># divert the full upload into the pipe</span>
+# kldload dummynet                                <span class="cmt"># 如有必要加载这个模块</span>
+# ipfw pipe 1 config bw 500Kbit/s                 <span class="cmt"># 创建一个带宽限制的 pipe</span>
+# ipfw add pipe 1 ip from me to any               <span class="cmt"># 转移所有上传进入这个 pipe</span>
 </pre>
-<h3>Quality of service</h3>
+<h3>服务质量</h3>
 <h4>Linux</h4>
 Priority queuing with <code>tc</code> to optimize VoIP. See the full example on <a rel="nofollow" href="http://www.voip-info.org/wiki-QoS+Linux+with+HFS">voip-info.org</a> or <a rel="nofollow" href="http://www.howtoforge.com/voip_qos_traffic_shaping_iproute2_asterisk">www.howtoforge.com</a>. Suppose VoIP uses udp on ports 10000:11024 and device eth0 (could also be ppp0 or so). The following commands define the QoS to three queues and force the VoIP traffic to queue 1 with QoS <code>0x1e</code> (all bits set). The default traffic flows into queue 3 and QoS <i>Minimize-Delay</i> flows into queue 2.
 <pre># tc qdisc add dev eth0 root handle 1: prio priomap 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 0
@@ -1413,14 +1412,14 @@ Status and remove with
 # ipfw pipe list                                  <span class="cmt"># pipe status</span>
 # ipfw flush                                      <span class="cmt"># deletes all rules but default</span>
 </pre>
-<h2 id="nis">NIS Debugging</h2>
-Some commands which should work on a well configured NIS client:
-<pre># ypwhich                  <span class="cmt"># get the connected NIS server name</span>
-# domainname               <span class="cmt"># The NIS domain name as configured</span>
-# ypcat group              <span class="cmt"># should display the group from the NIS server</span>
-# cd /var/yp &amp;&amp; make       <span class="cmt"># Rebuild the yp database</span>
+<h2 id="nis">NIS 调试</h2>
+一些可工作在已配置好的 NIS 客户端上的命令：
+<pre># ypwhich                  <span class="cmt"># 获取提供 NIS 服务的服务器名</span>
+# domainname               <span class="cmt"># 已配置的 NIS 域名</span>
+# ypcat group              <span class="cmt"># 列印 NIS 映射 group</span>
+# cd /var/yp &amp;&amp; make       <span class="cmt"># 重建 yp 数据库</span>
 </pre>
-Is ypbind running?
+ypbind 正在运行吗？
 <pre># ps auxww | grep ypbind
 /usr/sbin/ypbind -s -m -S servername1,servername2	<span class="cmt"># FreeBSD</span>
 /usr/sbin/ypbind           <span class="cmt"># Linux</span>
@@ -1666,20 +1665,20 @@ SSH 连接使用端口 20022：
 <h2 id="winrsync">在 Windows 上使用 Rsync</h2>
 可以通过 cygwin 或 独立打包的 <a href="http://sourceforge.net/projects/sereds/">cwrsync</a><span class="fn">http://sourceforge.net/projects/sereds</span> 来在 Windows 上运行 rsync。这对于自动备份来说非常方便。只装其中一个(<i>不是两个</i>)，然后添加路径到 Windows 系统变量中：# 控制面板 -&gt; 系统 -&gt; 高级标签，环境变量按钮。编辑 "Path" 添加 rsync 的安装路径，比如：C:\Program Files\cwRsync\bin 或者 C:\cygwin\bin。这可以让 <code>rsync</code> 和 <code>ssh</code> 可用于 Windows 命令窗口中。
 <h3>公钥认证</h3>
-Rsync is automatically tunneled over SSH and thus uses the SSH authentication on the server. Automatic backups have to avoid a user interaction, for this the SSH public key authentication can be used and the rsync command will run without a password.<br />
-All the following commands are executed within a Windows console. In a console (Start -&gt; Run -&gt; cmd) create and upload the key as described in <a href="#ssh">SSH</a>, change "user" and "server" as appropriate. If the file authorized_keys2 does not exist yet, simply copy id_dsa.pub to authorized_keys2 and upload it.
-<pre># ssh-keygen -t dsa -N ''                   <span class="cmt"># Creates a public and a private key</span>
-# rsync user@server:.ssh/authorized_keys2 . <span class="cmt"># Copy the file locally from the server</span>
-# cat id_dsa.pub >> authorized_keys2        <span class="cmt"># Or use an editor to add the key</span>
-# rsync authorized_keys2 user@server:.ssh/  <span class="cmt"># Copy the file back to the server</span>
-# del authorized_keys2                      <span class="cmt"># Remove the local copy</span>
+Rsync 是自动使用 SSH 隧道的，因此在服务端使用 SSH 认证。自动备份可免受用户的影响，rsync 命令对于使用 SSH 公钥认证可以不需要密码。<br />
+下面所有的命令都可在 windows 控制台中执行。在控制台(开始 -&gt; 运行 -&gt; cmd)中像在 <a href="#ssh">SSH</a> 中描述的那样创建和上传密钥，根据你的情况改变 "user" 和 "server"。如果文件 authorized_keys2 不存在，拷贝 id_dsa.pub 成 authorized_keys2 并上传它。
+<pre># ssh-keygen -t dsa -N ''                   <span class="cmt"># 创建密钥对</span>
+# rsync user@server:.ssh/authorized_keys2 . <span class="cmt"># 从服务器拷贝本地文件</span>
+# cat id_dsa.pub >> authorized_keys2        <span class="cmt"># 或者使用编辑器添加这个公钥</span>
+# rsync authorized_keys2 user@server:.ssh/  <span class="cmt"># 拷贝文件回服务器</span>
+# del authorized_keys2                      <span class="cmt"># 删除本地拷贝</span>
 </pre>
-Now test it with (in one line):
+现在测试一下(在同一行里面):
 <pre>rsync -rv "/cygdrive/c/Documents and Settings/%USERNAME%/My Documents/" \
 'user@server:My\ Documents/'
 </pre>
 <h3>自动备份</h3>
-Use a batch file to automate the backup and add the file in the scheduled tasks (Programs -&gt; Accessories -&gt; System Tools -&gt; Scheduled Tasks). For example create the file backup.bat and replace user@server.
+使用批处理文件自动备份并添加到任务计划(程序 -&gt; 附件 -&gt; 系统工具 -&gt; 任务计划)。举个例子，创建批处理文件 backup.bat 取代 user@server。
 <pre>@ECHO OFF
 REM rsync the directory My Documents
 SETLOCAL
@@ -1764,41 +1763,41 @@ ALL          DESKTOP = NOPASSWD: /sbin/mount /cdrom,/sbin/umount /cdrom
 </ul>
 
 <h2>GPG</h2>
-<a href="http://gnupg.org/">GnuPG</a> is well known to encrypt and sign emails or any data. Furthermore gpg and also provides an advanced key management system. This section only covers files encryption, not email usage, signing or the Web-Of-Trust.<br/>
-The simplest encryption is with a symmetric cipher. In this case the file is encrypted with a password and anyone who knows the password can decrypt it, thus the keys are not needed. Gpg adds an extention ".gpg" to the encrypted file names.
-<pre># gpg -c file                        <span class="cmt"># Encrypt file with password</span>
-# gpg file.gpg                       <span class="cmt"># Decrypt file (optionally -o otherfile)</span>
+<a href="http://gnupg.org/">GnuPG</a> 是众所周知的对邮件或任何数据进行加密和签名的软件。此外，gpg 还提供高级密钥管理系统。此章节只涵盖了文件加密，没有邮件加密、签名或者信任网络(Web-Of-Trust)。<br/>
+单纯的加密是一个对称式的加密算法(symmetric cipher)。在本例中，文件是用一个秘密来加密的，任何人知道了这个密码都可以对其进行解密，因此就不需要密钥。Gpg 添加后缀 ".gpg" 到已加密的文件名。
+<pre># gpg -c file                        <span class="cmt"># 使用密码加密文件</span>
+# gpg file.gpg                       <span class="cmt"># 文件解密(选项 -o 其他文件)</span>
 </pre>
-<h3>Using keys</h3>
-For more details see <a href="http://www.madboa.com/geek/gpg-quickstart">GPG Quick Start</a><span class="fn">http://www.madboa.com/geek/gpg-quickstart</span> and <a href="http://aplawrence.com/Basics/gpg.html">GPG/PGP Basics</a><span class="fn">http://aplawrence.com/Basics/gpg.html</span> and the <a href="http://gnupg.org/documentation">gnupg documentation</a><span class="fn">http://gnupg.org/documentation</span> among others.<br/>
-The private and public keys are the heart of asymmetric cryptography. What is important to remember:
+<h3>使用密钥</h3>
+对于更详细的请看 <a href="http://www.madboa.com/geek/gpg-quickstart">GPG 快速上手</a><span class="fn">http://www.madboa.com/geek/gpg-quickstart</span> 和 <a href="http://aplawrence.com/Basics/gpg.html">GPG/PGP 基础</a><span class="fn">http://aplawrence.com/Basics/gpg.html</span>，特别是 <a href="http://gnupg.org/documentation">gnupg 文档</a><span class="fn">http://gnupg.org/documentation</span>。<br/>
+密钥对(私钥，公钥)为非对称加密技术。 要点如下：
 <ul>
-<li>Your public key is used by <i>others</i> to encrypt files that only you as the receiver can decrypt (not even the one who encrypted the file can decrypt it). The public key is thus meant to be distributed.</li>
-<li>Your private key is encrypted with your passphrase and is used to decrypt files which where encrypted with <i>your</i> public key. The private key must be kept <b>secure</b>. Also if the key or passphrase is lost, so are all the files encrypted with your public key.</li>
-<li>The key files are called keyrings as they can contain more than one key.</li>
+<li>你的公钥是用来给<i>别人</i>加密文件的并且只有你作为接收者才可以解密(甚至不是一个人加密的文件也可以解密)。公钥是公开的也就意味着可以分发。</li>
+<li>用你的密码加密的私钥用来解密用<i>你的</i>公钥加密的文件。这个密钥必须保持<i>安全</i>。因为如果遗失了私钥或者密码，那么所有的文件都是使用你的公钥加密的。</li>
+<li>多个密钥文件被称为密钥环(keyrings)，她可以包含一个以上的密钥。</li>
 </ul>
-First generate a key pair. The defaults are fine, however you will have to enter at least your full name and email and optionally a comment. The comment is useful to create more than one key with the same name and email. Also you should use a "passphrase", not a simple password.
-<pre># gpg --gen-key                      <span class="cmt"># This can take a long time</span></pre>
-The keys are stored in ~/.gnupg/ on Unix, on Windows they are typically stored in<br/>
-C:/Documents and Settings/%USERNAME%/Application Data/gnupg/.
+首先生成密钥对。使用默认就行，但你至少要输入你的全名、邮件地址和可选注释。该注释对于创建相同的名字和邮件地址的多个密钥来说非常有用。此外，你应该使用"口令(passphrase)"，而不是简单的密码。
+<pre># gpg --gen-key                      <span class="cmt"># 这需要一些时间</span></pre>
+在 Unix 上密钥存储在 ~/.gnupg/ 中，在 Windows 上通常存储在<br/>
+C:/Documents and Settings/%USERNAME%/Application Data/gnupg/ 中。
 <pre>~/.gnupg/pubring.gpg                 <span class="cmt"># Contains your public keys and all others imported</span>
 ~/.gnupg/secring.gpg                 <span class="cmt"># Can contain more than one private key</span>
 </pre>
-Short reminder on most used options:
+常用选项的简短描述：
 <ul style="list-style-type: none; page-break-inside: avoid;">
-  <li><b>-e</b> encrypt data</li>
-  <li><b>-d</b> decrypt data</li>
-  <li><b>-r</b> NAME encrypt for recipient NAME (or 'Full Name' or 'email@domain')</li>
-  <li><b>-a</b> create ascii armored output of a key</li>
-  <li><b>-o</b> use as output file</li>
+  <li><b>-e</b> 加密数据</li>
+  <li><b>-d</b> 解密数据</li>
+  <li><b>-r</b> 为某个收件者加密('全名' 或者 'email@domain')</li>
+  <li><b>-a</b> 输出经过 ascii 封装的密钥</li>
+  <li><b>-o</b> 指定输出文件</li>
 </ul>
 The examples use 'Your Name' and 'Alice' as the keys are referred to by the email or full name or partial name. For example I can use 'Colin' or 'c@cb.vu' for my key [Colin Barschel (cb.vu) &lt;c@cb.vu&gt;].
-<h3>Encrypt for personal use only</h3>
+<h3>只用于个人的加密</h3>
 No need to export/import any key for this. You have both already.
 <pre># gpg -e -r 'Your Name' file                  <span class="cmt"># Encrypt with your public key</span>
 # gpg -o file -d file.gpg                     <span class="cmt"># Decrypt. Use -o or it goes to stdout</span>
 </pre>
-<h3>Encrypt - Decrypt with keys</h3>
+<h3>用密钥加密-解密</h3>
 First you need to export your public key for someone else to use it. And you need to import the public say from Alice to encrypt a file for her. You can either handle the keys in simple ascii files or use a public key server.<br/>
 For example Alice export her public key and you import it, you can then encrypt a file for her. That is only Alice will be able to decrypt it.
 <pre># gpg -a -o alicekey.asc --export 'Alice'     <span class="cmt"># Alice exported her key in ascii file.</span>
@@ -1810,7 +1809,7 @@ Once the keys are imported it is very easy to encrypt or decrypt a file:
 <pre># gpg -e -r 'Alice' file                      <span class="cmt"># Encrypt the file for Alice.</span>
 # gpg -d file.gpg -o file                     <span class="cmt"># Decrypt a file encrypted by Alice for you.</span>
 </pre>
-<h3>Key administration</h3>
+<h3>密钥管理</h3>
 <pre># gpg --list-keys                             <span class="cmt"># list public keys and see the KEYIDS</span>
     <span class="cmt">The KEYID follows the '/' e.g. for: pub   1024D/D12B77CE the KEYID is D12B77CE</span>
 # gpg --gen-revoke 'Your Name'                <span class="cmt"># generate revocation certificate</span>
@@ -2558,13 +2557,13 @@ Some devices are not postscript and will print garbage when fed with a pdf file.
 <pre># gs -dSAFER -dNOPAUSE -sDEVICE=deskjet -sOutputFile=\|lpr file.pdf</pre>
 </div>
 
-<div id="databases"><h1><a>Databases</a></h1>
+<div id="databases"><h1><a>数据库</a></h1>
 <h2 id="pgsql">PostgreSQL</h2>
-<h3>Change root or a username password</h3>
+<h3>更改 root 用户或其它用户的密码</h3>
 <pre># psql -d template1 -U pgsql
 &gt; alter user pgsql with password 'pgsql_password';  <span class="cmt"># Use username instead of "pgsql"</span>
 </pre>
-<h3>Create user and database</h3>
+<h3>创建用户和数据库</h3>
 The commands <code>createuser</code>, <code>dropuser</code>, <code>createdb</code> and <code>dropdb</code> are convenient shortcuts equivalent to the SQL commands. The new user is bob with database bobdb ; use as root with pgsql the database super user:
 <pre># createuser -U pgsql -P bob         <span class="cmt"># -P will ask for password</span>
 # createdb -U pgsql -O bob bobdb     <span class="cmt"># new bobdb is owned by bob</span>
@@ -2572,14 +2571,14 @@ The commands <code>createuser</code>, <code>dropuser</code>, <code>createdb</cod
 # dropuser bob                       <span class="cmt"># Delete user bob</span>
 </pre>
 The general database authentication mechanism is configured in pg_hba.conf
-<h3>Grant remote access</h3>
+<h3>允许远程访问</h3>
 The file <code>$PGSQL_DATA_D/postgresql.conf</code> specifies the address to bind to. Typically <code>listen_addresses = '*'</code> for Postgres 8.x.<br/>
 The file <code>$PGSQL_DATA_D/pg_hba.conf</code> defines the access control. Examples:
 <pre># TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK          METHOD
 host    bobdb       bob        212.117.81.42     255.255.255.255   password
 host    all         all        0.0.0.0/0                           password
 </pre>
-<h3>Backup and restore</h3>
+<h3>备份和恢复</h3>
 The backups and restore are done with the user pgsql or postgres. Backup and restore a single database:
 <pre># pg_dump --clean dbname &gt; dbname_sql.dump
 # psql dbname &lt; dbname_sql.dump
@@ -2591,8 +2590,8 @@ Backup and restore all databases (including users):
 In this case the restore is started with the database postgres which is better when reloading an empty cluster.
 
 <h2 id="mysql">MySQL</h2>
-<h3>Change mysql root or username password</h3>
-<h4>Method 1</h4>
+<h3>更改 mysql root 用户或其它用户的密码</h3>
+<h4>方法 1</h4>
 <pre># /etc/init.d/mysql stop
 <i><span class="cmt">or</span></i>
 # killall mysqld
@@ -2600,35 +2599,36 @@ In this case the restore is started with the database postgres which is better w
 # mysqladmin -u root password 'newpasswd'
 # /etc/init.d/mysql start
 </pre>
-<h4>Method 2</h4>
+<h4>方法 2</h4>
 <pre># mysql -u root mysql
 <span class="cmt">mysql&gt;</span> UPDATE USER SET PASSWORD=PASSWORD("newpassword") where user='root';
-<span class="cmt">mysql&gt;</span> FLUSH PRIVILEGES;                           <span class="cmt"># Use username instead of "root"</span>
+<span class="cmt">mysql&gt;</span> FLUSH PRIVILEGES;                           <span class="cmt"># 使用用户名替代"root"</span>
 <span class="cmt">mysql&gt;</span> quit
 </pre>
-<h3>Create user and database</h3>
+<h3>创建用户和数据库</h3>
 <pre># mysql -u root mysql
 <span class="cmt">mysql&gt;</span> CREATE DATABASE bobdb;
-<span class="cmt">mysql&gt;</span> GRANT ALL ON *.* TO 'bob'@'%' IDENTIFIED BY 'pwd'; <span class="cmt"># Use localhost instead of %</span>
-                                                   <span class="cmt"># to restrict the network access</span>
-<span class="cmt">mysql&gt;</span> DROP DATABASE bobdb;                        <span class="cmt"># Delete database</span>
-<span class="cmt">mysql&gt;</span> DROP USER bob;                              <span class="cmt"># Delete user</span>
-<span class="cmt">mysql&gt;</span> DELETE FROM mysql.user WHERE user='bob and host='hostname'; <span class="cmt"># Alt. command</span>
+<span class="cmt">mysql&gt;</span> GRANT ALL ON *.* TO 'bob'@'%' IDENTIFIED BY 'pwd'; 
+                           <span class="cmt"># 使用 localhost 替代 % 来限制网络访问</span>
+<span class="cmt">mysql&gt;</span> DROP DATABASE bobdb;                        <span class="cmt"># 删除数据库 bobdb</span>
+<span class="cmt">mysql&gt;</span> DROP USER bob;                              <span class="cmt"># 删除用户 bob</span>
+<span class="cmt">mysql&gt;</span> DELETE FROM mysql.user WHERE user='bob and host='hostname'; 
+                           <span class="cmt"># 删除 mysql 数据库 user 表中 user=bob,host=hostname 的记录</span>
 <span class="cmt">mysql&gt;</span> FLUSH PRIVILEGES;
 </pre>
-<h3>Grant remote access</h3>
-Remote access is typically permitted for a database, and not all databases. The file <code>/etc/my.cnf</code> contains the IP address to bind to. Typically comment the line <code>bind-address =</code> out.
+<h3>允许远程访问</h3>
+远程访问通常为运行一个数据库，而不是所有的数据库。文件 <code>/etc/my.cnf</code> 包含约定的 IP 地址。Typically comment the line <code>bind-address =</code> out.
 <pre># mysql -u root mysql
 <span class="cmt">mysql&gt;</span> GRANT ALL ON bobdb.* TO bob@'xxx.xxx.xxx.xxx' IDENTIFIED BY 'PASSWORD';
 <span class="cmt">mysql&gt;</span> REVOKE GRANT OPTION ON foo.* FROM bar@'xxx.xxx.xxx.xxx';
 <span class="cmt">mysql&gt;</span> FLUSH PRIVILEGES;                  <span class="cmt"># Use 'hostname' or also '%' for full access</span>
 </pre>
-<h3>Backup and restore</h3>
-Backup and restore a single database:
+<h3>备份和恢复</h3>
+备份和恢复单个数据库：
 <pre># mysqldump -u root -psecret --add-drop-database dbname &gt; dbname_sql.dump
 # mysql -u root -psecret -D dbname &lt; dbname_sql.dump
 </pre>
-Backup and restore all databases:
+备份和恢复所有的数据库：
 <pre># mysqldump -u root -psecret --add-drop-database --all-databases &gt; full.dump
 # mysql -u root -psecret &lt; full.dump
 </pre>
@@ -2907,28 +2907,28 @@ $                                    <span class="cmt"># match at the end of a l
 </pre>
 
 <h2 id="shcmd">一些实用命令</h2>
-The following commands are useful to include in a script or as one liners.
-<pre>sort -t. -k1,1n -k2,2n -k3,3n -k4,4n         <span class="cmt"># Sort IPv4 ip addresses</span>
-echo 'Test' | tr '[:lower:]' '[:upper:]'     <span class="cmt"># Case conversion</span>
-echo foo.bar | cut -d . -f 1                 <span class="cmt"># Returns foo</span>
-PID=$(ps | grep script.sh | grep bin | awk '{print $1}')    <span class="cmt"># PID of a running script</span>
-PID=$(ps axww | grep [p]ing | awk '{print $1}')             <span class="cmt"># PID of ping (w/o grep pid)</span>
+下列命令对于包含于一个脚本或者单行命令来说很有用。
+<pre>sort -t. -k1,1n -k2,2n -k3,3n -k4,4n         <span class="cmt"># 排序 IPv4 格式的 IP 地址</span>
+echo 'Test' | tr '[:lower:]' '[:upper:]'     <span class="cmt"># 转换成大写</span>
+echo foo.bar | cut -d . -f 1                 <span class="cmt"># 返回 foo</span>
+PID=$(ps | grep script.sh | grep bin | awk '{print $1}')          <span class="cmt"># 正在运行名为 script 脚本的 PID</span>
+PID=$(ps axww | grep [p]ing | awk '{print $1}')                   <span class="cmt"># ping 的 PID (w/o grep pid)</span>
 IP=$(ifconfig $INTERFACE | sed '/.*inet addr:/!d;s///;s/ .*//')   <span class="cmt"># Linux</span>
 IP=$(ifconfig $INTERFACE | sed '/.*inet /!d;s///;s/ .*//')        <span class="cmt"># FreeBSD</span>
-if [ `diff file1 file2 | wc -l` != 0 ]; then [...] fi       <span class="cmt"># File changed?</span>
-cat /etc/master.passwd | grep -v root | grep -v \*: | awk -F":" \ <span class="cmt"># Create http passwd</span>
+if [ `diff file1 file2 | wc -l` != 0 ]; then [...] fi             <span class="cmt"># 文件改变了？</span>
+cat /etc/master.passwd | grep -v root | grep -v \*: | awk -F":" \ <span class="cmt"># 创建 http passwd</span>
 '{ printf("%s:%s\n", $1, $2) }' > /usr/local/etc/apache2/passwd
 
-testuser=$(cat /usr/local/etc/apache2/passwd | grep -v \    <span class="cmt"># Check user in passwd</span>
+testuser=$(cat /usr/local/etc/apache2/passwd | grep -v \    <span class="cmt"># 查看 passwd 中的用户</span>
 root | grep -v \*: | awk -F":" '{ printf("%s\n", $1) }' | grep ^user$)
-:(){ :|:&amp; };:                                <span class="cmt"># bash fork bomb. Will kill your machine</span>
-tail +2 file &gt; file2                         <span class="cmt"># remove the first line from file</span>
+:(){ :|:&amp; };:                                <span class="cmt"># bash fork 炸弹。会干掉你的机器<span class="fn">译注：http://forum.ubuntu.org.cn/viewtopic.php?t=92074</span></span>
+tail +2 file &gt; file2                         <span class="cmt"># 删除文件的第一行</span>
 </pre>
-I use this little trick to change the file extension for many files at once. For example from .cxx to .cpp. Test it first without the <code>| sh</code> at the end. You can also do this with the command <code>rename</code> if installed. Or with bash builtins.
+我使用一种小伎俩来一次更改许多文件的扩展名。举个例子，从 .cxx 到 .cpp。排除最后的 <code>| sh</code> 先测试一下。你同样可以使用命令 <code>rename</code> 来做这些，如果安装了的话。或者使用 bash 内建命令。
 <pre># ls *.cxx | awk -F. '{print "mv "$0" "$1".cpp"}' | sh
-# ls *.c | sed "s/.*/cp &amp; &amp;.$(date "+%Y%m%d")/" | sh <span class="cmt"># e.g. copy *.c to *.c.20080401</span>
-# rename .cxx .cpp *.cxx                             <span class="cmt"># Rename all .cxx to cpp</span>
-# for i in *.cxx; do mv $i ${i%%.cxx}.cpp; done      <span class="cmt"># with bash builtins</span>
+# ls *.c | sed "s/.*/cp &amp; &amp;.$(date "+%Y%m%d")/" | sh <span class="cmt"># 如 拷贝 *.c 成 *.c.20080401</span>
+# rename .cxx .cpp *.cxx                             <span class="cmt"># 重命名所有 .cxx 成 .cpp</span>
+# for i in *.cxx; do mv $i ${i%%.cxx}.cpp; done      <span class="cmt"># bash 内建的</span>
 </pre>
 </div>
 
@@ -3068,7 +3068,7 @@ string IPv4::IPint_to_IPquad(<span class="keyword">unsigned</span> <span class="
 <!-- <div class="pb" /> -->
 
 <div class="footerlast">
-This document: "Unix Toolbox revision 12" is licensed under a <a rel="nofollow" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Licence [Attribution - Share Alike]</a>. &#169; <a href="mailto:c_at_cb.vu">Colin Barschel</a> 2007-2008. Some rights reserved.
+This document: "Unix Toolbox revision 12" is licensed under a <a rel="nofollow" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Licence [Attribution - Share Alike]</a>. &#169; <a href="mailto:c_at_cb.vu">Colin Barschel and Greco Shi</a> 2007-2008. Some rights reserved.
 </div>
 
 </body>

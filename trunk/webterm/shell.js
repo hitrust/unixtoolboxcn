@@ -1023,11 +1023,11 @@ var Shell = (function(){
       clientLastLog = locale.clientLastLog[0].template(Date(), client.ip, clientLocation);
     }
     createCookie('clientlastlog', clientLastLog, 365);
-    
     this.write([
       clientLastLog,
       locale.clientLastLog[1].template(Date(), client.ip, clientLocation),
-      locale.clientLastLog[2],
+      locale.clientLastLog[2],locale.clientLastLog[3],locale.clientLastLog[4],
+      locale.clientLastLog[5],
       '%c()'
     ]);
     this.newLine();
