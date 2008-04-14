@@ -31,8 +31,10 @@
   },
   clientLastLog : [
     '%c(@lightgrey)Last login: {0} from {1}{2}',
-    'OpenBSD (greco@silenceisdefeat.org) #3: {0} from {1}{2}',
-    '%n%n    ----   Welcome to greco@silenceisdefeat.org   ---- (start with "help" if you are lost)'
+    'OpenBSD 4.0 (GENERIC) #0: {0} from {1}{2}',
+    '%n       -- welcome to Greco\'s webpage at: silenceisdefeat.org --',
+    '%n           -- for support email greco.open@gmail.com --',
+    '%n             -- start with "help" if you are lost --'
   ],
   terminalInfo : [
     'Terminal dimentions in px:       {0} x {1} px%n',
