@@ -598,7 +598,7 @@ var Shell = (function(){
     globalterm.rawMode = false;
   }
   function displaycat(content) {
-    globalterm.write('%c(@lightgrey)' + content, false);
+    globalterm.write('%c(@lightgrey)' + content, true);
     globalterm.rawMode = false;
   }
   function catFile(t, ckf) {
