@@ -158,7 +158,32 @@ var root = new FileNode('', 26, 'root', 'wheel', 1024, 'Feb 18 1:15', '/', [
   ])
 ]);
 var httpFilePath = {
-  'about.txt' : 'about.txt'
+  'about.txt' : 'about.txt',
+  'greco.png' : 'greco.png',
+  'index.html' : 'index.html',
+  'lang.js' : 'lang.js',
+  'lang_zh_CN.js' : 'lang_zh_CN.js',
+  'listofbooks.css' : 'listofbooks.css',
+  'listofbooks.html' : 'listofbooks.html',
+  'ls.py shell.js' : 'ls.py shell.js',
+  'shell_var.js' : 'shell_var.js',
+  'terminal.css' : 'terminal.css',
+  'terminal.html' : 'terminal.html',
+  'termlib.js' : 'termlib.js',
+  'termlibc.js' : 'termlibc.js',
+  'unixtoolbox_zh_CN.xhtml' : 'unixtoolbox_zh_CN.xhtml',
+  '0.gif' : 'images/0.gif',
+  '1.gif' : 'images/1.gif',
+  '2.gif' : 'images/2.gif',
+  '3.gif' : 'images/3.gif',
+  '4.gif' : 'images/4.gif',
+  '5.gif' : 'images/5.gif',
+  '6.gif' : 'images/6.gif',
+  '7.gif' : 'images/7.gif',
+  '8.gif' : 'images/8.gif',
+  '9.gif' : 'images/9.gif',
+  'colon.gif' : 'images/colon.gif',
+  's.gif' : 'images/s.gif'
 }
 var pslong = [
 		'%c(@lightgrey)USER   PID \%CPU  \%MEM    VSZ   RSS  TT  STAT STARTED      TIME COMMAND',
