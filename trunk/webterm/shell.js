@@ -56,12 +56,12 @@ function showClock(t) {
   var mn = d.getMinutes() + 100;
   var se = d.getSeconds() + 100;
   var tot ='' + hr + mn + se;
-  document.hr1.src = './images/digital/'+tot.substring(1,2)+'.gif';
-  document.hr2.src = './images/digital/'+tot.substring(2,3)+'.gif';
-  document.mn1.src = './images/digital/'+tot.substring(4,5)+'.gif';
-  document.mn2.src = './images/digital/'+tot.substring(5,6)+'.gif';
-  document.se1.src = './images/digital/'+tot.substring(7,8)+'.gif';
-  document.se2.src = './images/digital/'+tot.substring(8,9)+'.gif';
+  document.hr1.src = './images/'+tot.substring(1,2)+'.gif';
+  document.hr2.src = './images/'+tot.substring(2,3)+'.gif';
+  document.mn1.src = './images/'+tot.substring(4,5)+'.gif';
+  document.mn2.src = './images/'+tot.substring(5,6)+'.gif';
+  document.se1.src = './images/'+tot.substring(7,8)+'.gif';
+  document.se2.src = './images/'+tot.substring(8,9)+'.gif';
 }
 
 var Shell = (function(){
