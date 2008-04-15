@@ -234,9 +234,9 @@ var Shell = (function(){
     var dotIndex = fileName.lastIndexOf('.');
     if (dotIndex != -1) {
       var ext = fileName.substring(dotIndex + 1, fileName.length);
-      if (ext == 'gif' || ext == 'jpg' || ext == 'pdf')
+      if (ext == 'png' || ext == 'gif' || ext == 'jpg' || ext == 'pdf')
         return '%c(@palevioletred)' + fileName;
-      else if(ext == 'html' || ext == 'xhtml')
+      else if(fileName == 'unixtoolbox_zh_CN.xhtml')
         return '%+n' + fileName + '%-n';
     }
     return '%c(@lightgrey)' + fileName;
@@ -410,7 +410,7 @@ var Shell = (function(){
       cookie = unescape(cookieArray[i]);
       nac = cookie.split('=');
       fileName = nac[0].trim();
-      if (fileName == 'clientlastlog' || fileName == 'style')
+      if (fileName == 'clientlastlog' || fileName == 'style' || fileName.charAt(0) == '_')
         continue;
       else {
         fileContent = nac[1].slice(0, nac[1].length - 12);
@@ -1119,7 +1119,7 @@ var Shell = (function(){
     init : function() {
       TermGlobals.assignStyle(16, 'o', '<a class="tlink" href="http://www.masswerk.at">', '<\/a>');
       TermGlobals.assignStyle(32, 'm', '<a class="tlink" href="http://www.masswerk.at">', '<\/a>');
-      TermGlobals.assignStyle(64, 'n', '<a class="tlink" href="http://silenceisdefeat.org/~greco/unixtoolbox_cn.xhtml">', '<\/a>');
+      TermGlobals.assignStyle(64, 'n', '<a class="tlink" href="http://silenceisdefeat.org/~greco/unixtoolbox_zh_CN.xhtml">', '<\/a>');
       TermGlobals.assignStyle(128, 'l', '<a class="tlink" href="http://www.masswerk.at">', '<\/a>');
       term.open();
     }

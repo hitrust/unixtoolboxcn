@@ -90,7 +90,7 @@ var root = new FileNode('', 26, 'root', 'wheel', 1024, 'Feb 18 1:15', '/', [
       new FileNode('drwxr-xr-x', '   23', ' greco', '  www', '  1024', 'Feb 18 18:15', '.', []),
       new FileNode('drwxr-xr-x', '   23', ' greco', '  www', '  1024', 'Feb 18 18:15', '..', []),
       new FileNode('-rw-r-----', '    1', ' greco', '  www', '  1045', 'Feb 15 01:31', 'about.txt', []),
-      new FileNode('-rw-r-----', '    1', ' greco', '  www', '  1045', 'Feb 15 01:31', 'greco.pdf', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', ' 19105', 'Apr 14 22:07', 'greco.png', []),
       new FileNode('drwxr-xr-x', '    3', ' greco', '  www', '   512', 'Mar 31 23:16', 'images', [
         new FileNode('drwxr-xr-x', '    2', ' greco', '  www', '   512', 'Apr  9 03:51', '.', []),
         new FileNode('drwxr-xr-x', '    4', ' greco', '  www', '   512', 'Mar 31 03:43', '..', []),
@@ -106,7 +106,20 @@ var root = new FileNode('', 26, 'root', 'wheel', 1024, 'Feb 18 1:15', '/', [
         new FileNode('-rw-r-----', '    1', ' greco', '  www', '  3325', 'Mar 31 23:16', '9.gif', []),
         new FileNode('-rw-r-----', '    1', ' greco', '  www', '  2359', 'Mar 31 23:15', 'colon.gif', []),
         new FileNode('-rw-r-----', '    1', ' greco', '  www', '    43', 'Mar 31 03:43', 's.gif', [])
-      ])
+      ]),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '   161', 'Apr  9 23:13', 'index.html', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '  7406', 'Apr  9 23:03', 'lang.js', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '   936', 'Apr  9 23:03', 'lang_zh_CN.js', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '   821', 'Apr 14 22:07', 'listofbooks.css', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '  9074', 'Apr 14 22:07', 'listofbooks.html', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '  3553', 'Apr  9 23:03', 'ls.py', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', ' 35227', 'Apr  9 23:03', 'shell.js', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', ' 17218', 'Apr  9 23:03', 'shell_vars.js', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '  1047', 'Apr  9 23:03', 'terminal.css', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '  1772', 'Apr  9 23:03', 'terminal.html', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', ' 71977', 'Apr  9 23:03', 'termlib.js', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', ' 47893', 'Apr  9 23:03', 'termlibc.js', []),
+      new FileNode('-rw-r--r--', '    1', ' greco', '  www', '196029', 'Apr 14 22:06', 'unixtoolbox_zh_CN.xhtml', [])
     ])
   ]),
   new FileNode('drwxr-xr-x', '    2', 'root', 'wheel', '  2048', 'Sep 16  2006', 'sbin', []),
