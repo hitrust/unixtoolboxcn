@@ -423,7 +423,7 @@ Unix Toolbox 版本：12<br />
   <li><a href="#cvs">CVS</a></li>
   <li><a href="#svn">SVN</a></li>
   <li><a href="#other">实用命令</a></li>
-  <li><a href="#software">安装软件</a></li>
+  <li><a href="#software">软件安装</a></li>
   <li><a href="#convert">媒体转换</a></li>
   <li><a href="#printing">打印</a></li>
   <li><a href="#databases">数据库</a></li>
@@ -1780,8 +1780,8 @@ ALL          DESKTOP = NOPASSWD: /sbin/mount /cdrom,/sbin/umount /cdrom
 <pre># gpg --gen-key                      <span class="cmt"># 这需要一些时间</span></pre>
 在 Unix 上密钥存储在 ~/.gnupg/ 中，在 Windows 上通常存储在<br/>
 C:/Documents and Settings/%USERNAME%/Application Data/gnupg/ 中。
-<pre>~/.gnupg/pubring.gpg                 <span class="cmt"># Contains your public keys and all others imported</span>
-~/.gnupg/secring.gpg                 <span class="cmt"># Can contain more than one private key</span>
+<pre>~/.gnupg/pubring.gpg                 <span class="cmt"># 包含你的公钥和所有其他导入的信息</span>
+~/.gnupg/secring.gpg                 <span class="cmt"># 可包含多个私钥</span>
 </pre>
 常用选项的简短描述：
 <ul style="list-style-type: none; page-break-inside: avoid;">
@@ -1791,33 +1791,33 @@ C:/Documents and Settings/%USERNAME%/Application Data/gnupg/ 中。
   <li><b>-a</b> 输出经过 ascii 封装的密钥</li>
   <li><b>-o</b> 指定输出文件</li>
 </ul>
-The examples use 'Your Name' and 'Alice' as the keys are referred to by the email or full name or partial name. For example I can use 'Colin' or 'c@cb.vu' for my key [Colin Barschel (cb.vu) &lt;c@cb.vu&gt;].
+本实例使用'Your Name' 和 'Alice' 作为密钥的 email 或 全名 或 部分名字的参考。举个例子，我可以使用 'Colin' or 'c@cb.vu' 给我的密钥 [Colin Barschel (cb.vu) &lt;c@cb.vu&gt;]。
 <h3>只用于个人的加密</h3>
-No need to export/import any key for this. You have both already.
-<pre># gpg -e -r 'Your Name' file                  <span class="cmt"># Encrypt with your public key</span>
-# gpg -o file -d file.gpg                     <span class="cmt"># Decrypt. Use -o or it goes to stdout</span>
+不需要导出/导入任何密钥，因为你都已经有了。
+<pre># gpg -e -r 'Your Name' file                  <span class="cmt"># 使用你的公钥加密</span>
+# gpg -o file -d file.gpg                     <span class="cmt"># 解密。使用 -o 指定输出文件</span>
 </pre>
 <h3>用密钥加密-解密</h3>
-First you need to export your public key for someone else to use it. And you need to import the public say from Alice to encrypt a file for her. You can either handle the keys in simple ascii files or use a public key server.<br/>
-For example Alice export her public key and you import it, you can then encrypt a file for her. That is only Alice will be able to decrypt it.
-<pre># gpg -a -o alicekey.asc --export 'Alice'     <span class="cmt"># Alice exported her key in ascii file.</span>
-# gpg --send-keys --keyserver subkeys.pgp.net KEYID   <span class="cmt"># Alice put her key on a server.</span>
-# gpg --import alicekey.asc                   <span class="cmt"># You import her key into your pubring.</span>
-# gpg --search-keys --keyserver subkeys.pgp.net 'Alice' <span class="cmt"># or get her key from a server.</span>
+首先你需要导出给别人使用的公钥。并且你需要导入来自 Alice 她所加密文件的公钥。你可以用简单的 ascii 文档或者使用公钥服务器来保存这些密钥。<br/>
+举个例子，Alice 导出她的公钥，然后你导入它，之后你就可以加密一个文件给她。这个加密文件只有 Alice 可以解密。
+<pre># gpg -a -o alicekey.asc --export 'Alice'               <span class="cmt"># Alice 导出她的公钥到 ascii 文件中</span>
+# gpg --send-keys --keyserver subkeys.pgp.net KEYID     <span class="cmt"># Alice 把她的公钥放入一个服务器</span>
+# gpg --import alicekey.asc                             <span class="cmt"># 你导入她的密钥到你的公钥环(pubring)中</span>
+# gpg --search-keys --keyserver subkeys.pgp.net 'Alice' <span class="cmt"># 或者从一个服务器中获取他的公钥</span>
 </pre>
-Once the keys are imported it is very easy to encrypt or decrypt a file:
-<pre># gpg -e -r 'Alice' file                      <span class="cmt"># Encrypt the file for Alice.</span>
-# gpg -d file.gpg -o file                     <span class="cmt"># Decrypt a file encrypted by Alice for you.</span>
+一旦这些公钥导入后，加密或解密一个文件会非常简单：
+<pre># gpg -e -r 'Alice' file                      <span class="cmt"># 给 Alice 加密文件</span>
+# gpg -d file.gpg -o file                     <span class="cmt"># 解密 Alice 给你的加密文件</span>
 </pre>
 <h3>密钥管理</h3>
-<pre># gpg --list-keys                             <span class="cmt"># list public keys and see the KEYIDS</span>
-    <span class="cmt">The KEYID follows the '/' e.g. for: pub   1024D/D12B77CE the KEYID is D12B77CE</span>
-# gpg --gen-revoke 'Your Name'                <span class="cmt"># generate revocation certificate</span>
-# gpg --list-secret-keys                      <span class="cmt"># list private keys</span>
-# gpg --delete-keys NAME                      <span class="cmt"># delete a public key from local key ring</span>
-# gpg --delete-secret-key NAME                <span class="cmt"># delete a secret key from local key ring</span>
-# gpg --fingerprint KEYID                     <span class="cmt"># Show the fingerprint of the key</span>
-# gpg --edit-key KEYID                        <span class="cmt"># Edit key (e.g sign or add/del email)</span>
+<pre># gpg --list-keys                             <span class="cmt"># 列出所有公钥并查看其 KEYID</span>
+    <span class="cmt">KEYID 跟在 '/' 后面 比如：pub   1024D/D12B77CE 它的 KEYID 是 D12B77CE</span>
+# gpg --gen-revoke 'Your Name'                <span class="cmt"># 产生一份撤销密钥证书</span>
+# gpg --list-secret-keys                      <span class="cmt"># 列出所有私钥</span>
+# gpg --delete-keys NAME                      <span class="cmt"># 从本的密钥环中删除一个公钥</span>
+# gpg --delete-secret-key NAME                <span class="cmt"># 从本的密钥环中删除一个私钥</span>
+# gpg --fingerprint KEYID                     <span class="cmt"># 显示 KIYID 这个密钥的指纹</span>
+# gpg --edit-key KEYID                        <span class="cmt"># 编辑密钥(比如签名或者添加/删除 email)</span>
 </pre>
 
 </div>
@@ -2432,61 +2432,61 @@ Be careful with xarg or exec as it might or might not honor quotings and can ret
 </pre>
 </div>
 
-<div id="software"><h1><a>Install Software</a></h1>
-<h2 id="softwarelist">List installed packages</h2>
-<pre># rpm -qa                            <span class="cmt"># List installed packages (RH, SuSE, RPM based)</span>
+<div id="software"><h1><a>软件安装</a></h1>
+<h2 id="softwarelist">列出已安装过的软件包</h2>
+<pre># rpm -qa                            <span class="cmt"># 列出已安装过的软件包(RH, SuSE, 基于 RPM 的)</span>
 # dpkg -l                            <span class="cmt"># Debian, Ubuntu</span>
-# pkg_info                           <span class="cmt"># FreeBSD list all installed packages</span>
-# pkg_info -W smbd                   <span class="cmt"># FreeBSD show which package smbd belongs to</span>
+# pkg_info                           <span class="cmt"># 列出所有已安装过的软件包(FreeBSD)</span>
+# pkg_info -W smbd                   <span class="cmt"># 查看 smbd 安装了那些软件包(FreeBSD)</span>
 # pkginfo                            <span class="cmt"># Solaris</span>
 </pre>
-<h2 id="softwareadd">Add/remove software</h2>
-Front ends: yast2/yast for SuSE, redhat-config-packages for Red Hat.
-<pre># rpm -i pkgname.rpm                 <span class="cmt"># install the package (RH, SuSE, RPM based)</span>
-# rpm -e pkgname                     <span class="cmt"># Remove package</span>
+<h2 id="softwareadd">添加/删除软件</h2>
+前端界面：SuSE 为 yast2/yast，Red Hat 为 redhat-config-packages。
+<pre># rpm -i pkgname.rpm                 <span class="cmt"># 安装软件包(RH, SuSE, 基于 RPM 的)</span>
+# rpm -e pkgname                     <span class="cmt"># 删除软件包</span>
 </pre>
 <h3>Debian</h3>
-<pre># apt-get update                     <span class="cmt"># First update the package lists</span>
-# apt-get install emacs              <span class="cmt"># Install the package emacs</span>
-# dpkg --remove emacs                <span class="cmt"># Remove the package emacs</span>
-# dpkg -S file                       <span class="cmt"># find what package a file belongs to</span>
+<pre># apt-get update                     <span class="cmt"># 更新源列表</span>
+# apt-get install emacs              <span class="cmt"># 安装 emacs 软件包</span>
+# dpkg --remove emacs                <span class="cmt"># 删除 emacs 软件包</span>
+# dpkg -S file                       <span class="cmt"># 查找拥有该 file 的软件包</span>
 </pre>
 <h3>Gentoo</h3>
-Gentoo uses emerge as the heart of its "Portage" package management system.
-<pre># emerge --sync                      <span class="cmt"># First sync the local portage tree</span>
-# emerge -u packagename              <span class="cmt"># Install or upgrade a package</span>
-# emerge -C packagename              <span class="cmt"># Remove the package</span>
-# revdep-rebuild                     <span class="cmt"># Repair dependencies</span>
+Gentoo 使用 emerge 作为 "Portage" 软件包管理系统的核心。
+<pre># emerge --sync                      <span class="cmt"># 同步更新本地 protage 树</span>
+# emerge -u packagename              <span class="cmt"># 安装或更新一个软件包</span>
+# emerge -C packagename              <span class="cmt"># 删除软件包</span>
+# revdep-rebuild                     <span class="cmt"># 修复依赖关系的缺失</span>
 </pre>
 <h3>Solaris</h3>
-The &lt;cdrom&gt; path is usually <code>/cdrom/cdrom0</code>.
+&lt;cdrom&gt; 路径通常为 <code>/cdrom/cdrom0</code>.
 <pre># pkgadd -d &lt;cdrom&gt;/Solaris_9/Product SUNWgtar
-# pkgadd -d SUNWgtar                 <span class="cmt"># Add downloaded package (bunzip2 first)</span>
-# pkgrm SUNWgtar                     <span class="cmt"># Remove the package</span>
+# pkgadd -d SUNWgtar                 <span class="cmt"># 添加下载的软件包(先要 bunzip2)</span>
+# pkgrm SUNWgtar                     <span class="cmt"># 删除软件包</span>
 </pre>
 <h3>FreeBSD</h3>
-<pre># pkg_add -r rsync                   <span class="cmt"># Fetch and install rsync.</span>
-# pkg_delete /var/db/pkg/rsync-xx    <span class="cmt"># Delete the rsync package</span>
+<pre># pkg_add -r rsync                   <span class="cmt"># 获取并安装 rsync</span>
+# pkg_delete /var/db/pkg/rsync-xx    <span class="cmt"># 删除 rsync 软件包</span>
 </pre>
-Set where the packages are fetched from with the <code>PACKAGESITE</code> variable. For example:
+可使用 <code>PACKAGESITE</code> 环境变量来设置哪里可以获取软件包。举个例子：
 <pre># export PACKAGESITE=ftp://ftp.freebsd.org/pub/FreeBSD/ports/i386/packages/Latest/ 
 # or ftp://ftp.freebsd.org/pub/FreeBSD/ports/i386/packages-6-stable/Latest/
 </pre>
 <h3>FreeBSD ports</h3>
-The port tree <code>/usr/ports/</code> is a collection of software ready to compile and install. The ports are updated with the program <code>portsnap</code>.
-<pre># portsnap fetch extract             <span class="cmt"># Create the tree when running the first time</span>
-# portsnap fetch update              <span class="cmt"># Update the port tree</span>
-# cd /usr/ports/net/rsync/           <span class="cmt"># Select the package to install</span>
-# make install distclean             <span class="cmt"># Install and cleanup (also see man ports)</span>
-# make package                       <span class="cmt"># Make a binary package for the port</span>
+Port 树 <code>/usr/ports/</code> 是一个准备编译和安装的软件集。可用 <code>portsnap</code> 工具来跟新 port。
+<pre># portsnap fetch extract             <span class="cmt"># 当第一次运行这个命令，会创建 port 树</span>
+# portsnap fetch update              <span class="cmt"># 跟新 port 树</span>
+# cd /usr/ports/net/rsync/           <span class="cmt"># 选择软件安装目录</span>
+# make install distclean             <span class="cmt"># 安装并清理(也可看 man ports)</span>
+# make package                       <span class="cmt"># Make 一个二进制软件包</span>
 </pre>
 
-<h2 id="librarypath">Library path</h2>
-Due to complex dependencies and runtime linking, programs are difficult to copy to an other system or distribution. However for small programs with little dependencies, the missing libraries can be copied over. The runtime libraries (and the missing one) are checked with <code>ldd</code> and managed with <code>ldconfig</code>.
-<pre># ldd /usr/bin/rsync                 <span class="cmt"># List all needed runtime libraries</span>
-# ldconfig -n /path/to/libs/         <span class="cmt"># Add a path to the shared libraries directories</span>
+<h2 id="librarypath">库路径</h2>
+由于复杂的依赖关系和运行时链接，程序难于分发或拷贝到其他系统。不过对于较少依赖关系的小程序，缺失的库可被拷贝过去。运行时库(即缺失的库)可用 <code>ldd</code> 和 <code>ldconfig</code> 来检查和管理。
+<pre># ldd /usr/bin/rsync                 <span class="cmt"># 列出所有所需的运行时库</span>
+# ldconfig -n /path/to/libs/         <span class="cmt"># 添加一个路径到共享库目录Add a path to the shared libraries directories</span>
 # ldconfig -m /path/to/libs/         <span class="cmt"># FreeBSD</span>
-# LD_LIBRARY_PATH                    <span class="cmt"># The variable set the link library path</span>
+# LD_LIBRARY_PATH                    <span class="cmt"># 设置连接库路径的环境变量</span>
 </pre>
 </div>
 
@@ -2500,39 +2500,39 @@ Due to complex dependencies and runtime linking, programs are difficult to copy 
 </pre>
 若文档显示良好，通常都可不使用 -f 选项，iconv 会使用本地字符集(char-set)。
 <h2 id="newlines">Unix - DOS 新行</h2>
-Convert DOS (CR/LF) to Unix (LF) newlines within a Unix shell. See also <code>dos2unix</code> and <code>unix2dos</code> if you have them.
+在 Unix Shell 中转换 DOS (CR/LF) 到 Unix (LF) 新行格式。也可使用 <code>dos2unix</code> 和 <code>unix2dos</code> 工具，如果你有它们的话。
 <pre># sed 's/.$//' dosfile.txt &gt; unixfile.txt
 </pre>
-Convert Unix to DOS newlines within a Windows environment. Use sed from mingw or cygwin.
+在 Windows 环境中转换 Unix 到 Dos 新行格式。需要在 mingw 或 cygwin 中使用 sed。
 <pre># sed -n p unixfile.txt &gt; dosfile.txt
 </pre>
 
-<h2>PDF to Jpeg and concatenate PDF files</h2>
-Convert a PDF document with <code>gs</code> (GhostScript) to jpeg (or png) images for each page. Also much shorter with <code>convert</code> (from ImageMagick or GraphicsMagick).
+<h2>PDF 转换成 Jpeg 和 连接一串 PDF 文件</h2>
+用 <code>gs</code> (GhostScript) 工具转换 PDF 文档的每一页成 jpeg (或 png)图像。也可以使用更短的 <code>convert</code> (来自 ImageMagick 或 GraphicsMagick 工具) 命令。
 <pre># gs -dBATCH -dNOPAUSE -sDEVICE=jpeg -r150 -dTextAlphaBits=4 -dGraphicsAlphaBits=4 \
  -dMaxStripSize=8192 -sOutputFile=unixtoolbox_%d.jpg unixtoolbox.pdf
 # convert unixtoolbox.pdf unixtoolbox-%03d.png
-# convert *.jpeg images.pdf          <span class="cmt"># Create a simple PDF with all pictures</span>
+# convert *.jpeg images.pdf          <span class="cmt"># 把所有图片转换成一份简单的 PDF 文档</span>
 </pre>
-Ghostscript can also concatenate multiple pdf files into a single one. This only works well if the PDF files are "well behaved".
+Ghostscript 同样可连接多个 pdf 文件成一份 PDF 文档。这仅可工作于这些 PDF 文件都 "呈现一致(well behaved)" 的情况下。
 <pre># gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=all.pdf \
-file1.pdf file2.pdf ...              <span class="cmt"># On Windows use '#' instead of '='</span>
+file1.pdf file2.pdf ...              <span class="cmt"># 在 Windows 上使用 '#' 代替 '='</span>
 </pre>
 
 <h2>视频转换</h2>
-Compress the Canon digicam video with an mpeg4 codec and repair the crappy sound.
+使用 mpeg4 编码压缩佳能数码相机视频并修复无用音质。
 <pre># mencoder -o videoout.avi -oac mp3lame -ovc lavc -srate 11025 \
 -channels 1 -af-adv force=1 -lameopts preset=medium -lavcopts \
 vcodec=msmpeg4v2:vbitrate=600 -mc 0 vidoein.AVI
 </pre>
-See <a href="http://sox.sourceforge.net/">sox</a> for sound processing.
+对于声音的处理可看 <a href="http://sox.sourceforge.net/">sox</a>。
 
-<h2>Copy an audio cd</h2>
-The program <a rel="nofollow" href="http://xiph.org/paranoia/"><code>cdparanoia</code></a><span class="fn">http://xiph.org/paranoia/</span> can save the audio tracks (FreeBSD port in audio/cdparanoia/), <code>oggenc</code> can encode in Ogg Vorbis format, <code>lame</code> converts to mp3.
-<pre># cdparanoia -B                      <span class="cmt"># Copy the tracks to wav files in current dir</span>
-# lame -b 256 in.wav out.mp3         <span class="cmt"># Encode in mp3 256 kb/s</span>
+<h2>拷贝音频光盘</h2>
+程序 <a rel="nofollow" href="http://xiph.org/paranoia/"><code>cdparanoia</code></a><span class="fn">http://xiph.org/paranoia/</span> 可以保存音轨(FreeBSD port 在 audio/cdparanoia/)，<code>oggenc</code> 可编码 Ogg Vorbis 格式，<code>lame</code> 可转换成 mp3。
+<pre># cdparanoia -B                      <span class="cmt"># 拷贝音轨成 wav 文件到当前目录列表(dir)</span>
+# lame -b 256 in.wav out.mp3         <span class="cmt"># 编码成 256 kb/s 的 mp3</span>
 # for i in *.wav; do lame -b 256 $i `basename $i .wav`.mp3; done
-# oggenc in.wav -b 256 out.ogg       <span class="cmt"># Encode in Ogg Vorbis 256 kb/s</span>
+# oggenc in.wav -b 256 out.ogg       <span class="cmt"># 编码成 256 kb/s 的 Ogg Vorbis</span>
 </pre>
 </div>
 
