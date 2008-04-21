@@ -2205,19 +2205,19 @@ A new project, that is a directory with some files, is imported into the reposit
 
 </div>
 
-<div id="other"><h1><a>Useful Commands</a></h1>
-<p class="xrefp"><a class="xrefp" href="#less">less</a> | <a class="xrefp" href="#vi">vi</a> | <a class="xrefp" href="#mail">mail</a> | <a class="xrefp" href="#tar">tar</a> | <a class="xrefp" href="#dd">dd</a> | <a class="xrefp" href="#screen">screen</a> | <a class="xrefp" href="#find">find</a> | <a class="xrefp" href="#misccmd">Miscellaneous</a></p>
+<div id="other"><h1><a>实用命令</a></h1>
+<p class="xrefp"><a class="xrefp" href="#less">less</a> | <a class="xrefp" href="#vi">vi</a> | <a class="xrefp" href="#mail">mail</a> | <a class="xrefp" href="#tar">tar</a> | <a class="xrefp" href="#dd">dd</a> | <a class="xrefp" href="#screen">screen</a> | <a class="xrefp" href="#find">find</a> | <a class="xrefp" href="#misccmd">混杂的</a></p>
 <h2 id="less">less</h2>
-The <code>less</code> command displays a text document on the console. It is present on most installation.
+<code>less</code> 命令用来在控制台中分屏显示文本文档。它在许多发行版中可用。
 <pre># less unixtoolbox.xhtml</pre>
-Some important commands are (^N stands for [control]-[N]):
+一些重要指令(^N 代表 [control]-[N])：
 <ul style="list-style-type: none;">
-  <li><strong>h  H</strong> &#160; &#160; &#160; good help on display</li>
-  <li><strong>f  ^F  ^V  SPACE</strong> &#160; &#160; &#160; Forward  one window (or N lines).</li>
-  <li><strong>b  ^B  ESC-v</strong> &#160; &#160; &#160; Backward one window (or N lines).</li>
-  <li><strong>F</strong> &#160; &#160; &#160; Forward forever; like "tail -f".</li>
-  <li><strong>/pattern</strong> &#160; &#160; &#160; Search forward for (N-th) matching line.</li>
-  <li><strong>?pattern</strong> &#160; &#160; &#160; Search backward for (N-th) matching line.</li>
+  <li><strong>h  H</strong> &#160; &#160; &#160; 显示指令的汇总列表</li>
+  <li><strong>f  ^F  ^V  SPACE</strong> &#160; &#160; &#160; 向前滚动一屏(或者 N 行)</li>
+  <li><strong>b  ^B  ESC-v</strong> &#160; &#160; &#160; 向后滚动一屏(或者 N 行)</li>
+  <li><strong>F</strong> &#160; &#160; &#160; 向前滚动；类似于"tail -f"</li>
+  <li><strong>/pattern</strong> &#160; &#160; &#160; 向前搜索Search forward for (N-th) matching line.</li>
+  <li><strong>?pattern</strong> &#160; &#160; &#160; 向后搜索Search backward for (N-th) matching line.</li>
   <li><strong>n</strong> &#160; &#160; &#160; Repeat previous search (for N-th occurrence).</li>
   <li><strong>N</strong> &#160; &#160; &#160; Repeat previous search in reverse direction.</li>
   <li><strong>q</strong> &#160; &#160; &#160; quit</li>
@@ -2229,9 +2229,9 @@ Vi is present on ANY Linux/Unix installation (not gentoo?) and it is therefore u
 The editors <code>nano</code> and <code>pico</code> are usually available too and are easier (IMHO) to use.
 <h3>Quit</h3>
 <ul style="list-style-type: none;">
-  <li><strong>:w</strong> newfilename &#160; &#160; &#160; save the file to newfilename</li>
-  <li><strong>:wq or :x</strong> &#160; &#160; &#160; save and quit</li>
-  <li><strong>:q!</strong> &#160; &#160; &#160; quit without saving</li>
+  <li><strong>:w</strong> newfilename &#160; &#160; &#160; 保存文件为 newfilename</li>
+  <li><strong>:wq or :x</strong> &#160; &#160; &#160; 保存并退出</li>
+  <li><strong>:q!</strong> &#160; &#160; &#160; 退出但不保存</li>
 </ul>
 <h3>Search and move</h3>
 <ul style="list-style-type: none;">
@@ -2246,18 +2246,18 @@ The editors <code>nano</code> and <code>pico</code> are usually available too an
   <li><strong>G</strong> &#160; &#160; &#160; Move to the last line of the file</li>
   <li><strong>:%s/OLD/NEW/g</strong> &#160; &#160; &#160; Search and replace every occurrence</li>
 </ul>
-<h3>Delete text</h3>
+<h3>删除文本</h3>
 <ul style="list-style-type: none;">
-  <li><strong>dd</strong> &#160; &#160; &#160; delete current line</li>
+  <li><strong>dd</strong> &#160; &#160; &#160; 删除当前行</li>
   <li><strong>D</strong> &#160; &#160; &#160; Delete to the end of the line</li>
-  <li><strong>dw</strong> &#160; &#160; &#160; Delete word</li>
-  <li><strong>x</strong> &#160; &#160; &#160; Delete character</li>
+  <li><strong>dw</strong> &#160; &#160; &#160; 删除单词</li>
+  <li><strong>x</strong> &#160; &#160; &#160; 删除字符</li>
   <li><strong>u</strong> &#160; &#160; &#160; Undo last</li>
   <li><strong>U</strong> &#160; &#160; &#160; Undo all changes to current line</li>
 </ul>
 
 <h2 id="mail">mail</h2>
-The <code>mail</code> command is a basic application to read and send email, it is usually installed. To send an email simply type "mail user@domain". The first line is the subject, then the mail content. Terminate and send the email with a single dot (.) in a new line. Example:
+<code>mail</code> 命令是一个读取和发送邮件的应用程序，她通常已安装。要发送一封邮件，可以简单的输入 "mail user@domain"。其第一行为主题，然后是邮件内容。在一个新行中使用单个点(.)来结束并发送邮件。例子：
 <pre># mail c@cb.vu
 Subject: Your text is full of typos
 "For a moment, nothing happened. Then, after a second or so, 
@@ -2266,9 +2266,9 @@ nothing continued to happen."
 EOT
 #
 </pre>
-This is also working with a pipe:
+这同样可用于管道：
 <pre># echo "This is the mail body" | mail c@cb.vu</pre>
-This is also a simple way to test the mail server.
+也是测试邮件服务器的简单方法。
 
 <h2 id="tar">tar</h2>
 The command <code>tar</code> (tape archive) creates and extracts archives of file and directories. The archive .tar is uncompressed, a compressed archive has the extension .tgz or .tar.gz (zip) or .tbz (bzip2). Do not use absolute path when creating an archive, you probably want to unpack it somewhere else. Some typical commands are:
@@ -2408,7 +2408,7 @@ Be careful with xarg or exec as it might or might not honor quotings and can ret
 # find . -type f -print0 | xargs -0 ls -l  <span class="cmt"># Will work with spaces in names</span>
 # find . -type f -exec ls -l '{}' \; <span class="cmt"># Or use quotes '{}' with -exec</span>
 </pre>
-<h2 id="misccmd">Miscellaneous</h2>
+<h2 id="misccmd">混杂的</h2>
 <pre># which command                      <span class="cmt"># Show full path name of command</span>
 # time command                       <span class="cmt"># See how long a command takes to execute</span>
 # time cat                           <span class="cmt"># Use time as stopwatch. Ctrl-c to stop</span>
@@ -2490,19 +2490,16 @@ Due to complex dependencies and runtime linking, programs are difficult to copy 
 </pre>
 </div>
 
-<div id="convert"><h1><a>Convert Media</a></h1>
-Sometimes one simply need to convert a video, audio file or document to another format.
-<h2 id="encoding">Text encoding</h2>
-Text encoding can get totally wrong, specially when the language requires
-special characters like àäç. The command <code>iconv</code> can convert from
-one encoding to an other.
+<div id="convert"><h1><a>媒体转换</a></h1>
+有时候需要转换一个视频、音频文件或者文档成其他格式。
+<h2 id="encoding">文本编码</h2>
+文本编码可以得到完全错误的，特别是当语言需要某些特殊字符像 àäç。命令 <code>iconv</code> 可以从一个编码转换成另一个编码。
 <pre># iconv -f &lt;from_encoding&gt; -t &lt;to_encoding&gt; &lt;input_file&gt;
 # iconv -f ISO8859-1 -t UTF-8 -o file.input &gt; file_utf8
-# iconv -l                           <span class="cmt"># List known coded character sets</span>
+# iconv -l                           <span class="cmt"># 列显系统所支持的字符编码</span>
 </pre>
-Without the -f option, iconv will use the local char-set, which is usually fine
-if the document displays well.
-<h2 id="newlines">Unix - DOS newlines</h2>
+若文档显示良好，通常都可不使用 -f 选项，iconv 会使用本地字符集(char-set)。
+<h2 id="newlines">Unix - DOS 新行</h2>
 Convert DOS (CR/LF) to Unix (LF) newlines within a Unix shell. See also <code>dos2unix</code> and <code>unix2dos</code> if you have them.
 <pre># sed 's/.$//' dosfile.txt &gt; unixfile.txt
 </pre>
@@ -2522,7 +2519,7 @@ Ghostscript can also concatenate multiple pdf files into a single one. This only
 file1.pdf file2.pdf ...              <span class="cmt"># On Windows use '#' instead of '='</span>
 </pre>
 
-<h2>Convert video</h2>
+<h2>视频转换</h2>
 Compress the Canon digicam video with an mpeg4 codec and repair the crappy sound.
 <pre># mencoder -o videoout.avi -oac mp3lame -ovc lavc -srate 11025 \
 -channels 1 -af-adv force=1 -lameopts preset=medium -lavcopts \
@@ -2539,21 +2536,21 @@ The program <a rel="nofollow" href="http://xiph.org/paranoia/"><code>cdparanoia<
 </pre>
 </div>
 
-<div id="printing"><h1><a>Printing</a></h1>
-<h2>Print with lpr</h2>
-<pre style="page-break-inside: avoid;"># lpr unixtoolbox.ps                 <span class="cmt"># Print on default printer</span>
-# export PRINTER=hp4600              <span class="cmt"># Change the default printer</span>
-# lpr -Php4500 #2 unixtoolbox.ps     <span class="cmt"># Use printer hp4500 and print 2 copies</span>
-# lpr -o Duplex=DuplexNoTumble ...   <span class="cmt"># Print duplex along the long side</span>
+<div id="printing"><h1><a>打印</a></h1>
+<h2>打印命令 lpr</h2>
+<pre style="page-break-inside: avoid;"># lpr unixtoolbox.ps                 <span class="cmt"># 用默认打印机打印</span>
+# export PRINTER=hp4600              <span class="cmt"># 更改默认打印机</span>
+# lpr -Php4500 #2 unixtoolbox.ps     <span class="cmt"># 指定打印机 hp4500 并打印 2 份</span>
+# lpr -o Duplex=DuplexNoTumble ...   <span class="cmt"># 启用双面打印</span>
 # lpr -o PageSize=A4,Duplex=DuplexNoTumble ...
-# lpq                                <span class="cmt"># Check the queue on default printer</span>
-# lpq -l -Php4500                    <span class="cmt"># Queue on printer hp4500 with verbose</span>
-# lprm -                             <span class="cmt"># Remove all users jobs on default printer</span>
-# lprm -Php4500 3186                 <span class="cmt"># Remove job 3186. Find job nbr with lpq</span>
-# lpc status                         <span class="cmt"># List all available printers</span>
-# lpc status hp4500                  <span class="cmt"># Check if printer is online and queue length</span>
+# lpq                                <span class="cmt"># 查看默认打印机的队列</span>
+# lpq -l -Php4500                    <span class="cmt"># 详细显示打印机队列信息</span>
+# lprm -                             <span class="cmt"># 删除所有打印机内的用户打印作业</span>
+# lprm -Php4500 3186                 <span class="cmt"># 删除作业 3186。可使用 lpq 查看作业号</span>
+# lpc status                         <span class="cmt"># 列印所有可用打印机</span>
+# lpc status hp4500                  <span class="cmt"># 如果打印机在线，查看其状态和列队长度</span>
 </pre>
-Some devices are not postscript and will print garbage when fed with a pdf file. This might be solved with:
+当要打印 PDF 文件时，一些打印设备不具备处理 postscript 的能力。可以这样解决<span class="fn">译注：此例事实上利用管道(pipe)方式将 PDF 的转换结果利用 -sOutputFile 选项导入给 lpr 打印。</span>：
 <pre># gs -dSAFER -dNOPAUSE -sDEVICE=deskjet -sOutputFile=\|lpr file.pdf</pre>
 </div>
 
@@ -2561,33 +2558,33 @@ Some devices are not postscript and will print garbage when fed with a pdf file.
 <h2 id="pgsql">PostgreSQL</h2>
 <h3>更改 root 用户或其它用户的密码</h3>
 <pre># psql -d template1 -U pgsql
-&gt; alter user pgsql with password 'pgsql_password';  <span class="cmt"># Use username instead of "pgsql"</span>
+&gt; alter user pgsql with password 'pgsql_password';  <span class="cmt"># pgsql 为需要更改密码的用户名</span>
 </pre>
 <h3>创建用户和数据库</h3>
-The commands <code>createuser</code>, <code>dropuser</code>, <code>createdb</code> and <code>dropdb</code> are convenient shortcuts equivalent to the SQL commands. The new user is bob with database bobdb ; use as root with pgsql the database super user:
-<pre># createuser -U pgsql -P bob         <span class="cmt"># -P will ask for password</span>
-# createdb -U pgsql -O bob bobdb     <span class="cmt"># new bobdb is owned by bob</span>
-# dropdb bobdb                       <span class="cmt"># Delete database bobdb</span>
-# dropuser bob                       <span class="cmt"># Delete user bob</span>
+命令 <code>createuser</code>, <code>dropuser</code>, <code>createdb</code> 和 <code>dropdb</code> 等同于 SQL 命令<span class="fn">译注：其实是一个 Shell 脚本</span>的快捷方式。我们创建一个新用户叫 bob 和一个数据库叫 bobdb；使用数据库的超级用户 pgsql 来创建：
+<pre># createuser -U pgsql -P bob         <span class="cmt"># -P 会请求一个秘密</span>
+# createdb -U pgsql -O bob bobdb     <span class="cmt"># 新数据库 bobdn 的所有者是 bob<span class="fn">译注：通常，执行这个命令的数据库用户成为新数据库的所有者。不过，如果执行用户拥有合适的权限，那么他可以通过 -O 指定合适的用户。</span></span>
+# dropdb bobdb                       <span class="cmt"># 删除数据库 bobdb</span>
+# dropuser bob                       <span class="cmt"># 删除用户 bob</span>
 </pre>
-The general database authentication mechanism is configured in pg_hba.conf
+一般数据库认证机制配置在 pg_hba.conf 文件中。
 <h3>允许远程访问</h3>
-The file <code>$PGSQL_DATA_D/postgresql.conf</code> specifies the address to bind to. Typically <code>listen_addresses = '*'</code> for Postgres 8.x.<br/>
-The file <code>$PGSQL_DATA_D/pg_hba.conf</code> defines the access control. Examples:
+文件 <code>$PGSQL_DATA_D/postgresql.conf</code> 可指定绑定地址。对于 Postgres 8.x 通常为 <code>listen_addresses = '*'</code>。<br/>
+文件 <code>$PGSQL_DATA_D/pg_hba.conf</code> 定义了访问控制。举例：
 <pre># TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK          METHOD
 host    bobdb       bob        212.117.81.42     255.255.255.255   password
 host    all         all        0.0.0.0/0                           password
 </pre>
 <h3>备份和恢复</h3>
-The backups and restore are done with the user pgsql or postgres. Backup and restore a single database:
+使用 pgsql 或 postgres 用户来完成备份与恢复。下面是备份和恢复单个数据库：
 <pre># pg_dump --clean dbname &gt; dbname_sql.dump
 # psql dbname &lt; dbname_sql.dump
 </pre>
-Backup and restore all databases (including users):
+备份和恢复所有数据库(包括用户)：
 <pre># pg_dumpall --clean &gt; full.dump
 # psql -f full.dump postgres
 </pre>
-In this case the restore is started with the database postgres which is better when reloading an empty cluster.
+在这个例子中，你可以声明任意现有的数据库进行连接，但是如果你是向一个空的数据库集群装载，那么 postgres 应该是比较好的选择。
 
 <h2 id="mysql">MySQL</h2>
 <h3>更改 mysql root 用户或其它用户的密码</h3>
@@ -2617,11 +2614,11 @@ In this case the restore is started with the database postgres which is better w
 <span class="cmt">mysql&gt;</span> FLUSH PRIVILEGES;
 </pre>
 <h3>允许远程访问</h3>
-远程访问通常为运行一个数据库，而不是所有的数据库。文件 <code>/etc/my.cnf</code> 包含约定的 IP 地址。Typically comment the line <code>bind-address =</code> out.
+远程访问通常允许单个数据库，而不是所有的数据库。文件 <code>/etc/my.cnf</code> 包含约定的 IP 地址。通常为 <code>bind-address =</code> 绑定地址。
 <pre># mysql -u root mysql
 <span class="cmt">mysql&gt;</span> GRANT ALL ON bobdb.* TO bob@'xxx.xxx.xxx.xxx' IDENTIFIED BY 'PASSWORD';
 <span class="cmt">mysql&gt;</span> REVOKE GRANT OPTION ON foo.* FROM bar@'xxx.xxx.xxx.xxx';
-<span class="cmt">mysql&gt;</span> FLUSH PRIVILEGES;                  <span class="cmt"># Use 'hostname' or also '%' for full access</span>
+<span class="cmt">mysql&gt;</span> FLUSH PRIVILEGES;                  <span class="cmt"># 使用 'hostname' 也可为 '%' 来完全访问</span>
 </pre>
 <h3>备份和恢复</h3>
 备份和恢复单个数据库：
@@ -2632,22 +2629,22 @@ In this case the restore is started with the database postgres which is better w
 <pre># mysqldump -u root -psecret --add-drop-database --all-databases &gt; full.dump
 # mysql -u root -psecret &lt; full.dump
 </pre>
-Here is "secret" the mysql root password, there is no space after -p. When the -p option is used alone (w/o password), the password is asked at the command prompt.
+这里 mysql root 的密码为 "secret"，-p 选项后面没有空格。当单独使用 -p 选项(不跟密码)，命令行提示符后会要求输入密码。
 
 <h2 id="sqlite">SQLite</h2>
-<a href="http://www.sqlite.org/">SQLite</a><span class="fn">http://www.sqlite.org</span> is a small powerfull self-contined, serverless, zero-configuration SQL database.
-<h3>Dump and restore</h3>
-It can be useful to dump and restore an SQLite database. For example you can edit the dump file to change a column attribute or type and then restore the database. This is easier than messing with SQL commands. Use the command <code>sqlite3</code> for a 3.x database.
-<pre># sqlite database.db .dump &gt; dump.sql              <span class="cmt"># dump</span>
-# sqlite database.db &lt; dump.sql                    <span class="cmt"># restore</span>
+<a href="http://www.sqlite.org/">SQLite</a><span class="fn">http://www.sqlite.org</span> 是一个小而强大的、独立的(self-contained)、无服务器的(serverless)、零配置的(zero-configuration) SQL 数据库。
+<h3>备份和恢复</h3>
+实用备份和恢复 SQLite 数据库命令。举个例子，你可以编辑备份文件来修改字段的属性和类型，然后再恢复这个数据库。这比使用 SQL 命令来得容易。对于 3.x 数据库可使用 <code>sqlite3</code>。
+<pre># sqlite database.db .dump &gt; dump.sql              <span class="cmt"># 备份</span>
+# sqlite database.db &lt; dump.sql                    <span class="cmt"># 恢复</span>
 </pre>
-<h3>Convert 2.x to 3.x database</h3>
+<h3>转换 2.x 到 3.x 数据库</h3>
 <pre>sqlite database_v2.db .dump | sqlite3 database_v3.db</pre>
 </div>
 
-<div id="quota"><h1><a>Disk Quota</a></h1>
+<div id="quota"><h1><a>磁盘限额</a></h1>
 A disk quota allows to limit the amount of disk space and/or the number of files a user or (or member of group) can use. The quotas are allocated on a per-file system basis and are enforced by the kernel.
-<h2>Linux setup</h2>
+<h2>Linux 设置</h2>
 The quota tools package usually needs to be installed, it contains the command line tools.<br/>
 Activate the user quota in the fstab and remount the partition. If the partition is busy, either all locked files must be closed, or the system must be rebooted. Add <code>usrquota</code> to the fstab mount options, for example:
 <pre>/dev/sda2     /home    reiserfs     rw,acl,user_xattr,usrquota 1 1
@@ -2663,7 +2660,7 @@ Activate the quota either with the provided script (e.g. /etc/init.d/quotad on S
 Check that the quota is active with:
 <pre>quota -v</pre>
 
-<h2>FreeBSD setup</h2>
+<h2>FreeBSD 设置</h2>
 The quota tools are part of the base system, however the kernel needs the option quota. If it is not there, add it and <a href="#compilekernel">recompile</a> the kernel.
 <pre>options QUOTA</pre>
 As with Linux, add the quota to the fstab options (userquota, not usrquota):
@@ -2703,67 +2700,67 @@ Users can check their quota by simply typing <code>quota</code> (the file quota.
 </div>
 
 <div id="shells"><h1><a>Shells</a></h1>
-Most Linux distributions use the bash shell while the BSDs use tcsh, the bourne shell is only used for scripts. Filters are very useful and can be piped:
+许多 Linux 发行版使用 BASH Shell，BSD 使用的是 tcsh，Bourne Shell 仅用于脚本。过滤器(Filter)非常有用并且可用于管道(pipe)：
 <ul style="list-style-type:none;">
-  <li><code>grep</code> &#160; Pattern matching</li>
-  <li><code>sed</code> &#160; Search and Replace strings or characters</li>
-  <li><code>cut</code> &#160; Print specific columns from a marker</li>
-  <li><code>sort</code> &#160; Sort alphabetically or numerically</li>
-  <li><code>uniq</code> &#160; Remove duplicate lines from a file</li>
+  <li><code>grep</code> &#160;  &#160;模式匹配</li>
+  <li><code>sed</code> &#160; &#160; 查找并替换字符串或字符</li>
+  <li><code>cut</code> &#160; &#160; 从一个标记开始打印所指定列数据</li>
+  <li><code>sort</code> &#160; &#160;按字母或数字排序</li>
+  <li><code>uniq</code> &#160; &#160;删除一个文件中重复行</li>
 </ul>
-For example used all at once:
+举个例子，一次使用所有命令：
 <pre># ifconfig | sed 's/  / /g' | cut -d" " -f1 | uniq | grep -E "[a-z0-9]+" | sort -r
 # ifconfig | sed '/.*inet addr:/!d;s///;s/ .*//'|sort -t. -k1,1n -k2,2n -k3,3n -k4,4n
 </pre>
-The first character in the sed pattern is a tab. To write a tab on the console, use ctrl-v ctrl-tab.
+sed 的模式字符串中的第一个字符是一个 tab。要在命令控制台中输入 tab，可以使用 ctrl-v ctrl-tab。
 
 <h2 id="bash">bash</h2>
-Redirects and pipes for bash and sh:
-<pre># cmd 1&gt; file                         <span class="cmt"># Redirect stdout to file.</span>
-# cmd 2&gt; file                         <span class="cmt"># Redirect stderr to file.</span>
-# cmd 1&gt;&gt; file                        <span class="cmt"># Redirect and append stdout to file.</span>
-# cmd &amp;&gt; file                         <span class="cmt"># Redirect both stdout and stderr to file.</span>
-# cmd &gt;file 2&gt;&amp;1                      <span class="cmt"># Redirects stderr to stdout and then to file.</span>
-# cmd1 | cmd2                         <span class="cmt"># pipe stdout to cmd2</span>
-# cmd1 2&gt;&amp;1 | cmd2                    <span class="cmt"># pipe stdout and stderr to cmd2</span>
+Bash、sh 的重定向<span class="fn">译注：当执行一个程序时，运行该程序的进程打开了3个文件描述符，分别是：0(标准输入)、1(标准输出)和2(标准错误输出)。重定向输出符号(&gt;)是 1&gt;的简写，它通知 shell 重定向标准输出。类似的，&lt;是 0&lt;的简写，表示重定向标准输入。符号 2&gt;将重定向标准错误输出。</span>和管道：
+<pre># cmd 1&gt; file                         <span class="cmt"># 重定向标准输出到 file。</span>
+# cmd 2&gt; file                         <span class="cmt"># 重定向标准错误输出到 file。</span>
+# cmd 1&gt;&gt; file                        <span class="cmt"># 重定向标准输出并追加到 file。</span>
+# cmd &amp;&gt; file                         <span class="cmt"># 重定向标准输出和标准错误输出到 file。</span>
+# cmd &gt;file 2&gt;&amp;1                      <span class="cmt"># 重定向标准错误输出到标准输出然后重定向到 file。</span>
+# cmd1 | cmd2                         <span class="cmt"># cmd1 的输出通过管道连接到 cmd2 的输入</span>
+# cmd1 2&gt;&amp;1 | cmd2                    <span class="cmt"># cmd1 的输出和错误输出通过管道连接到 cmd2 的输入</span>
 </pre>
-Modify your configuration in ~/.bashrc (it can also be ~/.bash_profile). The following entries are useful, reload with ". .bashrc".
+修改你的配置文件 ~/.bashrc (也可以是 ~/.bash_profile)。下列条目非常有用，使用". .bashrc"重新加载。
 <pre style="page-break-inside:avoid;"># in .bashrc
-bind '"\e[A"':history-search-backward <span class="cmt"># Use up and down arrow to search</span>
-bind '"\e[B"':history-search-forward  <span class="cmt"># the history. Invaluable!</span>
-set -o emacs                          <span class="cmt"># Set emacs mode in bash (see below)</span>
+bind '"\e[A"':history-search-backward <span class="cmt"># 使用上下键查找</span>
+bind '"\e[B"':history-search-forward  <span class="cmt"># 历史命令。无价之宝!</span>
+set -o emacs                          <span class="cmt"># Set emacs mode in bash (看下面)</span>
 set bell-style visible                <span class="cmt"># Do not beep, inverse colors</span>
-    <span class="cmt"># Set a nice prompt like [user@host]/path/todir&gt;</span>
+    <span class="cmt"># 设置一个漂亮的提示符像 [user@host]/path/todir&gt;</span>
 PS1="\[\033[1;30m\][\[\033[1;34m\]\u\[\033[1;30m\]"
 PS1="$PS1@\[\033[0;33m\]\h\[\033[1;30m\]]\[\033[0;37m\]"
 PS1="$PS1\w\[\033[1;30m\]&gt;\[\033[0m\]"
-</pre><pre><span class="cmt"># To check the currently active aliases, simply type alias</span>
+</pre><pre><span class="cmt"># 要检查当前可用别名(alias)，只需简单输入命令 alias</span>
 alias  ls='ls -aF'                    <span class="cmt"># Append indicator (one of */=&gt;@|)</span>
 alias  ll='ls -aFls'                  <span class="cmt"># Listing</span>
 alias  la='ls -all'
 alias ..='cd ..'
 alias ...='cd ../..'
-export HISTFILESIZE=5000              <span class="cmt"># Larger history</span>
-export CLICOLOR=1                     <span class="cmt"># Use colors (if possible)</span>
+export HISTFILESIZE=5000              <span class="cmt"># 巨大的历史记录</span>
+export CLICOLOR=1                     <span class="cmt"># 使用颜色(如果可用)</span>
 export LSCOLORS=ExGxFxdxCxDxDxBxBxExEx
 </pre>
 
 <h2 id="tcsh">tcsh</h2>
-Redirects and pipes for tcsh and csh (simple &gt; and &gt;&gt; are the same as sh):
-<pre># cmd &gt;&amp; file                         <span class="cmt"># Redirect both stdout and stderr to file.</span>
-# cmd &gt;&gt;&amp; file                        <span class="cmt"># Append both stdout and stderr to file.</span>
-# cmd1 | cmd2                         <span class="cmt"># pipe stdout to cmd2</span>
-# cmd1 |&amp; cmd2                        <span class="cmt"># pipe stdout and stderr to cmd2</span>
+Tcsh、csh 的重定向和管道(&gt; 和 &gt;&gt; 同 sh 中一样)：
+<pre># cmd &gt;&amp; file                         <span class="cmt"># 重定向标准输出和标准错误输出到 file。</span>
+# cmd &gt;&gt;&amp; file                        <span class="cmt"># 追加标准输出和标准错误输出到 file。</span>
+# cmd1 | cmd2                         <span class="cmt"># cmd1 的输出通过管道连接到 cmd2 的输入</span>
+# cmd1 |&amp; cmd2                        <span class="cmt"># cmd1 的输出和错误输出通过管道连接到 cmd2 的输入</span>
 </pre>
 
-The settings for csh/tcsh are set in <code>~/.cshrc</code>, reload with "source .cshrc". Examples:
+Csh/tcsh 的设置在 <code>~/.cshrc</code> 中，使用"source .cshrc"来重新加载。例子：
 <pre style="page-break-inside:avoid;"># in .cshrc
 alias  ls      'ls -aF'
 alias  ll      'ls -aFls'
 alias  la      'ls -all'
 alias  ..      'cd ..'
 alias  ...     'cd ../..'
-set   prompt    = "%B%n%b@%B%m%b%/> " <span class="cmt"># like user@host/path/todir></span>
+set   prompt    = "%B%n%b@%B%m%b%/> " <span class="cmt"># 像 user@host/path/todir></span>
 set   history   =  5000
 set   savehist  = ( 6000 merge )
 set   autolist                        <span class="cmt"># Report possible completions with tab</span>
@@ -2788,7 +2785,7 @@ The emacs mode enables to use the emacs keys shortcuts to modify the command pro
   <li>C-y &#160; &#160; &#160; Paste the last thing to be cut (simply paste)</li>
   <li>C-_ &#160; &#160; &#160; Undo</li>
 </ul>
-<i>Note:</i> C- = hold control, M- = hold meta (which is usually the alt or escape key).
+<i>注意:</i> C- = 按住 control 键，M- = 按住 meta (它通常为 alt 或者 escape)键。
 </div>
 
 <div id="scripting"><h1><a>脚本</a></h1>
