@@ -1078,9 +1078,8 @@ var Shell = (function(){
         more,num,ping,ps,pr,pwd,reboot,reload,redim,reset,rm,su,time,top,uname,
         uptime,weather,wetter,whatis,who,whoami
       */
-      //try {
+      try {
         eval('cmd' + cmd.toUpperCase() + '(this)');
-      try{
       } catch (exception) {
         if(FILES_SBIN.indexOf(cmd) != -1)
           this.write(locale.error.denied.template(this.argv[0]));
