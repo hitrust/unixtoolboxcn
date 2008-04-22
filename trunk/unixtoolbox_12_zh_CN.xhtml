@@ -399,8 +399,9 @@ window.onload = initCSS();
 <div class="footerfirst">
 Unix Toolbox 版本：12<br />
 你可以到 <a href="http://cb.vu/unixtoolbox.xhtml">http://cb.vu/unixtoolbox.xhtml</a> 找到本文档的最新版。PDF版本可以替换链接中的.xhtml为 <a href="http://cb.vu/unixtoolbox.pdf">.pdf</a> ，小册子版本可以替换成 <a href="http://cb.vu/unixtoolbox.book.pdf">.book.pdf</a> 。 用双面打印机可将小册子打印成册。<span class="web">这份XHTML页面可以通过CSS3相兼容的应用程序转换成一份漂亮的PDF文档(看 <a class="xref" href="#bourneexample">脚本例子</a>).</span><br />
-错误报告和评论是最欢迎的 - <a href="mailto:c\at\cb.vu">c@cb.vu</a> Colin Barschel.
+错误报告和评论是最欢迎的 - <a href="mailto:c\at\cb.vu">c@cb.vu</a> Colin Barschel.<br />
 你可以到<a href="http://code.google.com/p/unixtoolboxcn/">http://code.google.com/p/unixtoolboxcn/</a>找到中文最新版。<br />
+也可到我的主页获取<a href="http://silenceisdefeat.org/~greco/unixtoolbox_zh_CN.xhtml">http://silenceisdefeat.org/~greco/unixtoolbox_zh_CN.xhtml</a><br />
 关于中文版的任何错误和修正请发送E-Mail到 <a href="mailto:greco.open\at\gmail.com"><![CDATA["Greco Shi" <greco.open@gmail.com>]]></a> 
 
 <p class="copyright">&#169; <a href="mailto:c_at_cb.vu">Colin Barschel and Greco Shi</a> 2007-2008. <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Some rights reserved under Creative Commons</a>.
@@ -1824,19 +1825,19 @@ C:/Documents and Settings/%USERNAME%/Application Data/gnupg/ 中。
 
 <div id="cryptpart"><h1><a>分区加密</a></h1>
 <p class="xrefp"><a class="xrefp" href="#wluks">Linux with LUKS</a> | <a class="xrefp" href="#woluks">Linux dm-crypt only</a> | <a class="xrefp" href="#bsdgeli">FreeBSD GELI</a> | <a class="xrefp" href="#bsdpwd">FreeBSD 只使用密码</a></p>
-There are (many) other alternative methods to encrypt disks, I only show here the methods I know and use. Keep in mind that the security is only good as long the OS has not been tempered with. An intruder could easily record the password from the keyboard events. Furthermore the data is freely accessible when the partition is <i>attached</i> and will not prevent an intruder to have access to it in this state.
+有(许多)其他替代方法来加密磁盘，我只呈现我所知道和使用的方法。请记住，安全只是系统还未经过实际考验而已。入侵者可以轻易通过键盘事件记录密码。此外，当已经加载了分区，其数据是可以自由访问的，并不会阻止入侵者去访问它。
 <h2 id="dm-crypt">Linux</h2>
-Those instructions use the Linux <code>dm-crypt</code> (device-mapper) facility available on the 2.6 kernel. In this example, lets encrypt the partition <code>/dev/sdc1</code>, it could be however any other partition or disk, or USB or a file based partition created with <code>losetup</code>. In this case we would use <code>/dev/loop0</code>. See <a href="#losetup">file image partition</a>. The device mapper uses labels to identify a partition. We use <code>sdc1</code> in this example, but it could be any string.
+这部分我们使用可用于 2.6 内核的 Linux dm-crypt (device-mapper)。在这个实例中，让我们加密 <code>/dev/sdc1</code> 分区，它可为任何其他分区、磁盘、USB或者用 <code>losetup</code> 创建的基于文件的分区。对于基于文件的分区，我们使用 <code>/dev/loop0</code>。看 <a href="#losetup">镜像文件分区</a>。Device mapper 利用标签来标识一个分区。我们使用 <code>sdc1</code> 作为此标签，但可以为任何字符串。
 <h3 id="wluks">dm-crypt with LUKS</h3>
-LUKS with dm-crypt has better encryption and makes it possible to have multiple passphrase for the same partition or to change the password easily. To test if LUKS is available, simply type <code># cryptsetup --help</code>, if nothing about LUKS shows up, use the instructions below <a href="#woluks">Without LUKS</a>. First create a partition if necessary: <code>fdisk /dev/sdc</code>.
-<h4>Create encrypted partition</h4>
-<pre># dd if=/dev/urandom of=/dev/sdc1          <span class="cmt"># Optional. For paranoids only (takes days)</span>
-# cryptsetup -y luksFormat /dev/sdc1       <span class="cmt"># This destroys any data on sdc1</span>
+LUKS 和 dm-crypt 是较好的加密技术，并且可为同一个分区设置多个口令，更改密码也很方便。可简单输入 <code># cryptsetup --help</code> 来测试 LUKS 是否可用。如果没有显示任何关于 LUKS 的信息，可看下面<a href="#woluks">Without LUKS</a> 的介绍。第一步如果需要的话创建一个分区：<code>fdisk /dev/sdc</code>。
+<h4>创建加密分区</h4>
+<pre># dd if=/dev/urandom of=/dev/sdc1          <span class="cmt"># 可选</span>
+# cryptsetup -y luksFormat /dev/sdc1       <span class="cmt"># 这破坏了在 sdc1 上的数据</span>
 # cryptsetup luksOpen /dev/sdc1 sdc1
-# mkfs.ext3 /dev/mapper/sdc1               <span class="cmt"># create ext3 file system</span>
+# mkfs.ext3 /dev/mapper/sdc1               <span class="cmt"># 创建 ext3 文件系统</span>
 # mount -t ext3 /dev/mapper/sdc1 /mnt
 # umount /mnt
-# cryptsetup luksClose sdc1                <span class="cmt"># Detach the encrypted partition</span></pre>
+# cryptsetup luksClose sdc1                <span class="cmt"># Detach 已加密的分区</span></pre>
 <h4>Attach</h4>
 <pre># cryptsetup luksOpen /dev/sdc1 sdc1
 # mount -t ext3 /dev/mapper/sdc1 /mnt</pre>
@@ -1845,68 +1846,68 @@ LUKS with dm-crypt has better encryption and makes it possible to have multiple 
 # cryptsetup luksClose sdc1
 </pre>
 <h3 id="woluks">dm-crypt without LUKS</h3>
-<pre># cryptsetup -y create sdc1 /dev/sdc1      <span class="cmt"># or any other partition like /dev/loop0</span>
-# dmsetup ls                               <span class="cmt"># check it, will display: sdc1 (254, 0)</span>
-# mkfs.ext3 /dev/mapper/sdc1               <span class="cmt"># This is done only the first time!</span>
+<pre># cryptsetup -y create sdc1 /dev/sdc1      <span class="cmt"># 或任何其他分区像 /dev/loop0</span>
+# dmsetup ls                               <span class="cmt"># 检查一下，将显示：sdc1 (254, 0)</span>
+# mkfs.ext3 /dev/mapper/sdc1               <span class="cmt"># 只有第一次要这么做！</span>
 # mount -t ext3 /dev/mapper/sdc1 /mnt
 # umount /mnt/
-# cryptsetup remove sdc1                   <span class="cmt"># Detach the encrypted partition</span>
+# cryptsetup remove sdc1                   <span class="cmt"># Detach 已加密的分区</span>
 </pre>
-Do exactly the same (without the mkfs part!) to re-attach the partition. If the password is not correct, the mount command will fail. In this case simply remove the map sdc1 (<code>cryptsetup remove sdc1</code>) and create it again.
+这样做等同于(非 mkfs 部分) re-attach 分区。如果密码不正确，mount 命令将会失败。对于这个例子，只要简单的移除 sdc1 (<code>cryptsetup remove sdc1</code>)并重建即可。
 <h2 id="bsdgeli">FreeBSD</h2>
-The two popular FreeBSD disk encryption modules are <code>gbde</code> and <code>geli</code>. I now use geli because it is faster and also uses the crypto device for hardware acceleration. See The <a href="http://www.freebsd.org/handbook/disks-encrypting.html">FreeBSD handbook Chapter 18.6</a><span class="fn">http://www.freebsd.org/handbook/disks-encrypting.html</span> for all the details. The geli module must be loaded or compiled into the kernel:
+两个流行的 FreeBSD 磁盘加密模块为 <code>gbde</code> 和 <code>geli</code>。我现在使用 <code>geli</code> 原因是它够快并且它使用加解密硬件加速设备。详情可看 <a href="http://www.freebsd.org/handbook/disks-encrypting.html">FreeBSD 使用手册 18.6</a><span class="fn">http://www.freebsd.org/handbook/disks-encrypting.html</span>。<code>geli</code> 模块必须已编译或加载进内核：
 <pre>options GEOM_ELI
-device crypto                                       <span class="cmt"># or as module:</span>
-# echo 'geom_eli_load="YES"' >> /boot/loader.conf   <span class="cmt"># or do: kldload geom_eli</span>
+device crypto                                       <span class="cmt"># 内核配置文件中加入这两行</span>
+# echo 'geom_eli_load="YES"' >> /boot/loader.conf   <span class="cmt"># 也可以在系统引导时加载或者做：kldload geom_eli</span>
 </pre>
-<h3>Use password and key</h3>
-I use those settings for a typical disk encryption, it uses a passphrase AND a key to encrypt the master key. That is you need both the password and the generated key <code>/root/ad1.key</code> to attach the partition. The master key is stored inside the partition and is not visible. See below for typical USB or file based image.
-<h4>Create encrypted partition</h4>
+<h3>使用密码和密钥</h3>
+我为一个典型的磁盘加密使用这些设置，其使用了一个口令和一个加密主密钥(master key)的密钥。这意味着你需要密码和生产的密钥 <code>/root/ad1.key</code> 来 attach 分区。主密钥存储在这个加密分区中并且不可见。看下面为 USB 或 映像文件的加密设置。
+<h4>创建加密分区</h4>
 <pre>
-# dd if=/dev/random of=/root/ad1.key bs=64 count=1  <span class="cmt"># this key encrypts the mater key</span>
-# geli init -s 4096 -K /root/ad1.key /dev/ad1       <span class="cmt"># -s 8192 is also OK for disks</span>
-# geli attach -k /root/ad1.key /dev/ad1             <span class="cmt"># DO make a backup of /root/ad1.key</span>
-# dd if=/dev/random of=/dev/ad1.eli bs=1m           <span class="cmt"># Optional and takes a long time</span>
-# newfs /dev/ad1.eli                                <span class="cmt"># Create file system</span>
+# dd if=/dev/random of=/root/ad1.key bs=64 count=1  <span class="cmt"># 加密主密钥的密钥</span>
+# geli init -s 4096 -K /root/ad1.key /dev/ad1       <span class="cmt"># 对于磁盘也可用 -s 8192</span>
+# geli attach -k /root/ad1.key /dev/ad1             <span class="cmt"># 将 /dev/ad1 与所生成的密钥 /root/ad1.key 关联</span>
+# dd if=/dev/random of=/dev/ad1.eli bs=1m           <span class="cmt"># 可选，需要很长时间</span>
+# newfs /dev/ad1.eli                                <span class="cmt"># 创建文件系统</span>
 # mount /dev/ad1.eli /mnt
 </pre>
 <h4>Attach</h4>
 <pre># geli attach -k /root/ad1.key /dev/ad1
-# fsck -ny -t ffs /dev/ad1.eli                      <span class="cmt"># In doubt check the file system</span>
+# fsck -ny -t ffs /dev/ad1.eli                      <span class="cmt"># 检查文件系统</span>
 # mount /dev/ad1.eli /mnt
 </pre>
 <h4>Detach</h4>
-The detach procedure is done automatically on shutdown.
+Detach 步骤会在关机时自动完成。
 <pre># umount /mnt
 # geli detach /dev/ad1.eli
 </pre>
 <h4>/etc/fstab</h4>
-The encrypted partition can be configured to be mounted with /etc/fstab. The password will be prompted when booting. The following settings are required for this example:
+加密分区在 /etc/fstab 中配置成自动加载。系统启动时会询问加密分区的密码。对于本例下列设置是必须的：
 <pre># grep geli /etc/rc.conf
 geli_devices="ad1"
 geli_ad1_flags="-k /root/ad1.key"
 # grep geli /etc/fstab
 /dev/ad1.eli         /home/private              ufs             rw      0       0
 </pre>
-<h3 id="bsdpwd">Use password only</h3>
-It is more convenient to encrypt a USB stick or file based image with a passphrase only and no key. In this case it is not necessary to carry the additional key file around. The procedure is very much the same as above, simply without the key file. Let's encrypt a file based image <code>/cryptedfile</code> of 1 GB.
-<pre># dd if=/dev/zero of=/cryptedfile bs=1M count=1000  <span class="cmt"># 1 GB file</span>
+<h3 id="bsdpwd">仅用密码</h3>
+加密一个 USB stick 或者映像文件使用密码而不是密钥来得更方便。这种情况下，没有必要随身携带额外的密钥文件。所做步骤同上面非常相似，只是不需要密钥文件。让我们来加密一个 1 GB 的映像文件<code>/cryptedfile</code>。
+<pre># dd if=/dev/zero of=/cryptedfile bs=1M count=1000  <span class="cmt"># 1 GB 文件</span>
 # mdconfig -at vnode -f /cryptedfile
-# geli init /dev/md0                                <span class="cmt"># encrypts with password only</span>
+# geli init /dev/md0                                <span class="cmt"># 仅用密码加密</span>
 # geli attach /dev/md0
 # newfs -U -m 0 /dev/md0.eli
 # mount /dev/md0.eli /mnt
 # umount /dev/md0.eli
 # geli detach md0.eli
 </pre>
-It is now possible to mount this image on an other system with the password only.
+现在可以把这个映像文件加载成仅需密码的文件系统。
 <pre># mdconfig -at vnode -f /cryptedfile
 # geli attach /dev/md0
 # mount /dev/md0.eli /mnt
 </pre>
 </div>
 
-<div id="certs"><h1><a>SSL Certificates</a></h1>
+<div id="certs"><h1><a>SSL 认证</a></h1>
 So called SSL/TLS certificates are cryptographic public key certificates and are composed of a public and a private key. The certificates are used to authenticate the endpoints and encrypt the data. They are used for example on a web server (https) or mail server (imaps).
 <h2>Procedure</h2>
 <ul>
