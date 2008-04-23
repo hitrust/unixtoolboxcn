@@ -2217,44 +2217,44 @@ A new project, that is a directory with some files, is imported into the reposit
   <li><strong>f  ^F  ^V  SPACE</strong> &#160; &#160; &#160; 向前滚动一屏(或者 N 行)</li>
   <li><strong>b  ^B  ESC-v</strong> &#160; &#160; &#160; 向后滚动一屏(或者 N 行)</li>
   <li><strong>F</strong> &#160; &#160; &#160; 向前滚动；类似于"tail -f"</li>
-  <li><strong>/pattern</strong> &#160; &#160; &#160; 向前搜索Search forward for (N-th) matching line.</li>
-  <li><strong>?pattern</strong> &#160; &#160; &#160; 向后搜索Search backward for (N-th) matching line.</li>
-  <li><strong>n</strong> &#160; &#160; &#160; Repeat previous search (for N-th occurrence).</li>
-  <li><strong>N</strong> &#160; &#160; &#160; Repeat previous search in reverse direction.</li>
-  <li><strong>q</strong> &#160; &#160; &#160; quit</li>
+  <li><strong>/pattern</strong> &#160; &#160; &#160; 向前搜索匹配该模式的行</li>
+  <li><strong>?pattern</strong> &#160; &#160; &#160; 向后搜索匹配该模式的行</li>
+  <li><strong>n</strong> &#160; &#160; &#160; 重复之前的搜索</li>
+  <li><strong>N</strong> &#160; &#160; &#160; 反方向重复之前的搜索</li>
+  <li><strong>q</strong> &#160; &#160; &#160; 退出</li>
 </ul>
 
 
 <h2 id="vi">vi</h2>
-Vi is present on ANY Linux/Unix installation (not gentoo?) and it is therefore useful to know some basic commands. There are two modes: command mode and insertion mode. The commands mode is accessed with <strong>[ESC]</strong>, the insertion mode with <strong>i</strong>. Use <code>: help</code> if you are lost.<br/>
-The editors <code>nano</code> and <code>pico</code> are usually available too and are easier (IMHO) to use.
+Vi 在任何 Linux/Unix 发行安装版(gentoo 没有?)上都存在。因此，我们有必要了解一些基本的命令。Vi 有两个模式：命令模式和插入模式。使用 <strong>[ESC]</strong> 键可进入命令模式，使用 <strong>i</strong> 键可进入插入模式。如果你迷失了，可在命令模式下键入 <code>: help</code>。<br/>
+编辑器 <code>nano</code> 和 <code>pico</code> 通常也都可用，而且更容易(IMHO)使用。
 <h3>Quit</h3>
 <ul style="list-style-type: none;">
   <li><strong>:w</strong> newfilename &#160; &#160; &#160; 保存文件为 newfilename</li>
   <li><strong>:wq or :x</strong> &#160; &#160; &#160; 保存并退出</li>
   <li><strong>:q!</strong> &#160; &#160; &#160; 退出但不保存</li>
 </ul>
-<h3>Search and move</h3>
+<h3>移动和查找</h3>
 <ul style="list-style-type: none;">
-  <li><strong>/string</strong> &#160; &#160; &#160; Search forward for string</li>
-  <li><strong>?string</strong> &#160; &#160; &#160; Search back for string</li>
-  <li><strong>n</strong> &#160; &#160; &#160; Search for next instance of string</li>
-  <li><strong>N</strong> &#160; &#160; &#160; Search for previous instance of string</li>
-  <li><strong>{</strong> &#160; &#160; &#160; Move a paragraph back</li>
-  <li><strong>}</strong> &#160; &#160; &#160; Move a paragraph forward</li>
-  <li><strong>1G</strong> &#160; &#160; &#160; Move to the first line of the file</li>
-  <li><strong>nG</strong> &#160; &#160; &#160; Move to the n th line of the file</li>
-  <li><strong>G</strong> &#160; &#160; &#160; Move to the last line of the file</li>
-  <li><strong>:%s/OLD/NEW/g</strong> &#160; &#160; &#160; Search and replace every occurrence</li>
+  <li><strong>/string</strong> &#160; &#160; &#160; 向前查找 string</li>
+  <li><strong>?string</strong> &#160; &#160; &#160; 向后查找 string</li>
+  <li><strong>n</strong> &#160; &#160; &#160; 同方向重复上一次搜索命令</li>
+  <li><strong>N</strong> &#160; &#160; &#160; 反方向重复上一次搜索命令</li>
+  <li><strong>{</strong> &#160; &#160; &#160; 光标移至段落结尾</li>
+  <li><strong>}</strong> &#160; &#160; &#160; 光标移至段落开头</li>
+  <li><strong>1G</strong> &#160; &#160; &#160; 光标移至文件的第一行首</li>
+  <li><strong>nG</strong> &#160; &#160; &#160; 光标移至文件的第 n 行首</li>
+  <li><strong>G</strong> &#160; &#160; &#160; 光标移至文件的最后一行首</li>
+  <li><strong>:%s/OLD/NEW/g</strong> &#160; &#160; &#160; 替换所有查找到的 OLD 为 NEW</li>
 </ul>
 <h3>删除文本</h3>
 <ul style="list-style-type: none;">
   <li><strong>dd</strong> &#160; &#160; &#160; 删除当前行</li>
-  <li><strong>D</strong> &#160; &#160; &#160; Delete to the end of the line</li>
+  <li><strong>D</strong> &#160; &#160; &#160; 删除光标到当前行末尾的字符</li>
   <li><strong>dw</strong> &#160; &#160; &#160; 删除单词</li>
   <li><strong>x</strong> &#160; &#160; &#160; 删除字符</li>
-  <li><strong>u</strong> &#160; &#160; &#160; Undo last</li>
-  <li><strong>U</strong> &#160; &#160; &#160; Undo all changes to current line</li>
+  <li><strong>u</strong> &#160; &#160; &#160; 回复上一次操作</li>
+  <li><strong>U</strong> &#160; &#160; &#160; 回复所有此行的更改</li>
 </ul>
 
 <h2 id="mail">mail</h2>
@@ -2272,78 +2272,78 @@ EOT
 也是测试邮件服务器的简单方法。
 
 <h2 id="tar">tar</h2>
-The command <code>tar</code> (tape archive) creates and extracts archives of file and directories. The archive .tar is uncompressed, a compressed archive has the extension .tgz or .tar.gz (zip) or .tbz (bzip2). Do not use absolute path when creating an archive, you probably want to unpack it somewhere else. Some typical commands are:
-<h3>Create</h3>
+命令 <code>tar</code> (磁带存档) 可以为文件和目录创建档案。归档文件 .tar 是未压缩的，一个压缩过的归档文件的后缀是 .tgz 或 .tar.gz (zip) 或者 .tbz (bzip2)。不要使用绝对路径建立一个归档文件，你可能要解开这个归档文件到某个地方。一些常用命令如下：
+<h3>创建</h3>
 <pre># cd /
-# tar -cf home.tar home/        <span class="cmt"># archive the whole /home directory (c for create)</span>
-# tar -czf home.tgz home/       <span class="cmt"># same with zip compression</span>
-# tar -cjf home.tbz home/       <span class="cmt"># same with bzip2 compression</span>
+# tar -cf home.tar home/        <span class="cmt"># 归档整个 /home 目录(c 为创建)</span>
+# tar -czf home.tgz home/       <span class="cmt"># 等同于 zip 压缩</span>
+# tar -cjf home.tbz home/       <span class="cmt"># 等同于 bzip2 压缩</span>
 </pre>
-Only include one (or two) directories from a tree, but keep the relative structure. For example archive /usr/local/etc and /usr/local/www and the first directory in the archive should be local/.
+从一个目录树中只包含一个(或2个)目录，并保持相对目录结构。举个例子，/usr/local/etc 和 /usr/local/www，它们在归档文件中的第一层目录是 local/。
 <pre># tar -C /usr -czf local.tgz local/etc local/www
-# tar -C /usr -xzf local.tgz    <span class="cmt"># To untar the local dir into /usr</span>
-# cd /usr; tar -xzf local.tgz   <span class="cmt"># Is the same as above</span>
+# tar -C /usr -xzf local.tgz    <span class="cmt"># 释放 local 目录到 /usr</span>
+# cd /usr; tar -xzf local.tgz   <span class="cmt"># 同上面一样</span>
 </pre>
-<h3>Extract</h3>
-<pre># tar -tzf home.tgz             <span class="cmt"># look inside the archive without extracting (list)</span>
-# tar -xf home.tar              <span class="cmt"># extract the archive here (x for extract)</span>
-# tar -xzf home.tgz             <span class="cmt"># same with zip compression</span>
-# tar -xjf home.tgz             <span class="cmt"># same with bzip2 compression</span>
-# tar -xjf home.tgz home/colin/file.txt    <span class="cmt"># Restore a single file</span>
+<h3>释放(Extract)</h3>
+<pre># tar -tzf home.tgz             <span class="cmt"># 列出归档文件中的所有文件，并不释放</span>
+# tar -xf home.tar              <span class="cmt"># 释放归档文件(x 为释放)</span>
+# tar -xzf home.tgz             <span class="cmt"># 等同于 zip 压缩</span>
+# tar -xjf home.tgz             <span class="cmt"># 等同于 bzip2 压缩</span>
+# tar -xjf home.tgz home/colin/file.txt    <span class="cmt"># 释放单个文件</span>
 </pre>
-<h3>More advanced</h3>
-<pre># tar c dir/ | gzip | ssh user@remote 'dd of=dir.tgz' <span class="cmt"># arch dir/ and store remotely.</span>
-# tar cvf - `find . -print` > backup.tar              <span class="cmt"># arch the current directory.</span>
-# tar -cf - -C /etc . | tar xpf - -C /backup/etc      <span class="cmt"># Copy directories</span>
-# tar -cf - -C /etc . | ssh user@remote tar xpf - -C /backup/etc      <span class="cmt"># Remote copy.</span>
+<h3>更高级的</h3>
+<pre># tar c dir/ | gzip | ssh user@remote 'dd of=dir.tgz' <span class="cmt"># 归档压缩 dir/ 目录并存储到远程主机上</span>
+# tar cvf - `find . -print` > backup.tar              <span class="cmt"># 归档当前目录</span>
+# tar -cf - -C /etc . | tar xpf - -C /backup/etc      <span class="cmt"># 拷贝目录</span>
+# tar -cf - -C /etc . | ssh user@remote tar xpf - -C /backup/etc      <span class="cmt"># 远程拷贝</span>
 # tar -czf home.tgz --exclude '*.o' --exclude 'tmp/' home/
 </pre>
 <h2 id="dd">dd</h2>
-The program <code>dd</code> (disk dump or destroy disk or see <a href="http://roesler-ac.de/wolfram/acro/credits.htm">the meaning of dd</a>) is used to copy partitions and disks and for other copy tricks. Typical usage:
+程序 <code>dd</code> (磁盘备份(disk dump) 或 destroy disk，也可看 <a href="http://roesler-ac.de/wolfram/acro/credits.htm">dd 的含义</a>) 用来拷贝分区、磁盘或者其它拷贝。通常这么用：
 <pre># dd if=&lt;source&gt; of=&lt;target&gt; bs=&lt;byte size&gt; conv=&lt;conversion&gt;</pre>
-Important conv options:
+重要的 conv 选项：
 <ul style="list-style-type: none;">
-  <li><code>notrunc</code> &#160; &#160; &#160; do not truncate the output file, all zeros will be written as zeros.</li>
-  <li><code>noerror</code> &#160; &#160; &#160; continue after read errors (e.g. bad blocks)</li>
-  <li><code>sync</code> &#160; &#160; &#160; pad every input block with Nulls to ibs-size</li>
+  <li><code>notrunc</code> &#160; &#160; &#160; 不截短输出文件</li>
+  <li><code>noerror</code> &#160; &#160; &#160; 出错时不停止处理(e.g. 坏扇区)</li>
+  <li><code>sync</code> &#160; &#160; &#160; 把每个输入块填充到ibs个字节，不足部分用空(NUL)字符补齐</li>
 </ul>
-The default byte size is 512 (one block). The MBR, where the partiton table is located, is on the first block, the first 63 blocks of a disk are empty. Larger byte sizes are faster to copy but require also more memory.
-<h3>Backup and restore</h3>
-<pre># dd if=/dev/hda of=/dev/hdc bs=16065b                <span class="cmt"># Copy disk to disk (same size)</span>
-# dd if=/dev/sda7 of /home/root.img bs=4096 conv=notrunc,noerror <span class="cmt"># Backup /</span>
-# dd if /home/root.img of=/dev/sda7 bs=4096 conv=notrunc,noerror <span class="cmt"># Restore /</span>
-# dd bs=1M if=/dev/ad4s3e | gzip -c &gt; ad4s3e.gz                  <span class="cmt"># Zip the backup</span>
-# gunzip -dc ad4s3e.gz | dd of=/dev/ad0s3e bs=1M                 <span class="cmt"># Restore the zip</span>
-# dd bs=1M if=/dev/ad4s3e | gzip | ssh eedcoba@fry 'dd of=ad4s3e.gz' <span class="cmt"># also remote</span>
+默认字节大小为 512 (一个扇区)。MBR 处于磁盘的第一个扇区，之后的 63 个扇区是空的。较大的字节大小可以加快拷贝速度但也需要更多的内存。
+<h3>备份和恢复</h3>
+<pre># dd if=/dev/hda of=/dev/hdc bs=16065b                <span class="cmt"># 拷贝磁盘到磁盘(相同大小)</span>
+# dd if=/dev/sda7 of /home/root.img bs=4096 conv=notrunc,noerror <span class="cmt"># 备份 /</span>
+# dd if /home/root.img of=/dev/sda7 bs=4096 conv=notrunc,noerror <span class="cmt"># 恢复 /</span>
+# dd bs=1M if=/dev/ad4s3e | gzip -c &gt; ad4s3e.gz                  <span class="cmt"># 压缩备份</span>
+# gunzip -dc ad4s3e.gz | dd of=/dev/ad0s3e bs=1M                 <span class="cmt"># 解压恢复</span>
+# dd bs=1M if=/dev/ad4s3e | gzip | ssh eedcoba@fry 'dd of=ad4s3e.gz' <span class="cmt"># 也可为远程的</span>
 # gunzip -dc ad4s3e.gz | ssh eedcoba@host 'dd of=/dev/ad0s3e bs=1M'
-# dd if=/dev/ad0 of=/dev/ad2 skip=1 seek=1 bs=4k conv=noerror    <span class="cmt"># Skip MBR</span>
-    <span class="cmt"># This is necessary if the destination (ad2) is smaller.</span>
+# dd if=/dev/ad0 of=/dev/ad2 skip=1 seek=1 bs=4k conv=noerror    <span class="cmt"># 忽略 MBR</span>
+    <span class="cmt"># 如果目标(ad2)比较小，这是必须的。</span>
 </pre>
 
-<h3>Recover</h3>
+<h3>恢复</h3>
 The command <code>dd</code> will read <i>every single block</i> of the partiton, even the blocks. In case of problems it is better to use the option <code>conv=sync,noerror</code> so dd will skip the bad block and write zeros at the destination. Accordingly it is important to set the block size equal or smaller than the disk block size. A 1k size seems safe, set it with <code>bs=1k</code>. If a disk has bad sectors and the data should be recovered from a partiton, create an image file with dd, mount the image and copy the content to a new disk. With the option <code>noerror</code>, dd will skip the bad sectors and write zeros instead, thus only the data contained in the bad sectors will be lost.
 
-<pre># dd if=/dev/hda of=/dev/null bs=1m                   <span class="cmt"># Check for bad blocks</span>
-# dd bs=1k if=/dev/hda1 conv=sync,noerror,notrunc | gzip | ssh \ <span class="cmt"># Send to remote</span>
+<pre># dd if=/dev/hda of=/dev/null bs=1m                   <span class="cmt"># 检查坏扇区</span>
+# dd bs=1k if=/dev/hda1 conv=sync,noerror,notrunc | gzip | ssh \ <span class="cmt"># 发送到远程</span>
 root@fry 'dd of=hda1.gz bs=1k'
-# dd bs=1k if=/dev/hda1 conv=sync,noerror,notrunc of=hda1.img    <span class="cmt"># Store into an image</span>
-# mount -o loop /hda1.img /mnt                        <span class="cmt"># <a class="xref" href="#createimg">Mount the image</a></span>
-# rsync -ax /mnt/ /newdisk/                           <span class="cmt"># Copy on a new disk</span>
-# dd if=/dev/hda of=/dev/hda                          <span class="cmt"># Refresh the magnetic state</span>
-  <span class="cmt"># The above is useful to refresh a disk. It is perfectly safe, but must be unmounted.</span>
+# dd bs=1k if=/dev/hda1 conv=sync,noerror,notrunc of=hda1.img    <span class="cmt"># 存储为一个映像文件</span>
+# mount -o loop /hda1.img /mnt                        <span class="cmt"># <a class="xref" href="#createimg">挂载这个映像文件</a></span>
+# rsync -ax /mnt/ /newdisk/                           <span class="cmt"># 拷贝到一个新磁盘</span>
+# dd if=/dev/hda of=/dev/hda                          <span class="cmt"># 刷新磁状态</span>
+  <span class="cmt"># 上面的命令对于刷新磁盘(refresh disk)很有用。这绝对安全，但必须先卸载磁盘。</span>
 </pre>
-<h3>Delete</h3>
-<pre># dd if=/dev/zero of=/dev/hdc                         <span class="cmt"># Delete full disk</span>
-# dd if=/dev/urandom of=/dev/hdc                      <span class="cmt"># Delete full disk better</span>
-# kill -USR1 PID                                      <span class="cmt"># View dd progress (Linux only!)</span>
+<h3>删除</h3>
+<pre># dd if=/dev/zero of=/dev/hdc                         <span class="cmt"># 删除全部数据</span>
+# dd if=/dev/urandom of=/dev/hdc                      <span class="cmt"># 更好的删除全部数据<span class="fn">译注：/dev/urandom 设备文件提供了一种比单独使用$RANDOM更好的,能产生更"随机"的随机数的方法。</span></span>
+# kill -USR1 PID                                      <span class="cmt"># 查看 dd 进度(仅Linux!)</span>
 </pre>
-<h3>MBR tricks</h3>
-The MBR contains the boot loader and the partition table and is 512 bytes small. The first 446 are for the boot loader, the bytes 446 to 512 are for the partition table.
-<pre># dd if=/dev/sda of=/mbr_sda.bak bs=512 count=1       <span class="cmt"># Backup the full MBR</span>
-# dd if=/dev/zero of=/dev/sda bs=512 count=1          <span class="cmt"># Delete MBR and partiton table</span>
-# dd if=/mbr_sda.bak of=/dev/sda bs=512 count=1       <span class="cmt"># Restore the full MBR</span>
-# dd if=/mbr_sda.bak of=/dev/sda bs=446 count=1       <span class="cmt"># Restore only the boot loader</span>
-# dd if=/mbr_sda.bak of=/dev/sda bs=1 count=64 skip=446 seek=446 <span class="cmt"># Restore partition table</span>
+<h3>MBR 技巧</h3>
+MBR 包含了引导程序和分区表，它的大小为 512 字节。前 446 字节为引导程序，446 到 512 字节为分区表。
+<pre># dd if=/dev/sda of=/mbr_sda.bak bs=512 count=1                  <span class="cmt"># 完全备份 MBR</span>
+# dd if=/dev/zero of=/dev/sda bs=512 count=1                     <span class="cmt"># 删除 MBR 和分区表</span>
+# dd if=/mbr_sda.bak of=/dev/sda bs=512 count=1                  <span class="cmt"># 完全恢复MBR</span>
+# dd if=/mbr_sda.bak of=/dev/sda bs=446 count=1                  <span class="cmt"># 仅回复引导程序</span>
+# dd if=/mbr_sda.bak of=/dev/sda bs=1 count=64 skip=446 seek=446 <span class="cmt"># 恢复分区表</span>
 </pre>
 
 <h2 id="screen">screen</h2>
