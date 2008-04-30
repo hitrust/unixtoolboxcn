@@ -1,4 +1,5 @@
 <?php
+header('Content-Type:   text/html;   charset=utf-8');
 $dom = new DOMDocument('1.0', 'UTF-8');
 $dom->substituteEntities = true;
 $dom->load('unixtoolbox_zh_CN.xhtml');
