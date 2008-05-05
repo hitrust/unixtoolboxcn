@@ -7,7 +7,7 @@
 <head>                            
   <title>Unix Toolbox - 中文版</title>
   <meta name="author" content="Colin Barschel c@cb.vu" />
-  <meta name="copyright" content="Copyright © 2007-2008 Colin Barschel. Some rights reserved under Creative Commons [Attribution - Share Alike]" />
+  <meta name="copyright" content="Copyright © 2007-2008 Colin Barschel and Greco Shi. Some rights reserved under Creative Commons [Attribution - Share Alike]" />
   <meta name="description" content="A collection of Unix/Linux/BSD commands and tasks which are useful for IT work or for advanced users, a compact and practical reference." />
   <meta name="abstract" content="Unix Toolbox a compact and practical reference for sysadmins and advanced users." />
   <meta name="subject" content="Unix Toolbox revision 12" />
@@ -19,7 +19,7 @@ html {
 }
 body {
     padding: 0;
-    font-family: verdana, arial, sans-serif;
+    font-family: simsun, verdana, arial, sans-serif;
     font-size: 90%;
     counter-reset: chapter section;
 }
@@ -32,7 +32,7 @@ div.title {
     letter-spacing: .22em;
 }
 h1, h2, h3 div.title {
-    font-family: verdana, sans-serif;
+    font-family: simsun, verdana, sans-serif;
 }
 h1 {
     text-transform: uppercase;
@@ -121,7 +121,8 @@ div.changestyle {
     }
     .fn {
         display: none;
-        counter-increment: footnote
+        counter-increment: footnote;
+        font-family: simsun, verdana, sans-serif;
     }
 }
 
@@ -214,15 +215,18 @@ a.xref:after {
         display: prince-footnote;
         counter-increment: footnote;
         font-size: 80%;
+        font-family: simsun, verdana, sans-serif;
     }
     .fn::footnote-call {
         content: counter(footnote);
         font-size: 80%;
         vertical-align: super;
-        line-height: none
+        line-height: none;
+        font-family: simsun, verdana, sans-serif;
     }
     .fn::footnote-marker {
         list-style-position: inside;
+        font-family: simsun, verdana, sans-serif;
     }
 }
 @page {
@@ -233,18 +237,18 @@ a.xref:after {
 	border-top: solid #000040 thin;
 	padding-top: 0.22em;
         padding-left: 1.2em;
-        font-family: verdana, sans-serif;
+        font-family: simsun, verdana, sans-serif;
     }
     @bottom-center {
         padding: 0 0 5mm 0;
         content: counter(page);
-        font-family: verdana, sans-serif;
+        font-family: simsun, verdana, sans-serif;
         font-size: 88%;
     }
     @top {
         padding-top: 5mm;
 	content: "&#8212; " string(chaptertitle) " &#8212;";
-        font-family: verdana, sans-serif;
+        font-family: simsun, verdana, sans-serif;
     }
 }
 @page :first {
@@ -272,6 +276,7 @@ h1 {
 h3, h4, div.title, h2, a:link, a:visited, .cmt {
     background-color: transparent;
     color: #000040;
+    font-family: simsun, verdana, sans-serif;
 }
 pre {
     background-color: #F6F6FC;
@@ -297,6 +302,7 @@ pre, code {
 a:link, a:visited, .cmt {
     background-color: transparent;
     color: #000060;
+    font-family: simsun, verdana, sans-serif;
 }
 }
 </style>
@@ -314,6 +320,7 @@ h1 {
 h3, h4, div.title, h2, a:link, a:visited, .cmt {
     background-color: transparent;
     color: #ffffcd;
+    font-family: simsun, verdana, sans-serif;
 }
 pre {
     background-color: #090903;
