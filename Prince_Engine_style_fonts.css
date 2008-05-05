@@ -1,0 +1,185 @@
+/*
+    Prince - Fonts stylesheet
+    http://www.princexml.com
+*/
+@font-face {
+    font-family: simsun;
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/simsun.ttc");
+}
+
+@font-face {
+    font-family: simsun;
+    font-weight: bold;
+    font-style: normal;
+    src: url("../fonts/simsun.ttc");
+}
+
+@font-face {
+    font-family: simsun;
+    font-weight: normal;
+    font-style: italic;
+    src: url("../fonts/simsun.ttc");
+}
+
+@font-face {
+    font-family: simsun;
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/simsun.ttc");
+}
+
+
+@font-face {
+    font-family: serif;
+    src: local("Times New Roman"), local("Symbol")
+}
+
+@font-face {
+    font-family: sans-serif;
+    src: local("Arial"), local("Symbol")
+}
+
+@font-face {
+    font-family: monospace;
+    src: local("Courier New"), local("Symbol")
+}
+
+@font-face {
+    font-family: cursive;
+    src: local("Comic Sans MS"), local("OpenSymbol")
+}
+
+@font-face {
+    font-family: fantasy;
+    src: local("Minya Nouvelle"), local("Symbol")
+}
+
+/* Deftone Stylus font from Ray Larabie */
+
+@font-face {
+    font-family: Deftone Stylus;
+    src: url("../fonts/deftone.ttf");
+}
+
+/* Effloresce font from Ray Larabie */
+
+@font-face {
+    font-family: Effloresce;
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/efflores.ttf");
+}
+
+@font-face {
+    font-family: Effloresce;
+    font-weight: bold;
+    font-style: normal;
+    src: url("../fonts/efflb___.ttf");
+}
+
+@font-face {
+    font-family: Effloresce;
+    font-weight: normal;
+    font-style: italic;
+    src: url("../fonts/effli___.ttf");
+}
+
+@font-face {
+    font-family: Effloresce;
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/efflbi__.ttf");
+}
+
+/* Goodfish font from Ray Larabie */
+
+@font-face {
+    font-family: Goodfish;
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/goodfish.ttf");
+}
+
+@font-face {
+    font-family: Goodfish;
+    font-weight: bold;
+    font-style: normal;
+    src: url("../fonts/goodfisb.ttf");
+}
+
+@font-face {
+    font-family: Goodfish;
+    font-weight: normal;
+    font-style: italic;
+    src: url("../fonts/goodfisi.ttf");
+}
+
+@font-face {
+    font-family: Goodfish;
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/goodfisc.ttf");
+}
+
+/* Minya Nouvelle font from Ray Larabie */
+
+@font-face {
+    font-family: Minya Nouvelle;
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/minyn___.ttf");
+}
+
+@font-face {
+    font-family: Minya Nouvelle;
+    font-weight: bold;
+    font-style: normal;
+    src: url("../fonts/minynb__.ttf");
+}
+
+@font-face {
+    font-family: Minya Nouvelle;
+    font-weight: normal;
+    font-style: italic;
+    src: url("../fonts/minyni__.ttf");
+}
+
+@font-face {
+    font-family: Minya Nouvelle;
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/minynbi_.ttf");
+}
+
+/* Unispace font from Ray Larabie */
+
+@font-face {
+    font-family: Unispace;
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/unispace.ttf");
+}
+
+@font-face {
+    font-family: Unispace;
+    font-weight: bold;
+    font-style: normal;
+    src: url("../fonts/unisb___.ttf");
+}
+
+@font-face {
+    font-family: Unispace;
+    font-weight: normal;
+    font-style: italic;
+    src: url("../fonts/unisi___.ttf");
+}
+
+@font-face {
+    font-family: Unispace;
+    font-weight: bold;
+    font-style: italic;
+    src: url("../fonts/unisbi__.ttf");
+}
+
