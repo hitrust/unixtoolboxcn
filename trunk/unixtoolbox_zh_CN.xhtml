@@ -738,12 +738,12 @@ PID是每个进程唯一号码。使用 <code>ps</code> 获取所有正在运行
 # nice -n 5 top                      <span class="cmt"># 更低优先级(/usr/bin/nice)</span>
 # nice +5 top                        <span class="cmt"># tcsh 内置 nice 命令(同上)</span>
 </pre>
-While nice changes the CPU scheduler, an other useful command <code>ionice</code> will schedule the disk IO. This is very useful for intensive IO application which can bring a machine to its knees while still in a lower priority. The command is only available on Linux (AFAIK). You can select a class (idle - best effort - real time), the man page is short and well explained.
-<pre># ionice c3 -p123                    <span class="cmt"># set idle class for pid 123</span>
-# ionice -c2 -n0 firefox             <span class="cmt"># Run firefox with best effort and high priority</span>
-# ionice -c3 -p$$                    <span class="cmt"># Set the actual shell to idle priority</span>
+nice 可以影响 CPU 的调度，另一个实用命令 <code>ionice</code><span class="fn">译注：此命令仅可工作在2.6.13及以上内核版本上，并且采用了CFQ 的 IO 调度方式。通过 #cat /sys/block/[sh]d[a-z]*/queue/scheduler 命令可以得知你的系统采用了什么样的调度算法</span> 可以调度磁盘 IO。This is very useful for intensive IO application which can bring a machine to its knees while still in a lower priority. 此命令仅可在 Linux (AFAIK) 上使用。你可以选择一个类型(idle - best effort - real time)，它的 man 页很短并有很好的解释。
+<pre># ionice c3 -p123                    <span class="cmt"># 给 pid 123 设置为 idle 类型</span>
+# ionice -c2 -n0 firefox             <span class="cmt"># 用 best effort 类型运行 firefox 并且设为高优先级</span>
+# ionice -c3 -p$$                    <span class="cmt"># 将当前的进程(shell)的磁盘 IO 调度设置为 idle 类型</span>
 </pre>
-For example last command is very useful to compile (or debug) a large project. Every command launched from this shell will have a lover priority and will not disturb the system. $$ is your shell pid (try echo $$).
+例中最后一条命令对于编译(或调试)一个大型项目会非常有用。每一个运行于此 shell 的命令都会有一个较低的优先级，但并不妨碍这个系统。$$ 是你 shell 的 pid (试试 echo $$)。
 
 <h2 id="bgfg">前台/后台</h2>当一个进程在 shell 中已运行，可以使用 <code>[Ctrl]-[Z] (^Z)</code>, <code>bg</code> 和 <code>fg</code> 来 调入调出前后台<span class="fn">译注：在命令后面加 <code>&amp;</code> 可直接使其在后台运行。</span>。举个例子：启动 2 个进程，调入后台。使用 <code>jobs</code> 列出后台列表，然后再调入一个进程到前台。
 <pre># ping cb.vu > ping.log
@@ -923,12 +923,12 @@ Xorg    3324 root    0w   REG    8,6 56296 12492 /var/log/Xorg.0.log
 从 cdrom 拷贝原始数据进一个 iso 映像文件：
 <pre># dd if=/dev/cd0c of=file.iso</pre>
 
-<h2 id="addswap">Add swap on-the-fly</h2>
-Suppose you need more swap (right now), say a 2GB file /swap2gb (Linux only).
+<h2 id="addswap">给即时烧录(on-the-fly)添加 swap</h2>
+假设你需要很多的 swap (即刻)，如一个 2GB 文件 /swap2gb (只限 Linux)。
 <pre># dd if=/dev/zero of=/swap2gb bs=1024k count=2000
-# mkswap /swap2gb                    <span class="cmt"># create the swap area</span>
-# swapon /swap2gb                    <span class="cmt"># activate the swap. It now in use</span>
-# swapoff /swap2gb                   <span class="cmt"># when done deactivate the swap</span>
+# mkswap /swap2gb                    <span class="cmt"># 创建交换区</span>
+# swapon /swap2gb                    <span class="cmt"># 激活这个 swap。现在可以使用了</span>
+# swapoff /swap2gb                   <span class="cmt"># 当使用完毕，释放这个 swap</span>
 # rm /swap2gb
 </pre>
 
@@ -939,49 +939,49 @@ Suppose you need more swap (right now), say a 2GB file /swap2gb (Linux only).
 # mount -t smbfs -o username=winuser //smbserver/myshare /mnt/smbshare
 # mount -t cifs -o username=winuser,password=winpwd //192.168.16.229/myshare /mnt/share
 </pre>
-Additionally with the package mount.cifs it is possible to store the credentials in a file, for example <code>/home/user/.smb</code>:
+此外，mount.cifs 软件包可以存储认证到一个文件中。例如，<code>/home/user/.smb</code>:
 <pre>username=winuser
 password=winpwd
 </pre>
-And mount as follow:
+现在可以像下面那样挂载：
 <pre># mount -t cifs -o credentials=/home/user/.smb //192.168.16.229/myshare /mnt/smbshare</pre>
 
 <h3>FreeBSD</h3>
-Use -I to give the IP (or DNS name); smbserver is the Windows name.
+使用 -I 来获取 IP (或 DNS 名）；smbserver 是 Windows 名。
 <pre># smbutil view -I 192.168.16.229 //winuser@smbserver    <span class="cmt"># 列出共享</span>
 # mount_smbfs -I 192.168.16.229 //winuser@smbserver/myshare /mnt/smbshare
 </pre>
 
-<h2 id="mountimg">Mount an image</h2>
+<h2 id="mountimg">挂载镜像文件</h2>
 <h3>Linux loop-back</h3>
-<pre># mount -t iso9660 -o loop file.iso /mnt                <span class="cmt"># Mount a CD image</span>
-# mount -t ext3 -o loop file.img /mnt                   <span class="cmt"># Mount an image with ext3 fs</span>
+<pre># mount -t iso9660 -o loop file.iso /mnt                <span class="cmt"># 挂载 CD 镜像文件</span>
+# mount -t ext3 -o loop file.img /mnt                   <span class="cmt"># 用 ext3 文件系统挂载镜像文件</span>
 </pre>
 
 <h3>FreeBSD</h3>
-With memory device (do # kldload md.ko if necessary):
+用于存储设备 (如果需要做 # kldload md.ko 动作)：
 <pre># mdconfig -a -t vnode -f file.iso -u 0
 # mount -t cd9660 /dev/md0 /mnt
-# umount /mnt; mdconfig -d -u 0                         <span class="cmt"># Cleanup the md device</span>
+# umount /mnt; mdconfig -d -u 0                         <span class="cmt"># 清除 md 设备</span>
 </pre>
-Or with virtual node:
+用于虚拟节点：
 <pre># vnconfig /dev/vn0c file.iso; mount -t cd9660 /dev/vn0c /mnt
-# umount /mnt; vnconfig -u /dev/vn0c                    <span class="cmt"># Cleanup the vn device</span>
+# umount /mnt; vnconfig -u /dev/vn0c                    <span class="cmt"># 清除 vn 设备</span>
 </pre>
 
 <h3>Solaris and FreeBSD</h3>
-with loop-back file interface or lofi:
+用于 loop-back 文件接口或 lofi：
 <pre># lofiadm -a file.iso
 # mount -F hsfs -o ro /dev/lofi/1 /mnt
-# umount /mnt; lofiadm -d /dev/lofi/1                   <span class="cmt"># Cleanup the lofi device</span>
+# umount /mnt; lofiadm -d /dev/lofi/1                   <span class="cmt"># 清除 lofi 设备</span>
 </pre>
-<h2 id="burniso">Create and burn an ISO image</h2>
-This will copy the cd or DVD sector for sector. Without <code>conv=notrunc</code>, the image will be smaller if there is less content on the cd. See below and the <a class="xref" href="#dd">dd examples</a>.
+<h2 id="burniso">创建并刻录 ISO 镜像文件</h2>
+这将会拷贝 CD 或者 DVD 的扇区。当不用 <code>conv=notrunc</code>，镜像文件会等于 CD 内容大小而非 CD 容量大小。看下面和 <a class="xref" href="#dd">dd 例子</a>。
 <pre># dd if=/dev/hdc of=/tmp/mycd.iso bs=2048 conv=notrunc</pre>
-Use mkisofs to create a CD/DVD image from files in a directory. To overcome the file names restrictions: -r enables the Rock Ridge extensions common to UNIX systems, -J enables Joliet extensions used by Microsoft systems. -L allows ISO9660 filenames to begin with a period.
+使用 mkisofs 把目录中所有文件创建成 CD/DVD 镜像文件。克服文件名限制：-r 开启 Rock Ridge 扩展用于 Unix 系统，-J 开启  Joliet 扩展用于微软系统。-L 允许 ISO9660 文件名第一个字符为句点。
 <pre># mkisofs -J -L -r -V TITLE -o imagefile.iso /path/to/dir</pre>
-On FreeBSD, mkisofs is found in the ports in sysutils/cdrtools.
-<h3>Burn a CD/DVD ISO image</h3>
+对于 FreeBSD，mkisofs 可以到 port 的 sysutils/cdrtools 中找到。
+<h3>刻录 ISO 镜像文件</h3>
 <h4>FreeBSD</h4>
 FreeBSD does not enable DMA on ATAPI drives by default. DMA is enabled with the sysctl command and the arguments below, or with /boot/loader.conf with the following entries:
 <pre>hw.ata.ata_dma="1"
@@ -2743,8 +2743,8 @@ PS1="\[\033[1;30m\][\[\033[1;34m\]\u\[\033[1;30m\]"
 PS1="$PS1@\[\033[0;33m\]\h\[\033[1;30m\]]\[\033[0;37m\]"
 PS1="$PS1\w\[\033[1;30m\]&gt;\[\033[0m\]"
 </pre><pre><span class="cmt"># 要检查当前可用别名(alias)，只需简单输入命令 alias</span>
-alias  ls='ls -aF'                    <span class="cmt"># Append indicator (one of */=&gt;@|)</span>
-alias  ll='ls -aFls'                  <span class="cmt"># Listing</span>
+alias  ls='ls -aF'                    <span class="cmt"># 添加指示符(*/=&gt;@| 其中之一)</span>
+alias  ll='ls -aFls'                  <span class="cmt"># 清单</span>
 alias  la='ls -all'
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -2771,27 +2771,27 @@ alias  ...     'cd ../..'
 set   prompt    = "%B%n%b@%B%m%b%/> " <span class="cmt"># 像 user@host/path/todir></span>
 set   history   =  5000
 set   savehist  = ( 6000 merge )
-set   autolist                        <span class="cmt"># Report possible completions with tab</span>
-set   visiblebell                     <span class="cmt"># Do not beep, inverse colors</span>
-</pre><pre><span class="cmt"># Bindkey and colors</span>
-bindkey -e     Select Emacs bindings  <span class="cmt"># Use emacs keys to edit the command prompt</span>
-bindkey -k up history-search-backward <span class="cmt"># Use up and down arrow to search</span>
+set   autolist                        <span class="cmt"># 控制命令补全和变量补全</span>
+set   visiblebell                     <span class="cmt"># 使用闪动屏幕的方式来取代蜂鸣器鸣叫</span>
+</pre><pre><span class="cmt"># Bindkey 和颜色</span>
+bindkey -e     Select Emacs bindings  <span class="cmt"># 将命令行编辑器切换到emacs模式</span>
+bindkey -k up history-search-backward <span class="cmt"># 使用上下键来搜索</span>
 bindkey -k down history-search-forward
-setenv CLICOLOR 1                     <span class="cmt"># Use colors (if possible)</span>
+setenv CLICOLOR 1                     <span class="cmt"># 使用颜色(可能的话)</span>
 setenv LSCOLORS ExGxFxdxCxDxDxBxBxExEx
 </pre>
-The emacs mode enables to use the emacs keys shortcuts to modify the command prompt line. This is extremely useful (not only for emacs users). The most used commands are:
+该 emacs 模式将使用 emacs 快捷键来修改命令提示行。这是非常有用的(不单为 Emacs 用户)。最常用的命令如下：
 <ul style="list-style-type:none;">
-  <li>C-a &#160; &#160; &#160; Move cursor to beginning of line</li>
-  <li>C-e &#160; &#160; &#160; Move cursor to end of line</li>
-  <li>M-b &#160; &#160; &#160; Move cursor back one word</li>
-  <li>M-f &#160; &#160; &#160; Move cursor forward one word</li>
-  <li>M-d &#160; &#160; &#160; Cut the next word</li>
-  <li>C-w &#160; &#160; &#160; Cut the last word</li>
-  <li>C-u &#160; &#160; &#160; Cut everything before the cursor</li> 
-  <li>C-k &#160; &#160; &#160; Cut everything after the cursor (rest of the line)</li>
-  <li>C-y &#160; &#160; &#160; Paste the last thing to be cut (simply paste)</li>
-  <li>C-_ &#160; &#160; &#160; Undo</li>
+  <li>C-a &#160; &#160; &#160; 移动光标到行头</li>
+  <li>C-e &#160; &#160; &#160; 移动光标到行尾</li>
+  <li>M-b &#160; &#160; &#160; 移动光标到前一个单词</li>
+  <li>M-f &#160; &#160; &#160; 移动光标到后一个单词</li>
+  <li>M-d &#160; &#160; &#160; 剪切下一个单词</li>
+  <li>C-w &#160; &#160; &#160; 剪切最后一个单词</li>
+  <li>C-u &#160; &#160; &#160; 剪切光标前所有字符</li> 
+  <li>C-k &#160; &#160; &#160; 剪切光标后所有字符</li>
+  <li>C-y &#160; &#160; &#160; 粘帖最后剪切的字符(简易的粘帖)</li>
+  <li>C-_ &#160; &#160; &#160; 重做</li>
 </ul>
 <i>注意:</i> C- = 按住 control 键，M- = 按住 meta (它通常为 alt 或者 escape)键。
 </div>
@@ -2884,31 +2884,30 @@ ps2pdf13 -sPAPERSIZE=a4 -sAutoRotatePages=None $<span class="pp">fname</span>.bo
 </pre>
 
 <h2 id="sed">一些 sed 命令</h2>
-Here is <a href="http://student.northpark.edu/pemente/sed/sed1line.txt">the one liner gold mine</a><span class="fn">http://student.northpark.edu/pemente/sed/sed1line.txt</span>. And a good <a href="http://www.grymoire.com/Unix/Sed.html">introduction and tutorial to sed</a><span class="fn">http://www.grymoire.com/Unix/Sed.html</span>.
+这里是<a href="http://student.northpark.edu/pemente/sed/sed1line.txt">单行 sed 命令的金矿</a><span class="fn">http://student.northpark.edu/pemente/sed/sed1line.txt</span>。还有一个很好的 <a href="http://www.grymoire.com/Unix/Sed.html">sed 介绍及教程</a><span class="fn">http://www.grymoire.com/Unix/Sed.html</span>。
 <pre>sed 's/string1/string2/g'                    <span class="cmt"># 替换 string1 为 string2</span>
-sed -i 's/wroong/wrong/g' *.txt              <span class="cmt"># Replace a recurring word with g</span>
-sed 's/\(.*\)1/\12/g'                        <span class="cmt"># Modify anystring1 to anystring2</span>
-sed '/&lt;p&gt;/,/&lt;\/p&gt;/d' t.xhtml                 <span class="cmt"># Delete lines that start with &lt;p&gt;</span>
-                                             <span class="cmt"># and end with &lt;/p&gt;</span>
-sed '/ *#/d; /^ *$/d'                        <span class="cmt"># Remove comments and blank lines</span>
-sed 's/[ \t]*$//'                            <span class="cmt"># Remove trailing spaces (use tab as \t)</span>
-sed 's/^[ \t]*//;s/[ \t]*$//'                <span class="cmt"># Remove leading and trailing spaces</span>
-sed 's/[^*]/[&amp;]/'                            <span class="cmt"># Enclose first char with [] top-&gt;[t]op</span>
-sed = file | sed 'N;s/\n/\t/' &gt; file.num     <span class="cmt"># Number lines on a file</span>
+sed -i 's/wroong/wrong/g' *.txt              <span class="cmt"># 用 g 替换所有返回的单词</span>
+sed 's/\(.*\)1/\12/g'                        <span class="cmt"># 修改 anystring1 为 anystring2</span>
+sed '/&lt;p&gt;/,/&lt;\/p&gt;/d' t.xhtml                 <span class="cmt"># 删除以 &lt;p&gt; 开始，以 &lt;/p&gt; 结尾的行</span>
+sed '/ *#/d; /^ *$/d'                        <span class="cmt"># 删除注释和空行</span>
+sed 's/[ \t]*$//'                            <span class="cmt"># 删除行尾空格 (使用 tab 代替 \t)</span>
+sed 's/^[ \t]*//;s/[ \t]*$//'                <span class="cmt"># 删除行头尾空格</span>
+sed 's/[^*]/[&amp;]/'                            <span class="cmt"># 括住首字符 [] top -&gt; [t]op</span>
+sed = file | sed 'N;s/\n/\t/' &gt; file.num     <span class="cmt"># 为文件添加行号</span>
 </pre>
 
-<h2 id="regex">Regular Expressions</h2>
-Some basic regular expression useful for sed too. See <a href="http://www.regular-expressions.info/reference.html">Basic Regex Syntax</a><span class="fn">http://www.regular-expressions.info/reference.html</span> for a good primer.
-<pre>[\^$.|?*+()                          <span class="cmt"># special characters any other will match themselves</span>
-\                                    <span class="cmt"># escapes special characters and treat as literal</span>
-*                                    <span class="cmt"># repeat the previous item zero or more times</span>
-.                                    <span class="cmt"># single character except line break characters</span>
-.*                                   <span class="cmt"># match zero or more characters</span>
-^                                    <span class="cmt"># match at the start of a line/string</span>
-$                                    <span class="cmt"># match at the end of a line/string</span>
-.$                                   <span class="cmt"># match a single character at the end of line/string</span>
-^ $                                  <span class="cmt"># match line with a single space</span>
-[^A-Z]                               <span class="cmt"># match any line beginning with any char from A to Z</span>
+<h2 id="regex">正则表达式</h2>
+一些基本的正则表达式同样可用于 sed。作为一个良好的启蒙，可看 <a href="http://www.regular-expressions.info/reference.html">基本正则语法</a><span class="fn">http://www.regular-expressions.info/reference.html</span>。
+<pre>[\^$.|?*+()                          <span class="cmt"># 特殊字符，其他字符将匹配自身</span>
+\                                    <span class="cmt"># 转义特殊字符，当成普通字符对待</span>
+*                                    <span class="cmt"># 重复前项 0 次或多次</span>
+.                                    <span class="cmt"># 单个字符除换行符</span>
+.*                                   <span class="cmt"># 匹配 0 个或多个字符</span>
+^                                    <span class="cmt"># 匹配字符串行开始处</span>
+$                                    <span class="cmt"># 匹配字符串行结尾处</span>
+.$                                   <span class="cmt"># 匹配字符串行最后一个字符</span>
+^ $                                  <span class="cmt"># 匹配单个空格的行</span>
+[^A-Z]                               <span class="cmt"># 匹配任何以 A-Z 字符开始的行</span>
 </pre>
 
 <h2 id="shcmd">一些实用命令</h2>
