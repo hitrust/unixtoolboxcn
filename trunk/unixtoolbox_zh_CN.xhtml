@@ -1918,63 +1918,62 @@ geli_ad1_flags="-k /root/ad1.key"
 </div>
 
 <div id="certs"><h1><a>SSL 认证</a></h1>
-So called SSL/TLS certificates are cryptographic public key certificates and are composed of a public and a private key. The certificates are used to authenticate the endpoints and encrypt the data. They are used for example on a web server (https) or mail server (imaps).
-<h2>Procedure</h2>
+所谓的 SSL/TLS 认证是加密的公钥认证，它由一个公用密钥和私用密钥组成。证书用来认证终端和加密数据的。例如，用在 web 服务器(https)或者邮件服务器(imaps)。
+<h2>步骤</h2>
 <ul>
-<li>We need a certificate authority to sign our certificate. This step is
-  usually provided by a vendor like Thawte, Verisign, etc., however we can also create our own.</li>
-<li>Create a certificate signing request. This request is like an unsigned certificate (the public part) and already contains all necessary information. The certificate request is normally sent to the authority vendor for signing. This step also creates the private key on the local machine.</li>
-<li>Sign the certificate with the certificate authority.</li>
-<li>If necessary join the certificate and the key in a single file to be used by the application (web server, mail server etc.).</li>
+<li>我们需要一个证书颁发机构来签署我们的证书。这一步通常由供应商提供，如 Thawte、Verisign等。不过，我们也可以创建我们自己的。</li>
+<li>创建一个证书签发申请(signing request)。这个申请需要一个已经包含所有必需的信息的未签署证书(公共部分)。该证书申请通常发送到认证供应商去签署。这一步同样也在本地机器上创建了私钥。</li>
+<li>证书颁发机构签署证书。</li>
+<li>如果有需要，加入证书和密钥到单个文件来给应用程序使用(web 服务器、邮件服务器等）。</li>
 </ul>
 
-<h2>Configure OpenSSL</h2>
-We use /usr/local/certs as directory for this example check or edit /etc/ssl/openssl.cnf accordingly to your settings so you know where the files will be created. Here are the relevant part of openssl.cnf:
+<h2>配置 OpenSSL</h2>
+我们使用 /usr/local/certs 作为这个例子的目录或者根据你的设置相应的编辑 /etc/ssl/openssl.cnf 文件，因此你知道文件将创建在哪里。以下是 openssl.cnf 的相关部分：
 <pre>[ CA_default ]
-dir             = /usr/local/certs/CA       <span class="cmt"># Where everything is kept</span>
-certs           = $dir/certs                <span class="cmt"># Where the issued certs are kept</span>
-crl_dir         = $dir/crl                  <span class="cmt"># Where the issued crl are kept</span>
-database        = $dir/index.txt            <span class="cmt"># database index file.</span>
+dir             = /usr/local/certs/CA       <span class="cmt"># 保存所有信息的文件夹</span>
+certs           = $dir/certs                <span class="cmt"># 已生成证书的默认保存目录</span>
+crl_dir         = $dir/crl                  <span class="cmt"># 生成的证书撤销列表(CRL)的默认保存目录</span>
+database        = $dir/index.txt            <span class="cmt"># 保存已签发证书的文本数据库文件</span>
 </pre>
-Make sure the directories exist or create them
+确保所有目录已经创建
 <pre># mkdir -p /usr/local/certs/CA
 # cd /usr/local/certs/CA
 # mkdir certs crl newcerts private
-# echo "01" > serial                        <span class="cmt"># Only if serial does not exist</span>
+# echo "01" > serial                        <span class="cmt"># 仅当 serial 不存在时</span>
 # touch index.txt
 </pre>
 
-<h2 id="createca">Create a certificate authority</h2>
+<h2 id="createca">创建一个认证授权</h2>
 
-If you do not have a certificate authority from a vendor, you'll have to create your own. This step is not necessary if one intend to use a vendor to sign the request. To make a certificate authority (CA):
+如果你没有来自供应商的认证授权，你必须创建你自己的。如果打算去供应商签署申请，那么这个步骤不是必须的。创建认证授权 (CA)：
 <pre># openssl req -new -x509 -days 730 -config /etc/ssl/openssl.cnf \
 -keyout CA/private/cakey.pem -out CA/cacert.pem
 </pre>
 
-<h2 id="createreq">Create a certificate signing request</h2>
-To make a new certificate (for mail server or web server for example), first create a request certificate with its private key. If your application do not support encrypted private key (for example UW-IMAP does not), then disable encryption with <code>-nodes</code>.
+<h2 id="createreq">创建证书签发申请</h2>
+要创建一个新证书(比如给邮件服务器或 web 服务器)，首先用其私钥创建证书申请。如果你的应用程序不支持加密的私钥(比如  UW-IMAP 就不支持)，那么就用 <code>-nodes</code> 来禁用加密。
 <pre># openssl req -new -keyout newkey.pem -out newreq.pem \
 -config /etc/ssl/openssl.cnf
 # openssl req -nodes -new -keyout newkey.pem -out newreq.pem \
--config /etc/ssl/openssl.cnf                <span class="cmt"># No encryption for the key</span>
+-config /etc/ssl/openssl.cnf                <span class="cmt"># 不对这个密钥加密</span>
 </pre>
 
-<h2 id="signcert">Sign the certificate</h2>
-The certificate request has to be signed by the CA to be valid, this step is usually done by the vendor. <i>Note: replace "servername" with the name of your server in the next commands</i>.
+<h2 id="signcert">签署证书</h2>
+该证书申请由 CA 签发确认，这个步骤通常由供应商完成。<i>注意：在下面命令中替换 "servername" 成你的服务器名称</i>。
 <pre># cat newreq.pem newkey.pem > new.pem
 # openssl ca -policy policy_anything -out servernamecert.pem \
 -config /etc/ssl/openssl.cnf -infiles new.pem
 # mv newkey.pem servernamekey.pem
 </pre>
-Now servernamekey.pem is the private key and servernamecert.pem is the server certificate.
+现在，servernamekey.pem 就是私钥，servernamecert.pem 就为服务器的证书。
 
-<h2>Create united certificate</h2>
-The IMAP server wants to have both private key and server certificate in the same file. And in general, this is also easier to handle, but the file has to be kept securely!. Apache also can deal with it well. Create a file servername.pem containing both the certificate and key.
+<h2>创建联合认证(united certificate)</h2>
+IMAP 服务器想要私钥和服务器证书在同一个文件中。通常，这还是比较容易处理的，但是该文件要保证安全! Apache 也可以处理好它。创建一个包含证书和密钥的文件 servername.pem 。
 <ul>
-  <li>Open the private key (servernamekey.pem) with a text editor and copy the private key into the "servername.pem" file.</li>
-  <li>Do the same with the server certificate (servernamecert.pem).</li>
+  <li>用文本编辑器打开私钥文件(servernamekey.pem)，并拷贝私钥到 "servername.pem" 文件中去。</li>
+  <li>服务器证书(servernamecert.pem)也做同样的动作。</li>
 </ul>
-The final servername.pem file should look like this:<br/><br/>
+最后 servername.pem 文件应该看起来像这样：<br/><br/>
 <pre>-----BEGIN RSA PRIVATE KEY-----
 MIICXQIBAAKBgQDutWy+o/XZ/[...]qK5LqQgT3c9dU6fcR+WuSs6aejdEDDqBRQ
 -----END RSA PRIVATE KEY-----
@@ -1982,151 +1981,150 @@ MIICXQIBAAKBgQDutWy+o/XZ/[...]qK5LqQgT3c9dU6fcR+WuSs6aejdEDDqBRQ
 MIIERzCCA7CgAwIBAgIBBDANB[...]iG9w0BAQQFADCBxTELMAkGA1UEBhMCREUx
 -----END CERTIFICATE-----
 </pre>
-What we have now in the directory /usr/local/certs/:
+现在我们的 /usr/local/certs/ 目录中有了这些；
 <ul style="list-style-type: none;">
-  <li>CA/private/cakey.pem <i>(CA server private key)</i></li>
-  <li>CA/cacert.pem <i>(CA server public key)</i></li>
-  <li>certs/servernamekey.pem <i>(server private key)</i></li>
-  <li>certs/servernamecert.pem <i>(server signed certificate)</i></li>
-  <li>certs/servername.pem <i>(server certificate with private key)</i></li>
+  <li>CA/private/cakey.pem <i>(CA 服务器私钥)</i></li>
+  <li>CA/cacert.pem <i>(CA 服务器公钥)</i></li>
+  <li>certs/servernamekey.pem <i>(服务器私钥)</i></li>
+  <li>certs/servernamecert.pem <i>(服务器已签署的证书)</i></li>
+  <li>certs/servername.pem <i>(私钥和服务器证书)</i></li>
 </ul>
-Keep the private key secure!
+要保证私钥的安全!
 
-<h2 id="viewcert">View certificate information</h2>
-To view the certificate information simply do:
-<pre># openssl x509 -text -in servernamecert.pem      <span class="cmt"># View the certificate info</span>
-# openssl req -noout -text -in server.csr        <span class="cmt"># View the request info</span>
-# openssl s_client -connect cb.vu:443            <span class="cmt"># Check a web server certificate</span>
+<h2 id="viewcert">查看证书信息</h2>
+要查看证书信息，只要这么做：
+<pre># openssl x509 -text -in servernamecert.pem      <span class="cmt"># 显示证书信息</span>
+# openssl req -noout -text -in server.csr        <span class="cmt"># 显示申请信息</span>
+# openssl s_client -connect cb.vu:443            <span class="cmt"># 检查 web 服务器认证信息</span>
 </pre>
 </div>
 
 
 <div id="cvs"><h1><a>CVS</a></h1>
-<p class="xrefp"><a class="xrefp" href="#cvssetup">Server setup</a> | <a class="xrefp" href="#cvstest">CVS test</a> | <a class="xrefp" href="#cvsssh">SSH tunneling</a> | <a class="xrefp" href="#cvsusage">CVS usage</a></p>
-<h2 id="cvssetup">Server setup</h2>
-<h3>Initiate the CVS</h3>
-Decide where the main repository will rest and create a root cvs. For example /usr/local/cvs (as root):
+<p class="xrefp"><a class="xrefp" href="#cvssetup">服务器设置</a> | <a class="xrefp" href="#cvstest">CVS 测试</a> | <a class="xrefp" href="#cvsssh">SSH 隧道</a> | <a class="xrefp" href="#cvsusage">CVS 使用</a></p>
+<h2 id="cvssetup">服务器设置</h2>
+<h3>CVS 环境初始化</h3>
+决定主 repository 将要创建和重置的 cvs 根目录。比如 /usr/local/cvs (根)：
 <pre># mkdir -p /usr/local/cvs
-# setenv CVSROOT /usr/local/cvs      <span class="cmt"># Set CVSROOT to the new location (local)</span>
-# cvs init                           <span class="cmt"># Creates all internal CVS config files</span>
+# setenv CVSROOT /usr/local/cvs      <span class="cmt"># 设置 CVSROOT 环境变量(本地)</span>
+# cvs init                           <span class="cmt"># 创建所有初始化 CVS 配置文件</span>
 # cd /root
-# cvs checkout CVSROOT               <span class="cmt"># Checkout the config files to modify them</span>
+# cvs checkout CVSROOT               <span class="cmt"># 签出配置文件来修改他们</span>
 # cd CVSROOT
 edit config ( fine as it is)
 # cvs commit config
-cat >> writers                       <span class="cmt"># Create a writers file (optionally also readers)</span>
+cat >> writers                       <span class="cmt"># 创建 writers 文件 (也可为 readers)</span>
 colin
-^D                                   <span class="cmt"># Use [Control][D] to quit the edit</span>
-# cvs add writers                    <span class="cmt"># Add the file writers into the repository</span>
+^D                                   <span class="cmt"># 使用 [Control][D] 退出编辑</span>
+# cvs add writers                    <span class="cmt"># 添加文件 writers 进 repository</span>
 # cvs edit checkoutlist
 # cat >> checkoutlist
 writers
-^D                                   <span class="cmt"># Use [Control][D] to quit the edit</span>
-# cvs commit                         <span class="cmt"># Commit all the configuration changes</span>
+^D                                   <span class="cmt"># 使用 [Control][D] 退出编辑</span>
+# cvs commit                         <span class="cmt"># 提交所有配置更改</span>
 </pre>
-Add a <strong>readers</strong> file if you want to differentiate read and write permissions <i>Note:</i> Do not (ever) edit files directly into the main cvs, but rather checkout the file, modify it and check it in. We did this with the file <strong>writers</strong> to define the write access.<br />
-There are three popular ways to access the CVS at this point. The first two don't need any further configuration. See the examples on <a href="#cvsroot">CVSROOT</a> below for how to use them:
+添加一个 <strong>readers</strong> 文件，如果你要区分读写权限的话。<i>注意：</i> 不要在主 cvs 中直接编辑文件，而应该签出要编辑的文件，修改完成后再签入。我们所做的文件 <strong>writers</strong> 用来定义可写权限。<br />
+下面有三种流行的方式去访问 CVS。前两个不需要任何进一步的配置。看 <a href="#cvsroot">CVSROOT</a> 部分的实例了解如何使用它们：
 
 <ul>
-  <li>Direct local access to the file system. The user(s) need sufficient file permission to access the CS directly and there is no further authentication in addition to the OS login. However this is only useful if the repository is local.</li>
-  <li>Remote access with ssh with the ext protocol. Any use with an ssh shell account and read/write permissions on the CVS server can access the CVS directly with ext over ssh without any additional tunnel. There is no server process running on the CVS for this to work. The ssh login does the authentication.</li>
-  <li>Remote access with pserver. This is the preferred use for larger user base as the users are authenticated by the CVS pserver with a dedicated password database, there is therefore no need for local users accounts. This setup is explained below.</li>
+  <li>直接本的访问文件系统。用户需要有足够的权限来直接访问 CVS，除了要登录到操作系统，没有进一步的验证。然而这仅对本地 repository 才有用。</li>
+  <li>使用 ext 协议通过 ssh 来远程访问。任何有 ssh shell 账户和在 CVS 服务器上可读写权限的都可直接使用 ext 协议通过 ssh 来访问 CVS，而不需要任何额外的隧道。没有服务器来处理运行在 CVS 上的验证工作。ssh 登录会去验证。</li>
+  <li>用 pserver 来远程访问。这是对于有较大用户量的首选方法，用户由 CVS 的 pserver 通过一个专门的密码数据库来验证，因此不需要本地用户帐户。这种设置在下面会有说明。</li>
 </ul>
 
-<h3>Network setup with inetd</h3>
-The CVS can be run locally only if a network access is not needed. For a remote access, the daemon inetd can start the pserver with the following line in /etc/inetd.conf (/etc/xinetd.d/cvs on SuSE):
+<h3>用 inetd 设置网络</h3>
+如果不需要网络访问，CVS 可以运行于本地。对于远程访问，在 /etc/inetd.conf (Suse 为 /etc/xinetd.d/cvs)中配置如下行，可让守护进程 inetd 启动 pserver：
 <pre>cvspserver	stream  tcp  nowait  cvs  /usr/bin/cvs	cvs \
 --allow-root=/usr/local/cvs pserver
 </pre>
-It is a good idea to block the cvs port from the Internet with the firewall and use an ssh tunnel to access the repository remotely.
+这是个用来阻断从 internet 访问 cvs 端口的好方法，可使用 ssh 隧道来远程的访问 repository。
 
-<h3>Separate authentication</h3>
-It is possible to have cvs users which are not part of the OS (no local users). This is actually probably wanted too from the security point of view. Simply add a file named <strong>passwd</strong> (in the CVSROOT directory) containing the users login and password in the crypt format. This is can be done with the apache htpasswd tool.<br/>
-<i>Note:</i> This passwd file is the only file which has to be edited directly in the CVSROOT directory. Also it won't be checked out. More info with htpasswd --help
-<pre># htpasswd -cb passwd user1 password1  <span class="cmt"># -c creates the file</span>
+<h3>单独认证</h3>
+CVS 用户可能不是操作系统的一部分(即不是本地用户)。这其实可从安全的角度去看。简单的添加一个叫 <strong>passwd</strong> (in the CVSROOT directory) 的文件，其包含 crypt 格式的用户登录名和密码。这也可以使用 apache 的 htpasswd 工具来完成。<br/>
+<i>注意：</i>这个 passwd 文件仅仅是文件，可以在 CVSROOT 中直接编辑。它不能被签出。更多信息请用 htpasswd --help
+<pre># htpasswd -cb passwd user1 password1  <span class="cmt"># -c 创建文件</span>
 # htpasswd -b passwd user2 password2
 </pre>
 
-Now add <code>:cvs</code> at the end of each line to tell the cvs server to change the user to cvs (or whatever your cvs server is running under). It looks like this:
+现在添加 <code>:cvs</code> 到每行的结尾处，用来告诉 cvs 服务器更改用户到 cvs (或任何你正在运行的 cvs 服务器下)。它看起来像这样：
 <pre># cat passwd
 user1:xsFjhU22u8Fuo:cvs
 user2:vnefJOsnnvToM:cvs
 </pre>
 
-<h2 id="cvstest">Test it</h2>
-Test the login as normal user (for example here me)
+<h2 id="cvstest">测试它</h2>
+测试作为一般用户登录(比如我)
 <pre># cvs -d :pserver:colin@192.168.50.254:/usr/local/cvs login
 Logging in to :pserver:colin@192.168.50.254:2401/usr/local/cvs
 CVS password:
 
 </pre>
 
-<h3 id="cvsroot">CVSROOT variable</h3>
-This is an environment variable used to specify the location of the repository we're doing operations on. For local use, it can be just set to the directory of the repository. For use over the network, the transport protocol must be specified. Set the CVSROOT variable with <code>setenv CVSROOT string</code> on a csh, tcsh shell, or with <code>export CVSROOT=string</code> on a sh, bash shell.
+<h3 id="cvsroot">CVSROOT 变量</h3>
+这是个环境变量用来指定 repository 的位置。对于本地使用，该变量只需设置成 repository 的目录。对于通过网络使用，传输协议必须指定。使用 <code>setenv CVSROOT string</code> (csh, tcsh shell) 或者 <code>export CVSROOT=string</code> ( sh, bash shell) 设置 CVSROOT 环境变量。
 <pre># setenv CVSROOT :pserver:&lt;username&gt;@&lt;host&gt;:/cvsdirectory
 <i><span class="cmt">For example:</span></i>
-# setenv CVSROOT /usr/local/cvs                               <span class="cmt"># Used locally only</span>
-# setenv CVSROOT :local:/usr/local/cvs                        <span class="cmt"># Same as above</span>
-# setenv CVSROOT :ext:user@cvsserver:/usr/local/cvs           <span class="cmt"># Direct access with SSH</span>
-# setenv CVS_RSH ssh                                          <span class="cmt"># for the ext access</span>
-# setenv CVSROOT :pserver:user@cvsserver.254:/usr/local/cvs   <span class="cmt"># network with pserver</span>
+# setenv CVSROOT /usr/local/cvs                               <span class="cmt"># 仅限本的使用</span>
+# setenv CVSROOT :local:/usr/local/cvs                        <span class="cmt"># 同上</span>
+# setenv CVSROOT :ext:user@cvsserver:/usr/local/cvs           <span class="cmt"># 通过 SSH 直接访问</span>
+# setenv CVS_RSH ssh                                          <span class="cmt"># ext 协议访问</span>
+# setenv CVSROOT :pserver:user@cvsserver.254:/usr/local/cvs   <span class="cmt"># 通过 pserver 网络访问</span>
 </pre>
-When the login succeeded one can import a new project into the repository:
-<strong>cd into</strong> your project root directory
+一旦登录成功就可导入一个新项目进 repository：<strong>cd 进入</strong>你的项目根目录
 <pre>cvs import &lt;module name&gt; &lt;vendor tag&gt; &lt;initial tag&gt;
 cvs -d :pserver:colin@192.168.50.254:/usr/local/cvs import MyProject MyCompany START
 </pre>
 
-Where MyProject is the name of the new project in the repository (used later to checkout). Cvs will import the current directory content into the new project.<br/><br/>
-To checkout:
+在 repository 中有个名叫 MyProject 新项目(之后用来签出)。CVS 会导入当前目录的内容进新项目。<br/><br/>
+签出：
 <pre># cvs -d :pserver:colin@192.168.50.254:/usr/local/cvs checkout MyProject
-<i><span class="cmt">or</span></i>
+<i><span class="cmt">或者</span></i>
 # setenv CVSROOT :pserver:colin@192.168.50.254:/usr/local/cvs
 # cvs checkout MyProject
 </pre>
 
-<h2 id="cvsssh">SSH tunneling for CVS</h2>
-We need 2 shells for this. On the first shell we connect to the cvs server with ssh and port-forward the cvs connection. On the second shell we use the cvs normally as if it where running locally.
+<h2 id="cvsssh">通过 SSH 隧道访问 CVS</h2>
+我们需要两个 shell 来做这个。在第一个 shell 中，我们连接到 cvs 服务器并对 cvs 连接进行端口转发(port-forward)。在第二个 shell 中，我们就像在本地一样使用 cvs。
 <br/>
-on shell 1:
-<pre># ssh -L2401:localhost:2401 colin@cvs_server   <span class="cmt"># Connect directly to the CVS server. Or:</span>
-# ssh -L2401:cvs_server:2401 colin@gateway     <span class="cmt"># Use a gateway to reach the CVS</span></pre>
-on shell 2:
+在 shell 1:
+<pre># ssh -L2401:localhost:2401 colin@cvs_server   <span class="cmt"># 直接连接到 cvs 服务器。或：</span>
+# ssh -L2401:cvs_server:2401 colin@gateway     <span class="cmt"># 使用一个网关间接连接到 cvs 服务器</span></pre>
+在 shell 2:
 <pre># setenv CVSROOT :pserver:colin@localhost:/usr/local/cvs
 # cvs login
 Logging in to :pserver:colin@localhost:2401/usr/local/cvs
 CVS password:
 # cvs checkout MyProject/src
 </pre>
-<h2 id="cvsusage">CVS commands and usage</h2>
-<h3>Import</h3>
-The import command is used to add a whole directory, it must be run from within the directory to be imported. Say the directory /devel/ contains all files and subdirectories to be imported. The directory name on the CVS (the module) will be called "myapp".
+<h2 id="cvsusage">CVS 命令及其使用</h2>
+<h3>导入</h3>
+该 import 命令用来添加整个目录，它必须运行于要导入的目录中。比如，目录 /devel/ 包含的所有文件和子目录要导入。该目录名在 CVS 中(模块)将会称为 "myapp"。
 <pre># cvs import [options] directory-name vendor-tag release-tag
-# cd /devel                          <span class="cmt"># Must be inside the project to import it</span>
-# cvs import myapp Company R1_0      <span class="cmt"># Release tag can be anything in one word</span>
+# cd /devel                          <span class="cmt"># 必须在该目录中来导入</span>
+# cvs import myapp Company R1_0      <span class="cmt"># 修订(release)标签可以为任何单个单词</span>
 </pre>
-After a while a new directory "/devel/tools/" was added and it has to be imported too.
+在添加了一个新目录 "/devel/tools/" 后，也可这么导入。
 <pre># cd /devel/tools
 # cvs import myapp/tools Company R1_0
 </pre>
-<h3>Checkout update add commit</h3>
-<pre># cvs co myapp/tools                 <span class="cmt"># Will only checkout the directory tools</span>
-# cvs co -r R1_1 myapp               <span class="cmt"># Checkout myapp at release R1_1 (is sticky)</span>
-# cvs -q -d update -P                <span class="cmt"># A typical CVS update</span>
-# cvs update -A                      <span class="cmt"># Reset any sticky tag (or date, option)</span>
-# cvs add newfile                    <span class="cmt"># Add a new file</span>
-# cvs add -kb newfile                <span class="cmt"># Add a new binary file</span>
-# cvs commit file1 file2             <span class="cmt"># Commit the two files only</span>
-# cvs commit -m "message"            <span class="cmt"># Commit all changes done with a message</span>
+<h3>签出、更新和提交</h3>
+<pre># cvs co myapp/tools                 <span class="cmt"># 仅会签出 tools 目录</span>
+# cvs co -r R1_1 myapp               <span class="cmt"># 签出修订版本为 R1_1 的 myapp (sticky)</span>
+# cvs -q -d update -P                <span class="cmt"># 典型的 CVS 更新</span>
+# cvs update -A                      <span class="cmt"># 重置所有 sticky 标签(或日期、选项)</span>
+# cvs add newfile                    <span class="cmt"># 添加一个新文件</span>
+# cvs add -kb newfile                <span class="cmt"># 添加一个二进制文件</span>
+# cvs commit file1 file2             <span class="cmt"># 仅提交这两个文件</span>
+# cvs commit -m "message"            <span class="cmt"># 提交所有更改并为这个更改添加日志消息</span>
 </pre>
 
-<h3>Create a patch</h3>
+<h3>创建一个 patch</h3>
 It is best to create and apply a patch from the working development directory related to the project, or from within the source directory.
 <pre># cd /devel/project
 # diff -Naur olddir newdir &gt; patchfile <span class="cmt"># Create a patch from a directory or a file</span>
 # diff -Naur oldfile newfile &gt; patchfile
 </pre>
-<h3>Apply a patch</h3>
+<h3>应用一个 patch</h3>
 Sometimes it is necessary to strip a directory level from the patch, depending how it was created. In case of difficulties, simply look at the first lines of the patch and try -p0, -p1 or -p2.
 <pre># cd /devel/project
 # patch --dry-run -p0 &lt; patchfile    <span class="cmt"># Test the path without applying it</span>
@@ -2331,7 +2329,7 @@ EOT
 </pre>
 
 <h3>恢复</h3>
-The command <code>dd</code> will read <i>every single block</i> of the partiton, even the blocks. In case of problems it is better to use the option <code>conv=sync,noerror</code> so dd will skip the bad block and write zeros at the destination. Accordingly it is important to set the block size equal or smaller than the disk block size. A 1k size seems safe, set it with <code>bs=1k</code>. If a disk has bad sectors and the data should be recovered from a partiton, create an image file with dd, mount the image and copy the content to a new disk. With the option <code>noerror</code>, dd will skip the bad sectors and write zeros instead, thus only the data contained in the bad sectors will be lost.
+该 <code>dd</code> 命令会读取分区的<i>每一个区块</i>，即所有区块。对于有问题的区块，最好使用 <code>conv=sync,noerror</code> 选项，dd 将会跳过坏的区块并入 0。因此，这就是设置块大小等于或小于磁盘块大小的重要性。1k 大小似乎安全，用 <code>bs=1k</code> 来设置它。假如一个磁盘有坏扇区并且有个分区的数据要恢复，那么用 dd 工具创建一个镜像文件，挂载这个镜像文件，然后拷贝内容到新的磁盘中。如果用了 <code>noerror</code> 选项，dd 会跳过坏扇区并写入 0，也即坏扇区中的内容会丢失。
 
 <pre># dd if=/dev/hda of=/dev/null bs=1m                   <span class="cmt"># 检查坏扇区</span>
 # dd bs=1k if=/dev/hda1 conv=sync,noerror,notrunc | gzip | ssh \ <span class="cmt"># 发送到远程</span>
@@ -2357,89 +2355,88 @@ MBR 包含了引导程序和分区表，它的大小为 512 字节。前 446 字
 </pre>
 
 <h2 id="screen">screen</h2>
-Screen has two main functionalities:
+Screen 提供了两个主要功能：
 <ul>
-<li>Run multiple terminal session within a single terminal.</li>
-<li>A started program is decoupled from the real terminal and can thus run in the background. The real terminal can be closed and reattached later.</li>
+<li>在一个终端内运行多个终端会话(terminal session)。</li>
+<li>一个已启动的程序与运行它的真实终端分离的，因此可运行于后台。真实的终端可以被关闭，还可以在稍后再重新接上(reattached)。</li>
 </ul>
-<h3>Short start example</h3>
-start screen with:
+<h3>简短实例</h3>
+开启 screen：
 <pre># screen</pre>
-Within the screen session we can start a long lasting program (like top). Detach the terminal and reattach the same terminal from an other machine (over ssh for example).
+在 screen 会话中，我们可以开启一个长时间运行的程序(如 top)。Detach 这个终端，之后可以从其他机器 reattach 这个相同的终端(比如通过 ssh)。
 <pre># top</pre>
-Now detach with <strong>Ctrl-a Ctrl-d</strong>. Reattach the terminal with
+现在用 <strong>Ctrl-a Ctrl-d</strong> 来 detach。Reattach 终端：
 <pre># screen -r</pre>
-or better:
+或更好的：
 <pre># screen -R -D</pre>
-Attach here and now. In detail this means: If a session is running, then reattach. If  necessary detach and logout remotely first. If it was not running create it and notify the user.
+现在 attach 到这里。具体意思是：先试图恢复离线的 screen 会话。若找不到离线的 screen 会话，即建立新的 screen 会话给用户。
 
-<h3>Screen commands (within screen)</h3>
-All screen commands start with <strong>Ctrl-a</strong>.
+<h3>Screen 命令 (在 screen 中)</h3>
+所有命令都以 <strong>Ctrl-a</strong> 开始。
 <ul>
-  <li><strong>Ctrl-a ?</strong> help and summary of functions</li>
-  <li><strong>Ctrl-a c</strong> create an new window (terminal)</li>
-  <li><strong>Ctrl-a Ctrl-n and Ctrl-a Ctrl-p</strong> to switch to the next or previous
-window in the list, by number.</li>
-  <li><strong>Ctrl-a Ctrl-N</strong> where N is a number from 0 to 9, to switch to the corresponding window.</li>
-  <li><strong>Ctrl-a &quot;</strong> to get a navigable list of running windows</li>
-  <li><strong>Ctrl-a a</strong> to clear a missed Ctrl-a</li>
-  <li><strong>Ctrl-a Ctrl-d</strong> to disconnect and leave the session running in the background</li>
-  <li><strong>Ctrl-a x</strong> lock the screen terminal with a password</li>
+  <li><strong>Ctrl-a ?</strong> 各功能的帮助摘要</li>
+  <li><strong>Ctrl-a c</strong> 创建一个新的 window (终端)</li>
+  <li><strong>Ctrl-a Ctrl-n 和 Ctrl-a Ctrl-p</strong> 切换到下一个或前一个 window</li>
+  <li><strong>Ctrl-a Ctrl-N</strong> N 为 0 到 9 的数字，用来切换到相对应的 window</li>
+  <li><strong>Ctrl-a &quot;</strong> 获取所有正在运行的 window 的可导航的列表</li>
+  <li><strong>Ctrl-a a</strong> 清楚错误的 Ctrl-a</li>
+  <li><strong>Ctrl-a Ctrl-d</strong> 断开所有会话，会话中所有任务运行于后台</li>
+  <li><strong>Ctrl-a x</strong> 用密码锁柱 screen 终端</li>
 </ul>
-The screen session is terminated when the program within the running terminal is closed and you logout from the terminal.
+当程序内部运行终端关闭并且你登出该终端时，该 screen 会话就会被终止。
 
 <h2 id="find">Find</h2>
-Some important options:
+一些重要选项：
 <ul style="list-style-type: none;">
-  <li><code>-x</code> (on BSD) <code>-xdev</code> (on Linux)       Stay on the same file system (dev in fstab).</li>
-  <li><code>-exec cmd {} \;</code>       Execute the command and replace {} with the full path</li>
-  <li><code>-iname</code>       Like -name but is case insensitive</li>
-  <li><code>-ls</code>       Display information about the file (like ls -la)</li>
-  <li><code>-size n</code>       n is +-n (k M G T P)</li>
-  <li><code>-cmin n</code>       File's status was last changed n minutes ago.</li>
+  <li><code>-x</code> (BSD) <code>-xdev</code> (Linux)       留于同一文件系统 (fstab 中的 dev)</li>
+  <li><code>-exec cmd {} \;</code>       执行命令并用全路径替换 {}</li>
+  <li><code>-iname</code>       同 -name 一样，但不区分大小写</li>
+  <li><code>-ls</code>       显示关于文件的信息(同 ls -la)</li>
+  <li><code>-size n</code>       n 为 +-n (k M G T P)</li>
+  <li><code>-cmin n</code>       查找系统中最后 n 分钟改变文件状态的文件</li>
 </ul>
-<pre># find . -type f ! -perm -444        <span class="cmt"># Find files not readable by all</span>
-# find . -type d ! -perm -111        <span class="cmt"># Find dirs not accessible by all</span>
-# find /home/user/ -cmin 10 -print   <span class="cmt"># Files created or modified in the last 10 min.</span>
-# find . -name '*.[ch]' | xargs grep -E 'expr' <span class="cmt"># Search 'expr' in this dir and below.</span>
-# find / -name "*.core" | xargs rm   <span class="cmt"># Find core dumps and delete them (also try core.*)</span>
-# find / -name "*.core" -print -exec rm {} \;  <span class="cmt"># Other syntax</span>
-      <span class="cmt"># Find images and create an archive, iname is not case sensitive. -r for append</span>
+<pre># find . -type f ! -perm -444        <span class="cmt"># 寻找所有无法读取的文件</span>
+# find . -type d ! -perm -111        <span class="cmt"># 寻找所有无法访问的目录</span>
+# find /home/user/ -cmin 10 -print   <span class="cmt"># 寻找最后 10 分钟创建或修改的文件</span>
+# find . -name '*.[ch]' | xargs grep -E 'expr' <span class="cmt"># 在当前目录及子目录搜索 'expr' 表达式</span>
+# find / -name "*.core" | xargs rm   <span class="cmt"># 寻找 core 垃圾并删除它们(也可试试 core.*)</span>
+# find / -name "*.core" -print -exec rm {} \;  <span class="cmt"># 另一种语法</span>
+      <span class="cmt"># 寻找图像文件并创建一个归档文件，iname 为不区分大小写。-r 为附加</span>
 # find . \( -iname "*.png" -o -iname "*.jpg" \) -print -exec tar -rf images.tar {} \;
-# find . -type f -name "*.txt" ! -name README.txt -print  <span class="cmt"># Exclude README.txt files</span>
-# find /var/ -size +10M -exec ls -lh {} \;     <span class="cmt"># Find large files &gt; 10 MB</span>
-# find /var/ -size +10M -ls           <span class="cmt"># This is simpler</span>
+# find . -type f -name "*.txt" ! -name README.txt -print  <span class="cmt"># 除 README.txt 的文件</span>
+# find /var/ -size +10M -exec ls -lh {} \;     <span class="cmt"># 查找 &gt; 10 MB 的文件</span>
+# find /var/ -size +10M -ls           <span class="cmt"># 这个更简单</span>
 # find . -size +10M -size -50M -print
-# find /usr/ports/ -name work -type d -print -exec rm -rf {} \;  <span class="cmt"># Clean the ports</span>
-      <span class="cmt"># Find files with SUID; those file are vulnerable and must be kept secure</span>
+# find /usr/ports/ -name work -type d -print -exec rm -rf {} \;  <span class="cmt"># 清理 port</span>
+      <span class="cmt"># 以 SUID 查找文件；这些文件很脆弱，必须保持安全。</span>
 # find / -type f -user root -perm -4000 -exec ls -l {} \; 
 </pre>
-Be careful with xarg or exec as it might or might not honor quotings and can return wrong results when files or directories contain spaces. In doubt use "-print0 | xargs -0" instead of "| xargs". The option -print0 must be the last in the find command. See this nice <a href="http://www.hccfl.edu/pollock/Unix/FindCmd.htm">mini tutorial for find</a><span class="fn">http://www.hccfl.edu/pollock/Unix/FindCmd.htm</span>.
-<pre># find . -type f | xargs ls -l       <span class="cmt"># Will not work with spaces in names</span>
-# find . -type f -print0 | xargs -0 ls -l  <span class="cmt"># Will work with spaces in names</span>
-# find . -type f -exec ls -l '{}' \; <span class="cmt"># Or use quotes '{}' with -exec</span>
+小心 xarg 或 exec，因为当文件或目录中包含空格时可能会返回错误的结果。在有疑惑时用 "-print0 | xargs -0" 代替 "| xargs"。选项 -print0 必须在 find 命令的最后。看这个不错的 <a href="http://www.hccfl.edu/pollock/Unix/FindCmd.htm">find 迷你教程</a><span class="fn">http://www.hccfl.edu/pollock/Unix/FindCmd.htm</span>.
+<pre># find . -type f | xargs ls -l       <span class="cmt"># 不能工作于有空格的名字</span>
+# find . -type f -print0 | xargs -0 ls -l  <span class="cmt"># 可工作于有空格的名字</span>
+# find . -type f -exec ls -l '{}' \; <span class="cmt"># 或使用用于 -exec 的引用 '{}'</span>
 </pre>
 <h2 id="misccmd">混杂的</h2>
-<pre># which command                      <span class="cmt"># Show full path name of command</span>
-# time command                       <span class="cmt"># See how long a command takes to execute</span>
-# time cat                           <span class="cmt"># Use time as stopwatch. Ctrl-c to stop</span>
-# set | grep $USER                   <span class="cmt"># List the current environment</span>
-# cal -3                             <span class="cmt"># Display a three month calendar</span>
+<pre># which command                      <span class="cmt"># 显示命令的全路径名</span>
+# time command                       <span class="cmt"># 显示一个命令执行完成所用的时间</span>
+# time cat                           <span class="cmt"># 使用 time 作为秒表，用 Ctrl-c 来停止</span>
+# set | grep $USER                   <span class="cmt"># 列显当前环境变量</span>
+# cal -3                             <span class="cmt"># 显示三个月日历</span>
 # date [-u|--utc|--universal] [MMDDhhmm[[CC]YY][.ss]]
-# date 10022155                      <span class="cmt"># Set date and time</span>
-# whatis grep                        <span class="cmt"># Display a short info on the command or word</span>
-# whereis java                       <span class="cmt"># Search path and standard directories for word</span>
-# setenv varname value               <span class="cmt"># Set env. variable varname to value (csh/tcsh)</span>
-# export varname="value"             <span class="cmt"># set env. variable varname to value (sh/ksh/bash)</span>
-# pwd                                <span class="cmt"># Print working directory</span>
-# mkdir -p /path/to/dir              <span class="cmt"># no error if existing, make parent dirs as needed</span>
+# date 10022155                      <span class="cmt"># 设置日期和时间</span>
+# whatis grep                        <span class="cmt"># 显示命令的简短信息</span>
+# whereis java                       <span class="cmt"># 查询命令的的路径和标准目录</span>
+# setenv varname value               <span class="cmt"># 设置环境变量，设置变量 varname 的值为 value (csh/tcsh)</span>
+# export varname="value"             <span class="cmt"># 设置环境变量，设置变量 varname 的值为 value  (sh/ksh/bash)</span>
+# pwd                                <span class="cmt"># 显示当前工作目录</span>
+# mkdir -p /path/to/dir              <span class="cmt"># 如果存在不显示错误，建立所需的上级目录</span>
 # mkdir -p project/{bin,src,obj,doc/{html,man,pdf},debug/some/more/dirs}
-# rmdir /path/to/dir                 <span class="cmt"># Remove directory</span>
-# rm -rf /path/to/dir                <span class="cmt"># Remove directory and its content (force)</span>
-# cp -la /dir1 /dir2                 <span class="cmt"># Archive and hard link files instead of copy</span>
-# cp -lpR /dir1 /dir2                <span class="cmt"># Same for FreeBSD</span>
-# cp unixtoolbox.xhtml{,.bak}        <span class="cmt"># Short way to copy the file with a new extension</span>
-# mv /dir1 /dir2                     <span class="cmt"># Rename a directory</span>
+# rmdir /path/to/dir                 <span class="cmt"># 移除目录</span>
+# rm -rf /path/to/dir                <span class="cmt"># 移除目录和其内容(强制)</span>
+# cp -la /dir1 /dir2                 <span class="cmt"># 存档、硬连接目录所有文件，用来替代拷贝</span>
+# cp -lpR /dir1 /dir2                <span class="cmt"># 同上 (FreeBSD)</span>
+# cp unixtoolbox.xhtml{,.bak}        <span class="cmt"># 拷贝文件成新扩展名的快速方法</span>
+# mv /dir1 /dir2                     <span class="cmt"># 修改目录名</span>
 </pre>
 </div>
 
