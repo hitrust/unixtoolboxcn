@@ -10,16 +10,16 @@
   <meta name="copyright" content="Copyright © 2007-2008 Colin Barschel and Greco Shi. Some rights reserved under Creative Commons [Attribution - Share Alike]" />
   <meta name="description" content="A collection of Unix/Linux/BSD commands and tasks which are useful for IT work or for advanced users, a compact and practical reference." />
   <meta name="abstract" content="Unix Toolbox a compact and practical reference for sysadmins and advanced users." />
-  <meta name="subject" content="Unix Toolbox revision 12" />
+  <meta name="subject" content="Unix Toolbox revision 13.1" />
   <meta name="keywords" content="Unix Toolbox, Unix tools, Unix, FreeBSD, Linux, commands list, sysadmin, practical guide, advanced reference, common Linux tasks, syntax reminder, howtos, ssh tunnels, rsync, ssl certificates" />
-  <style type="text/css" >
+  <style type="text/css">
 /* basic CSS common to all media */
 html {
     margin: 0;
 }
 body {
     padding: 0;
-    font-family: simsun, verdana, arial, sans-serif;
+    font-family: verdana, arial, sans-serif;
     font-size: 90%;
     counter-reset: chapter section;
 }
@@ -32,7 +32,7 @@ div.title {
     letter-spacing: .22em;
 }
 h1, h2, h3 div.title {
-    font-family: simsun, verdana, sans-serif;
+    font-family: verdana, sans-serif;
 }
 h1 {
     text-transform: uppercase;
@@ -84,29 +84,29 @@ div.changestyle {
 /* including some IE6 hacks */
     body {
         padding: 0;
-        margin: 1em 13em 0em 2em;
+        margin: 1em 13em 0em 1.5em;
     }	
-    html>body {
-        margin: 1em 13em 0em 2em;
+    html&gt;body {
+        margin: 1em 13em 0em 1.5em;
     }
-    body>div.menu {
-        /* position: fixed; */
+    body&gt;div.menu {
+        position: fixed;
     }
-    body>div.changestyle {
-        /* position: fixed; */
+    body&gt;div.changestyle {
+        position: fixed;
     }
     div.menu { 
         position: absolute;
         z-index: 2;
-        width: 10.2em; height: auto;
-        top: 0.4em; right: 1em; bottom: 0.8em; left: auto;
+        width: 10.7em; height: auto;
+        top: 0.4em; right: 0.5em; bottom: 0.8em; left: auto;
     }
     div.changestyle {
         font-size: 80%;
         font-weight: normal;
-        /* position: absolute; */
+        position: absolute;
         z-index: 2;
-        width: 10.2em; height: auto;
+        width: 10.7em; height: auto;
         bottom: 0;
     }
     ol.toc, ol.toc li  {
@@ -115,14 +115,14 @@ div.changestyle {
         padding: 0.13em 0;
         text-indent: 0;
         text-align: left;
+        line-height: 1.1em;
     }
     p.last {
         padding-top: 5em;
     }
     .fn {
         display: none;
-        counter-increment: footnote;
-        font-family: simsun, verdana, sans-serif;
+        counter-increment: footnote
     }
 }
 
@@ -138,15 +138,18 @@ div.changestyle {
     div {
         text-align: justify;
     }
-    
+    h2 {
+        margin-bottom: 0.7em;
+    }
     h3 {
-        margin-bottom: 1em;
+        margin-bottom: 0.5em;
     }
     pre {
         font-size: 90%;
         margin: 0.4em 0;
         padding: 0.2em 0 0.2em 0.4em;
         text-align: left;
+        line-height: 117%
     }
     a {
 	text-decoration: none;
@@ -215,18 +218,15 @@ a.xref:after {
         display: prince-footnote;
         counter-increment: footnote;
         font-size: 80%;
-        font-family: simsun, verdana, sans-serif;
     }
     .fn::footnote-call {
         content: counter(footnote);
         font-size: 80%;
         vertical-align: super;
-        line-height: none;
-        font-family: simsun, verdana, sans-serif;
+        line-height: none
     }
     .fn::footnote-marker {
         list-style-position: inside;
-        font-family: simsun, verdana, sans-serif;
     }
 }
 @page {
@@ -237,18 +237,18 @@ a.xref:after {
 	border-top: solid #000040 thin;
 	padding-top: 0.22em;
         padding-left: 1.2em;
-        font-family: simsun, verdana, sans-serif;
+        font-family: verdana, sans-serif;
     }
     @bottom-center {
         padding: 0 0 5mm 0;
         content: counter(page);
-        font-family: simsun, verdana, sans-serif;
+        font-family: verdana, sans-serif;
         font-size: 88%;
     }
     @top {
         padding-top: 5mm;
-	content: "&#8212; " string(chaptertitle) " &#8212;";
-        font-family: simsun, verdana, sans-serif;
+	content: "— " string(chaptertitle) " —";
+        font-family: verdana, sans-serif;
     }
 }
 @page :first {
@@ -276,14 +276,12 @@ h1 {
 h3, h4, div.title, h2, a:link, a:visited, .cmt {
     background-color: transparent;
     color: #000040;
-    font-family: simsun, verdana, sans-serif;
 }
 pre {
     background-color: #F6F6FC;
 }
 pre, code { 
     color: #003300;
-    font-family: simsun, verdana, sans-serif;
 }
 a:hover, .pp {
     color: #D55500;
@@ -299,12 +297,10 @@ a:active {
 /* print only colors */
 pre, code { 
     color: #000;
-    font-family: simsun, verdana, sans-serif;
 }
 a:link, a:visited, .cmt {
     background-color: transparent;
     color: #000060;
-    font-family: simsun, verdana, sans-serif;
 }
 }
 </style>
@@ -322,14 +318,12 @@ h1 {
 h3, h4, div.title, h2, a:link, a:visited, .cmt {
     background-color: transparent;
     color: #ffffcd;
-    font-family: simsun, verdana, sans-serif;
 }
 pre {
     background-color: #090903;
 }
 pre, code { 
     color: #ffc3ff;
-    font-family: simsun, verdana, sans-serif;
 }
 a:hover, .pp {
     color: #2aaaff;
@@ -407,7 +401,7 @@ window.onload = initCSS();
 这是一份收集Unix/Linux/BSD命令和任务的文档，它有助于高级用户或IT工作。它是一份简明扼要的实用指南，当然读者应该知道他/她在干什么。<br /><br />
 </div>
 <div class="footerfirst">
-Unix Toolbox 版本：12<br />
+Unix Toolbox 版本：13.1<br />
 你可以到 <a href="http://cb.vu/unixtoolbox.xhtml">http://cb.vu/unixtoolbox.xhtml</a> 找到本文档的最新版。PDF版本可以替换链接中的.xhtml为 <a href="http://cb.vu/unixtoolbox.pdf">.pdf</a> ，小册子版本可以替换成 <a href="http://cb.vu/unixtoolbox.book.pdf">.book.pdf</a> 。 用双面打印机可将小册子打印成册。<span class="web">这份XHTML页面可以通过CSS3相兼容的应用程序转换成一份漂亮的PDF文档(看 <a class="xref" href="#bourneexample">脚本例子</a>).</span><br />
 错误报告和评论是最欢迎的 - <a href="mailto:c\at\cb.vu">c@cb.vu</a> Colin Barschel.<br />
 你可以到<a href="http://code.google.com/p/unixtoolboxcn/">http://code.google.com/p/unixtoolboxcn/</a>找到中文最新版。<br />
@@ -474,10 +468,10 @@ Unix Toolbox 版本：12<br />
 # cat /etc/SuSE-release              <span class="cmt"># 获取 SuSE 版本</span>
 # cat /etc/debian_version            <span class="cmt"># 获取 Debian 版本</span>
 </pre>
-使用 /etc/<code>DISTR</code>-release 其中<code>DISTR(发行代号)=</code> lsb (Ubuntu), redhat, gentoo, mandrake, sun (Solaris), 等等。
+使用 /etc/<code>DISTR</code>-release 其中<code>DISTR(发行代号)=</code> lsb (Ubuntu), redhat, gentoo, mandrake, sun (Solaris), 等等。也可查看 <code>/etc/issue</code>.
 <pre># uptime                             <span class="cmt"># 显示系统开机运行到现在经过的时间</span>
 # hostname                           <span class="cmt"># 显示系统主机名</span>
-# hostname -i                        <span class="cmt"># 显示主机的 IP 地址</span>
+# hostname -i                        <span class="cmt"># 显示主机的 IP 地址(只限Linux)</span>
 # man hier                           <span class="cmt"># 描述文件系统目录结构</span>
 # last reboot                        <span class="cmt"># 显示系统最后重启的历史记录</span>
 </pre>
@@ -509,6 +503,7 @@ Unix Toolbox 版本：12<br />
 # pciconf -l -cv                     <span class="cmt"># 显示 PCI 设备</span>
 # usbdevs -v                         <span class="cmt"># 显示 USB 设备</span>
 # atacontrol list                    <span class="cmt"># 显示 ATA 设备</span>
+# camcontrol devlist -v              <span class="cmt"># 显示 SCSI 设备</span>
 </pre>
 <h2 id="loadstats">显示状态信息</h2>
 以下的命令有助于找出正在系统中运行着的程序。
@@ -530,6 +525,8 @@ Unix Toolbox 版本：12<br />
 # who                                <span class="cmt"># 显示目前登入系统的用户信息</span>
 # groupadd admin                     <span class="cmt"># 建立新组"admin"和添加新用户 colin 并加入 admin 用户组(Linux/Solaris)</span>
 # useradd -c "Colin Barschel" -g admin -m colin
+# usermod -a -G &lt;group&gt; &lt;user&gt;       <span class="cmt"># 添加已存在用户到用户组(Debian)</span>
+# groupmod -A &lt;user&gt; &lt;group&gt;         <span class="cmt"># 添加已存在用户到用户组(SuSE)</span>
 # userdel colin                      <span class="cmt"># 删除用户 colin(Linux/Solaris)</span>
 # adduser joe                        <span class="cmt"># FreeBSD 添加用户 joe(交互式)</span>
 # rmuser joe                         <span class="cmt"># FreeBSD 删除用户 joe(交互式)</span>
@@ -564,6 +561,7 @@ asterisk hard nofile 409600          <span class="cmt"># 限制应用程序可�
 <pre># sysctl -a                          <span class="cmt"># 显示所有系统限制</span>
 # sysctl fs.file-max                 <span class="cmt"># 显示系统最大文件打开数</span>
 # sysctl fs.file-max=102400          <span class="cmt"># 更改系统最大文件打开数</span>
+# echo "1024 50000" &gt; /proc/sys/net/ipv4/ip_local_port_range  <span class="cmt"># 端口范围</span>
 # cat /etc/sysctl.conf
 fs.file-max=102400                   <span class="cmt"># 在 sysctl.conf 中的永久项</span>
 # cat /proc/sys/fs/file-nr           <span class="cmt"># 在使用的文件句柄数</span>
@@ -584,6 +582,8 @@ kern.maxfilesperproc=32768
 kern.ipc.somaxconn=8192              <span class="cmt"># TCP 列队。apache/sendmail 最好用这个值</span>
 # sysctl kern.openfiles              <span class="cmt"># 在使用的文件描述符数</span>
 # sysctl kern.ipc.numopensockets     <span class="cmt"># 已经开启的 socket 数目</span>
+# sysctl -w net.inet.ip.portrange.last=50000 <span class="cmt"># 默认为 1024-5000</span>
+# netstat -m                         <span class="cmt"># 网络缓存区统计</span>
 </pre>
 详情请看 <a href="http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/configtuning-kernel-limits.html">FreeBSD 手册 11章</a><span class="fn">http://www.freebsd.org/handbook/configtuning-kernel-limits.html</span>。
 
@@ -681,7 +681,7 @@ FreeBSD 不会让你这么做。解决方案是用其他操作系统(像系统�
 <h3>Linux</h3>
 <pre># cd /usr/src/linux
 # make mrproper                      <span class="cmt"># 清除所有东西，包括配置文件</span>
-# make oldconfig                     <span class="cmt"># 从当前内核配置文件的基础上创建一个新的配置文件</span>
+# make oldconfig                     <span class="cmt"># 重用老的 .config 如果存在的话</span>
 # make menuconfig                    <span class="cmt"># 或者 xconfig (Qt) 或者 gconfig (GTK)</span>
 # make                               <span class="cmt"># 创建一个已压缩的内核映像文件</span>
 # make modules                       <span class="cmt"># 编译模块</span>
@@ -689,7 +689,19 @@ FreeBSD 不会让你这么做。解决方案是用其他操作系统(像系统�
 # make install                       <span class="cmt"># 安装内核</span>
 # reboot
 </pre>
-<h3>FreeBSD</h3>要改变和重建内核，需要拷贝源配置文件然后编辑它。当然也可以直接编辑 <code>GENERIC</code> 文件。
+<h3>FreeBSD</h3>
+Optionally update the source tree (in <code>/usr/src</code>) with csup (as of FreeBSD 6.2 or later):
+<pre># csup &lt;supfile&gt;</pre>
+I use the following supfile:
+<pre>*default host=cvsup5.FreeBSD.org  # www.freebsd.org/handbook/cvsup.html#CVSUP-MIRRORS
+*default prefix=/usr 
+*default base=/var/db
+*default release=cvs delete tag=RELENG_7
+src-all
+</pre>
+To modify and rebuild the kernel, copy the generic configuration file to a new name and edit it as needed (you can also edit the file <code>GENERIC</code> directly). To restart the build after an interruption, add the option <code>NO_CLEAN=YES</code> to the make command to avoid cleaning the objects already build.
+<br/>To modify and rebuild the kernel, copy the generic configuration file to a new name and edit it as needed. It is however also possible to edit the file <code>GENERIC</code> directly.
+<br/>要改变和重建内核，需要拷贝源配置文件然后编辑它。当然也可以直接编辑 <code>GENERIC</code> 文件。
 <pre># cd /usr/src/sys/i386/conf/
 # cp GENERIC MYKERNEL
 # cd /usr/src
@@ -703,7 +715,7 @@ FreeBSD 不会让你这么做。解决方案是用其他操作系统(像系统�
 # reboot
 # mergemaster -p                     <span class="cmt"># 建立临时根环境并比对系统配置文件</span>
 # make installworld
-# mergemaster                        <span class="cmt"># 升级所有配置和其他文件</span>
+# mergemaster -i -U                  <span class="cmt"># 升级所有配置和其他文件</span>
 # reboot
 </pre>
 对于源的一些小改动，有时候简单的命令就足够了：
@@ -1079,7 +1091,7 @@ md     /memdisk     mfs     rw,-s64M    0   0         <span class="cmt"># /etc/f
 </div>
 
 <div id="network"><h1><a>网络</a></h1>
-<p class="xrefp"><a class="xrefp" href="#routing">路由</a> | <a class="xrefp" href="#secondip">额外 IP</a> | <a class="xrefp" href="#changemac">更改 MAC 地址</a> | <a class="xrefp" href="#ports">端口</a> | <a class="xrefp" href="#firewall">防火墙</a> | <a class="xrefp" href="#ipforward">IP 转发</a> | <a class="xrefp" href="#nat">NAT</a> | <a class="xrefp" href="#dns">DNS</a> | <a class="xrefp" href="#dhcp">DHCP</a> | <a class="xrefp" href="#traffic">通信量</a> | <a class="xrefp" href="#trafficctrl">QoS</a> | <a class="xrefp" href="#nis">NIS</a></p>
+<p class="xrefp"><a class="xrefp" href="#routing">路由</a> | <a class="xrefp" href="#secondip">额外 IP</a> | <a class="xrefp" href="#changemac">更改 MAC 地址</a> | <a class="xrefp" href="#ports">端口</a> | <a class="xrefp" href="#firewall">防火墙</a> | <a class="xrefp" href="#ipforward">IP 转发</a> | <a class="xrefp" href="#nat">NAT</a> | <a class="xrefp" href="#dns">DNS</a> | <a class="xrefp" href="#dhcp">DHCP</a> | <a class="xrefp" href="#traffic">通信量</a> | <a class="xrefp" href="#trafficctrl">QoS</a> | <a class="xrefp" href="#nis">NIS</a> | <a class="xrefp" href="#netcat">Netcat</a></p>
 <h2 id="netdebug">调试 (也可看<a class="xref" href="#traffic">流量分析)</a></h2>
 <h3>Linux</h3>
 <pre># ethtool eth0              <span class="cmt"># 显示以太网状态(replaces mii-diag)</span>
@@ -1149,6 +1161,7 @@ route_myroute="-net 212.117.0.0/16 192.168.1.1"
 <h3>FreeBSD</h3>
 <pre># ifconfig fxp0 inet 192.168.50.254/24                     <span class="cmt"># 第一个 IP</span>
 # ifconfig fxp0 alias 192.168.51.254 netmask 255.255.255.0 <span class="cmt"># 第二个 IP</span>
+# ifconfig fxp0 -alias 192.168.51.254                      <span class="cmt"># 移除第二个 IP 别名</span>
 </pre>永久条目设置在 /etc/rc.conf 中
 <pre>ifconfig_fxp0="inet 192.168.50.254  netmask 255.255.255.0"
 ifconfig_fxp0_alias0="192.168.51.254 netmask 255.255.255.0"
@@ -1229,7 +1242,7 @@ gateway_enable="YES"                     <span class="cmt"># 如果主机是网�
 # iptables -t nat -A PREROUTING -p tcp -d 78.31.70.238 --dport 20022 -j DNAT \
 --to 192.168.16.44:22           <span class="cmt"># 转发端口 20022 到内部 IP 端口(ssh)</span>
 # iptables -t nat -A PREROUTING -p tcp -d 78.31.70.238 --dport 993:995 -j DNAT \
---to 192.168.16.254:993:995     <span class="cmt"># 转发 993-995 范围端口</span>
+--to 192.168.16.254:993-995     <span class="cmt"># 转发 993-995 范围端口</span>
 # ip route flush cache
 # iptables -L -t nat            <span class="cmt"># 查看 NAT 状态信息</span>
 </pre>
@@ -1448,7 +1461,7 @@ domain domain.net broadcast
 <div id="ssh"><h1><a>SSH SCP</a></h1>
 <p class="xrefp"><a class="xrefp" href="#publickey">公钥认证</a> | <a class="xrefp" href="#sshfingerprint">指纹</a> | <a class="xrefp" href="#scp">SCP</a> | <a class="xrefp" href="#sshtunnel">隧道(Tunneling)</a></p>
 <h2 id="publickey">Public key authentication</h2>
-使用公钥认证而不是密码连接主机。方法是附加你的公钥文件到远程主机。本例中我们用客户端产生的 key <b>从 <i>host-client</i> 连接到 <i>host-server</i></b>。
+使用公钥认证而不是密码连接主机。方法是附加你的公钥文件到远程主机。本例中我们用客户端产生的 key <b>从 <i>host-client</i> 连接到 <i>host-server</i></b>。对于 cygwin 你可以用 <code># mkdir -p /home/USER/.ssh</code> 来创建你的 homg 和 .ssh 目录。
 <ul>
   <li>使用 ssh-keygen 生成密钥对。私钥放在 <code>~/.ssh/id_dsa</code>，公钥在 <code>~/.ssh/id_dsa.pub</code>。</li>
   <li>拷贝你的公钥到服务器的 <code>~/.ssh/authorized_keys2</code>。</li>
@@ -1753,24 +1766,24 @@ ALL          DESKTOP = NOPASSWD: /sbin/mount /cdrom,/sbin/umount /cdrom
 <div id="crypt"><h1><a>文件加密</a></h1>
 <h2>单个文件</h2>
 加密和解密：
-<pre># openssl des -salt -in file -out file.des
-# openssl des -d -salt -in file.des -out file
+<pre># openssl aes-128-cbc -salt -in file -out file.aes
+# openssl aes-128-cbc -d -salt -in file.aes -out file
 </pre>
 那个 file 可以是归档文件(tar archive)。
     
 <h2>归档并加密整个目录</h2>
-<pre># tar -cf - directory | openssl des -salt -out directory.tar.des      <span class="cmt"># 加密</span>
-# openssl des -d -salt -in directory.tar.des | tar -x                 <span class="cmt"># 解密</span>
+<pre># tar -cf - directory | openssl aes-128-cbc -salt -out directory.tar.aes      <span class="cmt"># 加密</span>
+# openssl aes-128-cbc -d -salt -in directory.tar.aes | tar -x                 <span class="cmt"># 解密</span>
 </pre>
     
 <h2>压缩归档并加密整个目录</h2>
-<pre># tar -zcf - directory | openssl des -salt -out directory.tar.gz.des  <span class="cmt"># 加密</span>
-# openssl des -d -salt -in directory.tar.gz.des | tar -xz             <span class="cmt"># 解密</span>
+<pre># tar -zcf - directory | openssl aes-128-cbc -salt -out directory.tar.gz.aes  <span class="cmt"># 加密</span>
+# openssl aes-128-cbc -d -salt -in directory.tar.gz.aes | tar -xz             <span class="cmt"># 解密</span>
 </pre>
 
 <ul>
-<li>在使用-k mysecretpassword后，des会取消交互式的密码请求。不过，这非常不安全。</li>
-<li>使用des3代替des来获得更强的加密(Triple-DES Cipher)。这同样会消耗更多的CPU。</li>
+<li>在使用-k mysecretpassword后，aes-128-cbc会取消交互式的密码请求。不过，这非常不安全。</li>
+<li>使用<strong>aes-256-cbc</strong>代替<strong>aes-128-cbc</strong>来获得更强的加密。这同样会消耗更多的CPU。</li>
 </ul>
 
 <h2>GPG</h2>
@@ -2343,7 +2356,8 @@ root@fry 'dd of=hda1.gz bs=1k'
 <h3>删除</h3>
 <pre># dd if=/dev/zero of=/dev/hdc                         <span class="cmt"># 删除全部数据</span>
 # dd if=/dev/urandom of=/dev/hdc                      <span class="cmt"># 更好的删除全部数据<span class="fn">译注：/dev/urandom 设备文件提供了一种比单独使用$RANDOM更好的,能产生更"随机"的随机数的方法。</span></span>
-# kill -USR1 PID                                      <span class="cmt"># 查看 dd 进度(仅Linux!)</span>
+# kill -USR1 PID                                      <span class="cmt"># 查看 dd 进度(Linux)</span>
+# kill -INFO PID                                      <span class="cmt"># 查看 dd 进度(FreeBSD)</span>
 </pre>
 <h3>MBR 技巧</h3>
 MBR 包含了引导程序和分区表，它的大小为 512 字节。前 446 字节为引导程序，446 到 512 字节为分区表。
@@ -3072,7 +3086,7 @@ string IPv4::IPint_to_IPquad(<span class="keyword">unsigned</span> <span class="
 <!-- <div class="pb" /> -->
 
 <div class="footerlast">
-This document: "Unix Toolbox revision 12" is licensed under a <a rel="nofollow" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Licence [Attribution - Share Alike]</a>. &#169; <a href="mailto:c_at_cb.vu">Colin Barschel and Greco Shi</a> 2007-2008. Some rights reserved.
+This document: "Unix Toolbox revision 13.1" is licensed under a <a rel="nofollow" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Licence [Attribution - Share Alike]</a>. &#169; <a href="mailto:c_at_cb.vu">Colin Barschel and Greco Shi</a> 2007-2008. Some rights reserved.
 </div>
 
 </body>
